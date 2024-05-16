@@ -1,8 +1,8 @@
 ---
 layout: about
-title: About
+title: Home
 permalink: /
-subtitle: # <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: He/Him/His
 
 profile:
   align: right
