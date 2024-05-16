@@ -10,4 +10,4 @@ Recommended text:
 
 * *Microeconomics: An Intuitive Approach with Calculus*, 2nd Edition, by Thomas J. Nechyba. 
 
-[Notes on returns to scale and marginal returns.](http://glenn-fung.github.io/assets/pdf/returns-to-scale.pdf)
+[Notes on returns to scale and marginal returns.](http://glenntfung.github.io/assets/pdf/returns-to-scale.pdf)

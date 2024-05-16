@@ -31,4 +31,4 @@ Please feel free to reach out!
 
 Email: <a href="mailto:glenntfung@gmail.com">glenntfung@gmail.com</a><br>
 LinkedIn Profile: <a href="https://www.linkedin.com/in/glennfung/">linkedin.com/in/glennfung</a><br>
-Website: <a href="https://glenn-fung.github.io/">glenn-fung.github.io</a><br>
+Website: <a href="https://glenntfung.github.io/">glenntfung.github.io</a><br>

@@ -58,4 +58,4 @@ We focused the empirical analysis on the application to sparse data addressing i
 * [The BradleyTerry2 package in R. ](https://github.com/hturner/BradleyTerry2)
 * [The Bayesian Spatial Bradley-Terry model. ](https://doi.org/10.1111/rssc.12532)
 * [The BSBT package in R. ](https://github.com/rowlandseymour/BSBT)
-* [My introduction to the Bradley–Terry Model. ](https://glenn-fung.github.io/blog/2023/cj/)
+* [My introduction to the Bradley–Terry Model. ](https://glenntfung.github.io/blog/2023/cj/)
