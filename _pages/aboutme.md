@@ -2,7 +2,7 @@
 layout: page
 permalink: /aboutme/
 title: About Me
-description: 
+description: Something more about me
 ---
 
 # My supervisors
