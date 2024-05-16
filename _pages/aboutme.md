@@ -25,10 +25,14 @@ Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlands
     Pictures of me during my thesis defense. Credit: Ryan Cai, Achilles Ng.
 </div>
 
-<swiper-container keyboard="true" navigation="true" pagination="true" pagination-clickable="true" pagination-dynamic-bullets="true" rewind="true">
-  <swiper-slide>{% include figure.liquid loading="eager" path="assets/img/jinanpanyu.jpg" class="img-fluid rounded z-depth-1" %}</swiper-slide>
-  <swiper-slide>{% include figure.liquid loading="eager" path="assets/img/jinan.jpg" class="img-fluid rounded z-depth-1" %}</swiper-slide>
-</swiper-container>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/jinanpanyu.jpg" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/jinan.jpg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
 <div class="caption">
     My undergraduate institute!
 </div>
