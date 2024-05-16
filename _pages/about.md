@@ -5,7 +5,7 @@ permalink: /
 subtitle: # <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
 
 profile:
-  align: left
+  align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   # more_info: >
@@ -23,7 +23,7 @@ Welcome :wave:! I am Glenn Fung. I will be joining The University of Chicago as 
 
 I speak Mandarin Chinese, Cantonese, and English, and am learning Spanish. My Chinese name in Cantonese is Fung Tsz Yui, and Zirui Feng in Mandarin. I like movies :movie_camera:, music :musical_score:, video games :video_game:, and sports :running:. I also enjoy traveling :airplane: and exploring good food :pizza::)
 
-<a href="https://glenn-fung.github.io/assets/pdf/CV.pdf">My Curriculum Vitae. </a>
+<a href="https://glenntfung.github.io/assets/pdf/CV.pdf">My Curriculum Vitae. </a>
 
 Please feel free to reach out!
 
