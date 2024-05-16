@@ -28,6 +28,7 @@ Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlands
 <swiper-container keyboard="true" navigation="true" pagination="true" pagination-clickable="true" pagination-dynamic-bullets="true" rewind="true">
   <swiper-slide>{% include figure.liquid loading="eager" path="assets/img/jinanpanyu.jpg" class="img-fluid rounded z-depth-1" %}</swiper-slide>
   <swiper-slide>{% include figure.liquid loading="eager" path="assets/img/jinan.jpg" class="img-fluid rounded z-depth-1" %}</swiper-slide>
+</swiper-container>
 <div class="caption">
     My undergraduate institute!
 </div>
