@@ -19,9 +19,9 @@ latest_posts: true # includes a list of the newest posts
 social: true # includes social icons at the bottom of the page
 ---
 
-Welcome :wave:! I am Glenn Fung. I will be joining The University of Chicago as an MAPSS student in fall 2024. I obtained my Bachelor's degree in Applied Mathematics with Economics through a joint program between The University of Birmingham (UK) and Jinan University (PRC). My research background encompasses various areas including machine learning, behavioral economics, asset pricing, and financial market microstructure. 
+Welcome :wave:! I am Glenn Fung. I will be joining The University of Chicago as an MAPSS student in economics this fall. I hold a B.S. with first-class honors in Applied Mathematics with Economics from The University of Birmingham (U.K.) and a B.Econ. in Economics from Jinan University (P.R.C.). My research experiences include machine learning, behavioral economics, asset pricing, and financial market microstructure, with a particular interest in market microstructure and large-scale experiments. 
 
-I speak Mandarin Chinese, Cantonese, and English, and am learning Spanish. My Chinese name in Cantonese is Fung Tsz Yui, and Zirui Feng in Mandarin. I like movies :movie_camera:, music :musical_score:, video games :video_game:, and sports :running:. I also enjoy traveling :airplane: and exploring good food :pizza::)
+I am proficient in Mandarin Chinese, Cantonese, and English, while currently learning Spanish. My Chinese name in Cantonese is Fung Tsz Yui, and Zirui Feng in Mandarin. I like movies :movie_camera:, music :musical_score:, video games :video_game:, and sports :running:. I also enjoy traveling :airplane: and exploring good food :pizza::)
 
 <a href="https://glenntfung.github.io/assets/pdf/CV.pdf">My Curriculum Vitae. </a>
 
