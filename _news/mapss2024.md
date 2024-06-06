@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I will be an MAPSS-ECON student at UChicago this fall!
+I will be an MAPSS student in economics at UChicago this fall!
