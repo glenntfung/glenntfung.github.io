@@ -15,6 +15,15 @@ Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlands
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/uobgrad.jpg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Graduation from the University of Birmingham.
+</div>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/prof_pic.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
