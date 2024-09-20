@@ -7,6 +7,8 @@ dropdown: true
 children:
   - title: About Me
     permalink: /aboutme/
+  - title: Resources
+    permalink: /resources/
   - title: Bug Report
     permalink: /report/
 ---

@@ -3,8 +3,6 @@ layout: page
 permalink: /resources/
 title: Resources
 description: Some resources for research and quantitative work
-nav: true
-nav_order: 4
 ---
 
 # Typesetting and Managing Research Projects
