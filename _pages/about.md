@@ -26,7 +26,7 @@ I am proficient in Mandarin Chinese, Cantonese, and English, while currently lea
 
 Please feel free to reach out!
 
-## Contact :mailbox_with_mail: 
+## Contact 
 
 Email: <a href="mailto:glenntfung@gmail.com">glenntfung@gmail.com</a><br>
 LinkedIn Profile: <a href="https://www.linkedin.com/in/glennfung/">linkedin.com/in/glennfung</a><br>
