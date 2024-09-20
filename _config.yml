@@ -195,7 +195,7 @@ collections:
   projects:
     output: true
     permalink: /:collection/:title/
-  teaching:
+  teachings:
     output: true
     permalink: /:collection/:title/ 
 
