@@ -11,7 +11,7 @@ nav_order: 4
 
 * *The Not So Short Introduction to LaTeX*: [https://tobi.oetiker.ch/lshort/lshort.pdf](https://tobi.oetiker.ch/lshort/lshort.pdf).
   * Introduction to LaTeX and TikZ.
-* *Beamer Tips* by Paul Goldsmith-Pinkham: [https://paulgp.github.io/beamer_tips.html](https://paulgp.github.io/beamer_tips.html).
+* *Beamer Tips* by Paul Goldsmith-Pinkham: [https://github.com/paulgp/beamer-tips](https://github.com/paulgp/beamer-tips).
   * Making slides with LaTeX. With code! 
 * *Code and Data for the Social Sciences* by Matthew Gentzkow and Jesse M. Shapiro: [https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf).
   * Project management in social sciences research.
