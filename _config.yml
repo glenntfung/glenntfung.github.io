@@ -489,7 +489,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap"
+      fonts: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,500..800;1,75..100,500..800&display=swap"
   highlightjs:
     integrity:
       css:

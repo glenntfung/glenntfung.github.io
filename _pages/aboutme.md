@@ -9,7 +9,9 @@ description: Some more things about me
 
 Professor David Ong: [https://sites.google.com/view/davidongecon](https://sites.google.com/view/davidongecon)
 
-Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlandseymour.com/)
+Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlandseymour.com)
+
+Professor Yuting Zhu: [https://www.zhuyuting.com)](https://www.zhuyuting.com)
 
 # Some Photos
 
