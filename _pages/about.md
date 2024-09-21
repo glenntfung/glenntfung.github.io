@@ -18,7 +18,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Welcome :wave:! I am Glenn Fung. I am an MA student in economics at The University of Chicago. I hold a B.S. with first-class honors in Applied Mathematics with Economics from The University of Birmingham and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in the analysis using edge-cutting methods in analyzing behavioral problems. 
+Welcome :wave:! I am Glenn Fung. I am an MA student in economics at The University of Chicago. I hold a B.S. with first-class honors in Applied Mathematics with Economics from The University of Birmingham and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in using edge-cutting methods in analyzing behavioral problems. 
 
 I am proficient in Mandarin Chinese, Cantonese, and English, while currently learning Spanish. My Chinese name in Cantonese is Fung Tsz Yui. I like movies, music, and sports. I also enjoy traveling and exploring good food:)
 
