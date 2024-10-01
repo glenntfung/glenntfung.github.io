@@ -1,33 +1,25 @@
 ---
 layout: about
-title: Home
+title: about
 permalink: /
-subtitle: MA student in Economics at UChicago
+subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  # more_info: >
-  #   <p>555 your office number</p>
-  #   <p>123 your address street</p>
-  #   <p>Your City, State 12345</p>
+  more_info: >
+    <p>555 your office number</p>
+    <p>123 your address street</p>
+    <p>Your City, State 12345</p>
 
 news: true # includes a list of news items
-selected_papers: false # includes a list of papers marked as "selected={true}"
+selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Welcome :wave:! I am Glenn Fung. I am an MA student in economics at The University of Chicago. I hold a B.S. with first-class honors in Applied Mathematics with Economics from The University of Birmingham and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in using edge-cutting methods in analyzing behavioral problems. 
+Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 
-I am proficient in Mandarin Chinese, Cantonese, and English, while currently learning Spanish. My Chinese name in Cantonese is Fung Tsz Yui. I like movies, music, and sports. I also enjoy traveling and exploring good food:)
+Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
 
-<a href="https://glenntfung.github.io/assets/pdf/CV.pdf">My Curriculum Vitae. </a>
-
-Please feel free to reach out!
-
-## Contact 
-
-Email: <a href="mailto:glenntfung@gmail.com">glenntfung@gmail.com</a><br>
-LinkedIn Profile: <a href="https://www.linkedin.com/in/glennfung/">linkedin.com/in/glennfung</a><br>
-Website: <a href="https://glenntfung.github.io/">glenntfung.github.io</a><br>
+Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
