@@ -35,6 +35,17 @@
       <!-- Page/Post style -->
       <style type="text/css">
         {{ page._styles }}
+        /* Ensure MathJax inline math inherits text color */
+        .math.inline,
+        .mathjax-inline {
+          color: inherit !important;
+        }
+
+        /* Adapt block math for dark mode */
+        .math.display,
+        .mathjax-display {
+          color: inherit !important;
+        }
       </style>
     {% endif %}
   </head>
