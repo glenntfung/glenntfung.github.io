@@ -24,11 +24,11 @@ Professor Yuting Zhu: [https://www.zhuyuting.com](https://www.zhuyuting.com)
     Graduation from the University of Birmingham.
 </div>
 
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
+<div class="row mt-2">
+    <div class="col-sm mt-2 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/defense.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-sm mt-2 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/defense2.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
@@ -36,11 +36,11 @@ Professor Yuting Zhu: [https://www.zhuyuting.com](https://www.zhuyuting.com)
     Pictures of me during my thesis defense. Credit: Ryan Cai, Achilles Ng.
 </div>
 
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
+<div class="row mt-2">
+    <div class="col-sm mt-2 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/jinanpanyu.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-sm mt-2 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/jinan.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
