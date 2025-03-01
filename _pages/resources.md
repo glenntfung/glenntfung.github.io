@@ -18,7 +18,7 @@ description: Some resources for research and quantitative work
 
 # Machine Learning
 
-* *The Elements of Statistical Learning* by Trevor Hastie, Robert Tibshirani, and Jerome Friedman: [](https://hastie.su.domains/ElemStatLearn/).
+* *The Elements of Statistical Learning* by Trevor Hastie, Robert Tibshirani, and Jerome Friedman: [https://hastie.su.domains/ElemStatLearn/](https://hastie.su.domains/ElemStatLearn/).
 
 # R Programming
 
