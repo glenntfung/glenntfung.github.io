@@ -5,13 +5,15 @@ title: About Me
 description: Some more things about me
 ---
 
-# My supervisors
+# A Little Bit about Me
 
-Professor David Ong: [https://sites.google.com/view/davidongecon](https://sites.google.com/view/davidongecon)
+I love traveling! Here are some places I've been to: :cn: :hong_kong: :macau: :us: :singapore: :malaysia: :thailand: :united_arab_emirates: :australia: :new_zealand: :tr: :ru: :gb: :jp: :kr: :fr: :it: :switzerland: :vatican_city: :canada:. Exploring different cuisines around the world is one of my favorite things to do!
 
-Professor Rowland Seymour: [https://www.rowlandseymour.com](https://www.rowlandseymour.com)
+I grew up in Guangzhou, a city in southern China, and now live in Chicago. Before majoring in math, I was deeply interested in history—and I still enjoy reading history books from time to time. Lately, I've also been fascinated by physics beyond my formal research; physical models are incredibly powerful!
 
-Professor Yuting Zhu: [https://www.zhuyuting.com](https://www.zhuyuting.com)
+I love learning languages! I’m fluent in Mandarin, Cantonese, and English, and I’m currently learning Spanish and Japanese. My Cantonese name is Fung Tsz Yui.
+
+In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching movies from all over the world, and playing video games (I’m a Steam user!). Some games I’ve recently played include *Don't Starve Together*, *Fall Guys*, *It Takes Two*, and *Naraka: Bladepoint*. Gaming is always better with friends! In the past, I also played the violin and piano (sadly, no longer now).
 
 # Some Photos
 

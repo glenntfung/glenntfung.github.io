@@ -6,4 +6,4 @@ related_posts: false
 
 ---
 
-I will join Northwestern University Kellogg School of Management as a Research Fellow this summer!
+I will join Northwestern Kellogg as a Research Fellow this summer!
