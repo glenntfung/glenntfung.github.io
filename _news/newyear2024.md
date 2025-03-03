@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Happy New Year! :sparkles: 
+Happy New Year! :sparkles:

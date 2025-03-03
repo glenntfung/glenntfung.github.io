@@ -13,7 +13,7 @@ I grew up in Guangzhou, a city in southern China, and now live in Chicago. Befor
 
 I love learning languages! I’m fluent in Mandarin, Cantonese, and English, and I’m currently learning Spanish and Japanese. My Cantonese name is Fung Tsz Yui.
 
-In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching movies from all over the world, and playing video games (I’m a Steam user!). Some games I’ve recently played include *Don't Starve Together*, *Fall Guys*, *It Takes Two*, and *Naraka: Bladepoint*. Gaming is always better with friends! In the past, I also played the violin and piano (sadly, no longer now).
+In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching movies from all over the world, and playing video games (I’m a Steam user!). Some games I’ve recently played include _Don't Starve Together_, _Fall Guys_, _It Takes Two_, and _Naraka: Bladepoint_. Gaming is always better with friends! In the past, I also played the violin and piano (sadly, no longer now).
 
 # Some Photos
 

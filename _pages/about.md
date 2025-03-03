@@ -18,13 +18,13 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Welcome :wave:! I am Glenn Fung. I am an MA student in economics at The University of Chicago. I hold a B.S. with First-Class Honors in Applied Mathematics from The University of Birmingham and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in using edge-cutting methods (machine learning, optimization, causal inference, game thoery) in analyzing behavioral problems and in marketing applications. 
+Welcome :wave:! I am Glenn Fung. I am an MA student in economics at The University of Chicago. I hold a B.S. with First-Class Honors in Applied Mathematics from The University of Birmingham and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in using edge-cutting methods (machine learning, optimization, causal inference, game thoery) in analyzing behavioral problems and in marketing applications.
 
 <a href="https://glenntfung.github.io/aboutme/">More about me. </a>
 
 <a href="https://glenntfung.github.io/assets/pdf/CV.pdf">My Curriculum Vitae. </a>
 
-## Contact 
+## Contact
 
 You can click <a href="https://cal.com/glenn-fung-mqul3k/default">here</a> to pick a timeslot to talk with me! I am interested in chatting about anything, not limited to research!
 <br><br>
