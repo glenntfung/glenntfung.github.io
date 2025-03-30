@@ -9,11 +9,13 @@ description: Some more things about me
 
 I love traveling! Here are some places I've been to: :cn: :hong_kong: :macau: :us: :singapore: :malaysia: :thailand: :united_arab_emirates: :australia: :new_zealand: :tr: :ru: :gb: :jp: :kr: :fr: :it: :switzerland: :vatican_city: :canada:. Exploring different cuisines around the world is one of my favorite things to do!
 
-I grew up in Guangzhou, a city in southern China, and now live in Chicago. Before majoring in math, I was deeply interested in history—and I still enjoy reading history books from time to time. Lately, I've also been fascinated by physics beyond my formal research; physical models are incredibly powerful!
+I grew up in Guangzhou, a vibrant subtropical city in southern China near Hong Kong (if you look at the world map, you'll find it on the Tropic of Cancer), known for its amazing Cantonese cuisine (yes, dim sum!). These days, I live in Chicago—a wonderful city in the U.S., if you don’t mind the occasional gust of strong wind.
 
-I love learning languages! I’m fluent in Mandarin, Cantonese, and English, and I’m currently learning Spanish and Japanese. My Cantonese name is Fung Tsz Yui.
+Before majoring in math, I was deeply interested in history—a passion I still hold onto through reading. More recently, I’ve become fascinated by physics beyond my formal studies. Physical models are just so powerful and elegant!
 
-In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching movies from all over the world, and playing video games (I’m a Steam user!). Some games I’ve recently played include _Don't Starve Together_, _Fall Guys_, _It Takes Two_, and _Naraka: Bladepoint_. Gaming is always better with friends! In the past, I also played the violin and piano (sadly, no longer now).
+I’m passionate about languages! I’m fluent in Mandarin, Cantonese, and English, and currently learning Spanish and Japanese. I also speak a bit of Korean. My Cantonese name is Fung Tsz Yui.
+
+In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching films from around the world, and playing video games (you’ll find me on Steam!). Some games I’ve enjoyed recently include Split Fiction, Don’t Starve Together, Fall Guys, It Takes Two, and Naraka: Bladepoint—gaming is always more fun with friends! I used to play the violin and piano (though not anymore), but I still love music from all over the world, especially in my native Cantonese.
 
 # Some Photos
 
