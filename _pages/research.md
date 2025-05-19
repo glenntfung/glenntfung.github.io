@@ -18,4 +18,5 @@ During my academic journey, I am very fortunate to have worked with the followin
 - Assisted [Professor David Ong](https://sites.google.com/view/davidongecon) @ Jinan University – University of Birmingham Joint Institute
 - Assisted [Professor Yuting Zhu](https://www.zhuyuting.com) @ NUS Business School
 - Assisted [Professor Rowland Seymour](https://www.rowlandseymour.com) @ UoB School of Mathematics
-- (Soon!) [Professor Artem Timoshenko](https://artemtimoshenko.com) @ North Northwestern University Kellogg School of Management
+- Assisted [Professor Dacheng Xiu](https://dachxiu.chicagobooth.edu) @ UChicago Booth School
+- (Soon!) [Professor Artem Timoshenko](https://artemtimoshenko.com) @ Northwestern University Kellogg School of Management
