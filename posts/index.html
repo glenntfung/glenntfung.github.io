@@ -19,8 +19,9 @@ pagination:
   {% assign tag_list = site.tags | sort_natural: "first" %}
   {% for tag in site.tags %}
   {% assign tagname = tag[0] %}
+  {% assign tagslug = tagname | slugify %}
   {% if tagname != "" %}
-    <a class="tag-pill" href="{{ '/tags/' | append: tagname | relative_url }}">
+    <a class="tag-pill" href="{{ '/tags/' | append: tagslug | relative_url }}">
       # {{ tagname }} ({{ tag[1] | size }})
     </a>
   {% endif %}
