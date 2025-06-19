@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>My summer research project at The University of Birmingham</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+
+
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    
+<meta name='description' content="Glenn's website.">
+    <meta name='keywords' content=''>
+    <meta name='author' content='Glenn Fung'>
+
+    <meta name='description' content="Glenn's website.">
+    <!-- A decent browser will parse this fine:
+         https://webmasters.stackexchange.com/questions/92744. -->
+    <meta name='keywords' content='
+        machine learning,
+        statistical machine learning,
+        bayesian inference,
+        statistics,
+        computational statistics,
+        linear algebra,
+        numerical linear algebra,
+        deep learning,
+        computer science, 
+        marketing
+    '>
+    <meta name='author' content='Glenn Fung'>
+
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+    <link href='/css/toc.css' rel='stylesheet'>
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+    
+
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+</head>
+<body>
+
+<div class='content'>
+    <div class='navigation'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/about'>About</a></li>
+        <li><a href='/blog'>Blog</a></li>       
+        <li><a href='/research'>Research</a></li>
+        <li><a href='/teaching'>Teaching</a></li>
+        <li><a href='/photos'>Photos</a></li>
+    </ul>
+</div>
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>My summer research project at The University of Birmingham</h1>
+            <h4></h4>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Date</h3>
+                    <p>07 November 2023</p>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+
+    <div class='wrap article'>
+        <h1 id="news">News</h1>
+
+<ul>
+  <li>I made a presentation on this project on Oct. 31, 2023, at the School of Mathematics of the University of Birmingham.</li>
+</ul>
+
+<hr />
+
+<blockquote>
+  <p><i>Today’s Nobel Peace Prize, awarded to Narges Mohammadi, is an important reminder that the rights of women and girls are facing a strong pushback, including through the persecution of women human rights defenders, in Iran and elsewhere.</i></p>
+  <p><i>This Nobel Peace Prize is a tribute to all those women who are fighting for their rights at the risk of their freedom, their health, and even their lives.</i></p>
+  <p><br /></p>
+  <p>António Guterres, Secretary-General of the United Nations, on 6 October 2023<br />
+Source: <a href="https://www.un.org/sg/en/content/sg/statement/2023-10-06/secretary-generals-statement-the-2023-nobel-peace-prize">Secretary-General's statement on the 2023 Nobel Peace Prize</a></p>
+</blockquote>
+
+<h1 id="overview">Overview</h1>
+
+<p>This project was conducted under the supervision of <a href="https://www.rowlandseymour.com/">Professor Rowland Seymour</a> of the School of Mathematics of the University of Birmingham, and supported by the 2023 Summer Undergraduate Research Bursary of the School. We focused in particular on comparative judgment sparse data about human rights, primarily on the risk of violence against women and girls.</p>
+
+<h1 id="details">Details</h1>
+
+<p>Comparative judgment, which involves getting a set of judges to compare a set of players, is a useful and intuitive technique for data that has long been proposed but used only within a limited range. As with other forms of survey data, data used for comparative judgment are frequently placed subject to the questioning of reliability. This project focused on the Bradley-Terry model for assessing binary judgments.</p>
+
+\[\text{Logit}\left(\pi_{ij}\right) = \lambda_i-\lambda_j\]
+
+\[Y_{ij} \sim \text{Binomial}\left(n_{ij},\pi_{ij}\right)\]
+
+<p>As the main theme of it indicates, this project sought to summarize and explore the relationship between different approaches to assess the reliability of data, especially, scale separation reliability (SSR) and split halves.</p>
+
+\[\text{SSR} = \frac{G^2}{1+G^2}, \text{ where } G=\frac{\sigma_{\lambda}}{\text{RMSE}}\]
+
+<p>We found that SSR is associated with the Pearson correlation coefficient from split halves within one round when the internal consistency of the two subsets is high. Also, by lowering the hierarchy of the split halves and excluding players with large variances, traditional data reliability methods could still be applied to sparse data.</p>
+
+<p>We also proposed new methods of assessment, one of which can be integrated into the model fitting process and improve modeling accuracy while the other one is excessively computationally inexpensive. The first one involved clustering according to the variance of the judges (interpreted as a representation of quality) and imposing weights thereafter in the modeling, under the assumption of normal distributions — the nature of logistic regressions by the central limit theorem. The second one directly compares the decisions by the judges in matrices, avoiding the computationally expensive model-fitting tasks.</p>
+
+<p>We focused the empirical analysis on the application to sparse data addressing issues related to human rights such as forced marriage and deprivation, and concluded the high level of reliability of these data. We sincerely hope that our research can pave the way for future use of comparative judgment in a wider range, especially in tackling human rights abuses, including female genital mutilation, human trafficking, online child sexual exploitation and abuse, deprivation, and forced marriage.</p>
+
+<h1 id="examples-of-human-rights-abuses">Examples of Human Rights Abuses</h1>
+
+<ul>
+  <li><strong>Female genital mutilation</strong>: Female genital mutilation involves removal or other injuries to the female genital organs for nonmedical reasons. See <a href="https://www.who.int/news-room/fact-sheets/detail/female-genital-mutilation">World Health Organization (WHO) page</a>.</li>
+  <li><strong>Forced marriage</strong>: Forced marriage is a form of modern slavery that was estimated to affect 22 million people or nearly one of every 150 people in the world. See <a href="https://www.walkfree.org/reports/global-estimates-of-modern-slavery-2022">the International Labour Organization (ILO), Walk Free, and the International Organization for Migration (IOM) page</a>.</li>
+  <li><strong>Human trafficking</strong>: Human trafficking is a crime that involves compelling or coercing a person to provide labor or services, or to engage in commercial sex acts. See <a href="https://www.justice.gov/humantrafficking/what-is-human-trafficking">U.S. Department of Justice page</a>.</li>
+  <li><strong>Online child sexual exploitation and abuse</strong>: Online child sexual exploitation and abuse involve using information and communication technology as a means to use the child as an object for sexual needs. See <a href="https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=E2DC58C89012864145C37E78191B4BA2?doi=10.1.1.510.3821&amp;rep=rep1&amp;type=pdf">U.N. Economic and Social Commission for Asia and the Pacific report</a>.</li>
+</ul>
+
+<h1 id="related-links">Related Links</h1>
+
+<ul>
+  <li><a href="https://doi.org/10.1093/biomet/39.3-4.324">The Bradley-Terry model. </a></li>
+  <li><a href="https://github.com/hturner/BradleyTerry2">The BradleyTerry2 package in R. </a></li>
+  <li><a href="https://doi.org/10.1111/rssc.12532">The Bayesian Spatial Bradley-Terry model. </a></li>
+  <li><a href="https://github.com/rowlandseymour/BSBT">The BSBT package in R. </a></li>
+  <li><a href="/blog/2023/12/12/cj/">My introduction to the Bradley–Terry Model. </a></li>
+</ul>
+
+    </div>
+    <div id='bibliography'>
+        <div class='wrap'>
+            <ol class="bibliography"></ol>
+        </div>
+    </div>
+    <div class="wrap">
+<section id="social-icons">
+  <ul class="social-list">
+    <li>
+      <a href="https://github.com/glenntfung" aria-label="GitHub" target="_blank">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://x.com/glenntfung" aria-label="X" target="_blank">
+        <i class="fab fa-x-twitter fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/glennfung/" aria-label="LinkedIn" target="_blank">
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:glenntfung@gmail.com" aria-label="Email" target="_blank">
+        <i class="fas fa-envelope fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.kaggle.com/glennfung1" aria-label="Kaggle" target="_blank">
+        <i class="fab fa-kaggle fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://medium.com/@glenntfung" aria-label="Medium" target="_blank">
+        <i class="fab fa-medium fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="/feed.xml" aria-label="RSS Feed" target="_blank">
+        <i class="fas fa-rss fa-lg"></i>
+      </a>
+    </li>
+  </ul>
+
+  <br>
+</section>
+
+</div>
+</div>
+
+</body>
+</html>

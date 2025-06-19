@@ -1,0 +1,725 @@
+<html>
+<head>
+    <title>Neural Networks, CNNs, RNNs, Transformers, and Beyond</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+
+
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    
+<meta name='description' content="Glenn's website.">
+    <meta name='keywords' content=''>
+    <meta name='author' content='Glenn Fung'>
+
+    <meta name='description' content="Glenn's website.">
+    <!-- A decent browser will parse this fine:
+         https://webmasters.stackexchange.com/questions/92744. -->
+    <meta name='keywords' content='
+        machine learning,
+        statistical machine learning,
+        bayesian inference,
+        statistics,
+        computational statistics,
+        linear algebra,
+        numerical linear algebra,
+        deep learning,
+        computer science, 
+        marketing
+    '>
+    <meta name='author' content='Glenn Fung'>
+
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+    <link href='/css/toc.css' rel='stylesheet'>
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+    
+
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+</head>
+<body>
+
+<div class='content'>
+    <div class='navigation'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/about'>About</a></li>
+        <li><a href='/blog'>Blog</a></li>       
+        <li><a href='/research'>Research</a></li>
+        <li><a href='/teaching'>Teaching</a></li>
+        <li><a href='/photos'>Photos</a></li>
+    </ul>
+</div>
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>Neural Networks, CNNs, RNNs, Transformers, and Beyond</h1>
+            <h4>A (long) introduction to neural nets, and popular options of CNNs, RNNs, Transformers, and other modern machine learning models, including generative models (generative adversarial networks, variational autoencoders, and diffusion models), state space models, graph neural networks, deep reinforcement learning, and ethical and societal implications</h4>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>20 May 2025</p>
+                </div>
+                <div class='byline'>
+                    <h3>Author</h3>
+                    <p>
+                        <a href="/">Glenn</a>
+                    </p>
+                </div>
+                
+                <div class='byline'>
+                    <h3>Tags</h3>
+                    <p>
+                        
+                        <a href="/tags/ML">#ML</a>
+                        
+                        <a href="/tags/DL">#DL</a>
+                        
+                    </p>
+                </div>
+                
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+
+    
+
+<div class='wrap article'>
+        <p>This post is a very long introduction to various kinds of machine learning models and their ethical and societal implications. Jump to</p>
+
+<ul>
+  <li><a href="#neural-networks-the-foundation">Neural Networks: The Foundation</a>
+    <ul>
+      <li><a href="#training">Training</a></li>
+    </ul>
+  </li>
+  <li><a href="#convolutional-neural-networks-cnns">Convolutional Neural Networks (CNNs)</a>
+    <ul>
+      <li><a href="#variants-of-cnns">Variants of CNNs</a></li>
+    </ul>
+  </li>
+  <li><a href="#fundamentals-of-language-processing">Fundamentals of Language Processing</a></li>
+  <li><a href="#recurrent-neural-networks-rnns">Recurrent Neural Networks (RNNs)</a>
+    <ul>
+      <li><a href="#long-short-term-memory-lstms">Long Short-Term Memory (LSTMs)</a></li>
+    </ul>
+  </li>
+  <li><a href="#transformers">Transformers</a>
+    <ul>
+      <li><a href="#different-types-of-transformers">Different Types of Transformers</a></li>
+    </ul>
+  </li>
+  <li><a href="#generative-models">Generative Models</a>
+    <ul>
+      <li><a href="#generative-adversarial-networks-gans">Generative Adversarial Networks (GANs)</a></li>
+      <li><a href="#variational-autoencoders-vaes">Variational Autoencoders (VAEs)</a></li>
+      <li><a href="#diffusion-models">Diffusion Models</a></li>
+    </ul>
+  </li>
+  <li><a href="#state-space-models-ssms">State Space Models (SSMs)</a></li>
+  <li><a href="#graph-neural-networks-gnn">Graph Neural Networks (GNN)</a></li>
+  <li><a href="#deep-reinforcement-learning">Deep Reinforcement Learning</a></li>
+  <li><a href="#ethical-and-societal-implications">Ethical and Societal Implications</a></li>
+</ul>
+
+<h2 id="neural-networks-the-foundation">Neural Networks: The Foundation</h2>
+
+<p>A neural network is a computational model inspired by the human brain. It consists of layers of interconnected neurons (or nodes), each performing a weighted summation followed by a non-linear activation function.</p>
+
+<h3 id="mathematical-representation">Mathematical Representation</h3>
+
+<p>Consider an input vector \(\mathbf{x}\in\mathbb{R}^n\), weights \(\mathbf{W}\in\mathbb{R}^{m\times n}\), biases \(\mathbf{b}\in\mathbb{R}^m\), and activation function \(f(\cdot)\). The output of a single layer is</p>
+
+\[\mathbf{h} = f(\mathbf{W}\mathbf{x} + \mathbf{b}).\]
+
+<p>Stacking these layers allows the network to learn hierarchical representations:</p>
+
+\[\mathbf{h}^{(k+1)} = f(\mathbf{W}^{(k)} \mathbf{h}^{(k)} + \mathbf{b}^{(k)})\]
+
+<p>The figure below illustrates this “stacking” process:</p>
+
+<p><img src="/assets/pdf/nn/nn.png" alt="NN" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h3 id="training">Training</h3>
+
+<p>It is now clear that training aims to obtain $\mathbf{W}$ and $\mathbf{b}$. Define a loss function, $L(\theta)$, to be minimized by adjusting $\mathbb{W}$ and $\mathbb{b}$, call them $\theta$. The optimizer achieves this by repeatedly calculating the gradient of the loss function, $\nabla_{\theta}L$, using backpropagation and updating the parameters via gradient descent. First, after a forward pass computes the network’s output and its resulting error or loss, the backpropagation algorithm performs a backward pass. During this pass, it efficiently calculates the gradient of the loss function, $\nabla_{\theta}L$, by applying the chain rule of calculus recursively from the final layer back to the first, determining how much each parameter contributed to the error. Finally, the gradient descent optimizer uses these calculated gradients to update all the network’s parameters, $\theta$, according to $\theta_{t+1} = \theta_t - \eta \nabla_{\theta}L(\theta_t)$, slightly adjusting them to minimize future error. To create sparsity, add a regularization penalty like the $\ell_1$ norm, $\lambda \sum |\theta_i|$, to the loss function, which actively forces many parameter values to become zero.</p>
+
+<h3 id="theoretical-foundations">Theoretical Foundations</h3>
+
+<p>The capacity of neural networks to approximate any continuous function on a compact domain is guaranteed by the universal approximation theorem(s), stating that a neural network with at least one hidden layer and a non-linear activation function can approximate any continuous function to an arbitrary degree of accuracy <a class="citation" href="#cybenko1989approximation">(Cybenko, 1989; Hornik et al., 1989)</a>. People later proved that a network with a fixed, minimal width can be a universal approximator, provided it can have arbitrary depth <a class="citation" href="#lu2017expressive">(Lu et al., 2017; Kidger &amp; Lyons, 2020)</a>. These theorems are purely existential, offering no guarantees on the efficiency of learning algorithms or the number of neurons required to achieve a prescribed approximation error.</p>
+
+<p>Surprisingly, the loss surface of a large multilayer network is not fraught with poor local minima but is instead dominated by numerous <em>saddle points</em> and local minima whose loss values are qualitatively close to the global minimum <a class="citation" href="#choromanska2015loss">(Choromanska et al., 2015)</a>. Counterintuitively, overparameterization can improve generalization, a behavior reconciled by double descent, which subsumes the classical bias-variance trade‐off into a unified framework where increasing capacity beyond interpolation lowers test error due to implicit regularization by the optimization algorithm <a class="citation" href="#belkin2019reconciling">(Belkin et al., 2019)</a>.</p>
+
+<h3 id="practical-implementation">Practical Implementation</h3>
+
+<p>Modern deep learning hinges on flexible frameworks that abstract computational graphs, automatic differentiation, and hardware acceleration to streamline prototyping and large‐scale training. One important problem is the vanishing or exploding gradients problem, which arises in deep networks because backpropagation repeatedly multiplies gradients through each layer, causing the update signal to either shrink exponentially toward zero (vanishing), which prevents early layers from learning, or grow uncontrollably large (exploding), which makes the training process unstable. Initialization schemes like He initialization align weight variances with layer activations to mitigate this.</p>
+
+<p>Batch normalization stabilizes activation distributions and accelerates deep convolutional training by explicitly normalizing layer inputs via batch‐wise mean and variance (enabling higher learning rates and less sensitivity to initialization) <a class="citation" href="#ioffe2015batch">(Ioffe &amp; Szegedy, 2015)</a>. Recently, researchers found that the dynamic tanh approach, which replaces all normalization layers in Transformers with a single learnable element-wise $\tanh(\alpha x)$, can further offer a practical, statistics-free alternative whenever batch or layer statistics are impractical or too costly <a class="citation" href="#zhu2025transformers">(Zhu et al., 2025)</a>.</p>
+
+<p>Adaptive optimizers such as Adam adjust per‐parameter learning rates based on estimates of first and second moments, offering robustness in sparse or noisy gradient scenarios and often outperforming vanilla SGD in practice <a class="citation" href="#kingma2014adam">(Kingma, 2014)</a>, overcoming the saddle point problem. Effective hyperparameter tuning—through systematic searches, Bayesian methods, or bandit algorithms—and rigorous experiment tracking (e.g., with TensorBoard or Weights &amp; Biases) is critical for replicable state‐of‐the‐art results.</p>
+
+<h3 id="empirical-understandings">Empirical Understandings</h3>
+
+<p>Empirical scaling laws for language models demonstrate that cross‐entropy loss follows power‐law relationships with respect to model parameters, dataset size, and compute, allowing practitioners to predict performance gains and allocate resources optimally <a class="citation" href="#kaplan2020scaling">(Kaplan et al., 2020)</a>. The double descent phenomenon explains why enlarging model capacity can paradoxically reduce test error even after achieving zero training loss, unifying classical and modern generalization theories under one curve <a class="citation" href="#belkin2019reconciling">(Belkin et al., 2019)</a>. Moreover, the lottery ticket hypothesis reveals that within dense, randomly‐initialized networks lie sparse subnetworks (winning tickets) that, when trained in isolation, can match or exceed the accuracy of the full model, offering new directions for pruning and efficient inference <a class="citation" href="#frankle2018lottery">(Frankle &amp; Carbin, 2018)</a>.</p>
+
+<h2 id="convolutional-neural-networks-cnns">Convolutional Neural Networks (CNNs)</h2>
+
+<p>CNNs are specialized for data with spatial structure, like images. Instead of fully connected layers, they use convolutional layers to extract local patterns, such as edges in images (corresponding to shapes in the image). Multiple layers are involved in this process <a class="citation" href="#lecun2002gradient">(LeCun et al., 2002)</a>.</p>
+
+<p><img src="/assets/pdf/nn/cnn.png" alt="CNN" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h3 id="mathematical-representation-1">Mathematical Representation</h3>
+
+<p>A convolution operation involves a filter (or kernel) \(\mathbf{K} \in \mathbb{R}^{k \times k}\) sliding over the input \(\mathbf{X} \in \mathbb{R}^{n \times n}\):</p>
+
+\[(\mathbf{X} * \mathbf{K})_{ij} = \sum_{p=0}^{k-1}\sum_{q=0}^{k-1} \mathbf{X}_{i+p, j+q} \mathbf{K}_{p, q}\]
+
+<p>The output is called a <strong>feature map</strong>. The figure below illustrates this process:</p>
+
+<p><img src="/assets/pdf/nn/conv.png" alt="Conv" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<p>The starting point of this illustration demonstrates that CNNs are naturally useful for images or videos — we can view each pixel as a single cell of the input above. Pooling layers (e.g., max pooling) then downsample these feature maps, reducing dimensionality:</p>
+
+<p><img src="/assets/pdf/nn/pooling.png" alt="Pooling" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<p>The flattening process converts the feature maps in \(\mathbb{R}^{H \times W \times D}\) to a 1-D vector (e.g., in \(\mathbb{R}^{K}\)):</p>
+
+<p><img src="/assets/pdf/nn/flat.png" alt="Flat" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<p>Lastly, a fully connected layer connects the vector to the output layer,</p>
+
+\[\mathbf{h}^{(k+1)} = f(\mathbf{W}^{(k)} \mathbf{h}^{(k)} + \mathbf{b}^{(k)}).\]
+
+<p>CNNs apply the same filter across the input and focus on local patches. Layers capture increasingly complex features (e.g., edges → textures → objects).</p>
+
+<h3 id="foundations">Foundations</h3>
+
+<p>The convolution operation embeds a translation equivariance prior by sharing the same kernel across spatial locations, drastically reducing the number of free parameters compared to fully connected layers and enabling the detection of local patterns regardless of their position in the image. Beyond parameter efficiency, the universal approximation properties of deep convolutional architectures stem from their ability to hierarchically compose simple linear filters and pointwise nonlinearities to approximate increasingly complex functions, a concept formalized in early work on multi-layer perceptrons and extended to convolutional settings <a class="citation" href="#lecun2002gradient">(LeCun et al., 2002)</a>. The scattering transform framework interprets CNNs as cascades of wavelet convolutions and modulus operations, proving Lipschitz stability to deformations—a proxy for robustness to small geometric perturbations—while still capturing discriminative signal variations (i.e., higher-order interactions) <a class="citation" href="#mallat2012group">(Mallat, 2012)</a>. Theoretical analyses have also shown a surprising result, where modern deep nets, including CNN, have enough capacity to memorize random labels (i.e., achieve zero training error on noise) with no explicit regularization <a class="citation" href="#zhang2016understanding">(Zhang et al., 2016)</a>.</p>
+
+<p>Empirical studies of feature transferability reveal that early convolutional layers learn general patterns such as edge and texture detectors, while deeper layers capture task-specific semantics; transferring features from mid-level layers provides the best balance between generality and specificity for new tasks <a class="citation" href="#yosinski2014transferable">(Yosinski et al., 2014)</a>.</p>
+
+<h3 id="variants-of-cnns">Variants of CNNs</h3>
+
+<p>Early landmark models such as AlexNet <a class="citation" href="#krizhevsky2012imagenet">(Krizhevsky et al., 2012)</a> train on ImageNet <a class="citation" href="#deng2009imagenet">(Deng et al., 2009)</a> demonstrated that deep convolutional architectures trained on large-scale datasets with GPUs could achieve dramatic improvements in object recognition, introducing ReLU activations ($f(x)=\max(0,x)$), data augmentation techniques (in-memory reflections and intensity alternation), and dropout (temporarily randomly deactivating neurons) as a regularizer to mitigate co-adaptation of neurons. Subsequent architectures explored the impact of depth and filter granularity: VGGNets <a class="citation" href="#simonyan2014very">(Simonyan &amp; Zisserman, 2014)</a> showed that stacking small $3 \times 3$ convolutions to reach depths of 16–19 layers yields improved representational power and transferability across tasks, while Inception modules factorized convolutions into multiple filter sizes to better utilize computational resources and capture multi-scale context <a class="citation" href="#szegedy2015going">(Szegedy et al., 2015)</a>. The introduction of residual connections overcame optimization difficulties in very deep models by reformulating each layer as a residual mapping, enabling stable training of networks exceeding 100 layers and pushing error rates below 4% on ImageNet <a class="citation" href="#he2016deep">(He et al., 2016)</a>. More recently, compound scaling methods systematically balance depth, width, and resolution by a single coefficient, resulting in EfficientNet families that deliver superior accuracy-efficiency trade-offs and generalize effectively across transfer-learning benchmarks <a class="citation" href="#tan2019efficientnet">(Tan &amp; Le, 2019; Tan &amp; Le, 2021)</a>.</p>
+
+<h2 id="fundamentals-of-language-processing">Fundamentals of Language Processing</h2>
+
+<p>Before introducing sequential models, let’s first see how we can represent texts numerically, which is not as straightforward as image representation (pixel grids). Remember <strong>models understand numbers</strong>.</p>
+
+<p>Before embedding, raw text is segmented into subword tokens via algorithms such as Byte-Pair Encoding, which greedily merges the most frequent character pairs to yield a fixed-size vocabulary that balances morphological expressiveness and open-vocabulary coverage <a class="citation" href="#sennrich2015neural">(Sennrich et al., 2015)</a>.</p>
+
+<blockquote>
+  <p><strong>Byte-Pair Encoding (BPE) Example</strong></p>
+
+  <ol>
+    <li>
+      <p><strong>Initial State:</strong> Start with a corpus (e.g., <code class="language-plaintext highlighter-rouge">low lower lowest</code>) and break words into characters plus an end-of-word marker (<code class="language-plaintext highlighter-rouge">l o w &lt;/w&gt;</code>). The initial vocabulary is just these characters.</p>
+    </li>
+    <li><strong>Greedy Merging:</strong> Iteratively find the most frequent adjacent pair and merge it into a new token.
+      <ul>
+        <li><strong>Step 1:</strong> The pair <code class="language-plaintext highlighter-rouge">l o</code> is most frequent. Merge it to create the token <code class="language-plaintext highlighter-rouge">lo</code>. The vocabulary is now <code class="language-plaintext highlighter-rouge">[l, o, w, ..., lo]</code>.</li>
+        <li><strong>Step 2:</strong> The pair <code class="language-plaintext highlighter-rouge">lo w</code> becomes the most frequent. Merge it to create <code class="language-plaintext highlighter-rouge">low</code>. The vocabulary is now <code class="language-plaintext highlighter-rouge">[l, o, w, ..., lo, low]</code>.</li>
+      </ul>
+    </li>
+    <li><strong>Result:</strong> This continues until a target vocabulary size is reached.
+      <ul>
+        <li><strong>Morphological Expressiveness:</strong> A known word like <code class="language-plaintext highlighter-rouge">lowest</code> is tokenized into meaningful parts, like <code class="language-plaintext highlighter-rouge">[low, est]</code>.</li>
+        <li><strong>Open-Vocabulary Coverage:</strong> An unknown word like <code class="language-plaintext highlighter-rouge">slower</code> can still be represented by falling back to known subwords and characters, like <code class="language-plaintext highlighter-rouge">[s, l, o, w, er]</code>.</li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p>Each token $t_i$ is then represented as a one-hot vector $x_i\in\mathbb{R}^{|V|}$, where $|V|$ is the vocabulary size, and mapped into a dense embedding $e_i = E^\top x_i$ using an embedding matrix $E\in\mathbb{R}^{|V|\times d}$, capturing lexical semantics in a continuous space <a class="citation" href="#mikolov2013efficient">(Mikolov et al., 2013)</a>. Subword tokenization is the most efficient and manageable tokenization method thus far, as opposed to character and word tokenizations. Transformers inject positional information lost by parallel processing, a fixed sinusoidal encoding $P\in\mathbb{R}^{n\times d}$ is added, where</p>
+
+\[P_{i,2k} = \sin\!\bigl(i/10000^{2k/d}\bigr),\quad
+P_{i,2k+1} = \cos\!\bigl(i/10000^{2k/d}\bigr),\]
+
+<p>yielding $Z = [e_1; \dots; e_n] + P$ as the input to subsequent layers. The famous attention mechanism then comes into play <a class="citation" href="#vaswani2017attention">(Vaswani et al., 2017)</a>.</p>
+
+<p>For ideographic languages such as Chinese and Japanese, the default approach treats each character as a base token, but recent sub-character methods <a class="citation" href="#si2023sub">(Si et al., 2023; Nguyen et al., 2017)</a> first transliterate characters into sequences of glyph strokes or phonetic radicals before applying BPE, allowing models to inject rich visual and pronunciation.</p>
+
+<h2 id="recurrent-neural-networks-rnns">Recurrent Neural Networks (RNNs)</h2>
+
+<p>RNNs <a class="citation" href="#elman1990finding">(Elman, 1990)</a> excel at processing sequential data, such as time series or text. They maintain a memory of previous inputs via a hidden state, allowing them to model temporal dependencies.</p>
+
+<h3 id="mathematical-representation-2">Mathematical Representation</h3>
+
+<p>RNNs process data sequentially. At each time step \(t\), an input \(\mathbf{x}_t\) is provided. The sequence of inputs can be represented as \(\mathbf{x}_1\), \(\mathbf{x}_2\), up to \(\mathbf{x}_T\), where \(T\) is the total number of time steps. RNNs maintain a hidden state, \(\mathbf{h}_t\), acting as the network’s memory, updated at each time step based on the current input and the previous hidden state.</p>
+
+<p>Given input \(\mathbf{x}_t\), hidden state \(\mathbf{h}_t\), and weights \(\mathbf{W}_{xh}\), \(\mathbf{W}_{hh}\), the hidden state is updated as</p>
+
+\[\mathbf{h}_t = f(\mathbf{W}_{xh} \mathbf{x}_t + \mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{b}).\]
+
+<p>The output \(\mathbf{y}_t\) is computed as:</p>
+
+\[\mathbf{y}_t = g(\mathbf{W}_{hy} \mathbf{h}_t + \mathbf{c}).\]
+
+<p><img src="/assets/pdf/nn/rnn.png" alt="RNN" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h3 id="limitations-and-development">Limitations and Development</h3>
+
+<p>RNNs suffer inherently from gradients that either vanish or explode exponentially with depth in time when signals are propagated over many time steps, making naive RNNs impractical for long‐term dependencies <a class="citation" href="#hochreiter1998vanishing">(Hochreiter, 1998; Bengio et al., 1994; Pascanu et al., 2013)</a>. Long Short-Term Memory cells <a class="citation" href="#hochreiter1997long">(Hochreiter &amp; Schmidhuber, 1997)</a> mitigate this by embedding gating units that learn to preserve information in a constant‐error carousel, thereby enabling the modeling of arbitrarily distant dependencies without gradient collapse <a class="citation" href="#hochreiter1997long">(Hochreiter &amp; Schmidhuber, 1997)</a>. Subsequent work on Recurrent Highway Networks <a class="citation" href="#zilly2017recurrent">(Zilly et al., 2017)</a> extended depth within each time step, applying gated residual connections to achieve deep transition functions that retain the LSTM’s long‐range memory while improving representational capacity. Alternative approaches constrain the recurrent weight matrix to be orthogonal or unitary, ensuring gradient norms remain constant and thus preserving signal propagation over arbitrary horizons without numerical instability <a class="citation" href="#mhammedi2017efficient">(Mhammedi et al., 2017; Arjovsky et al., 2016)</a>. Further, continuous‐time formulations like Neural ODEs reimagine recurrence as the discretization of a differential equation, offering a unified view of depth and time and opening the door to adaptive computation and memory allocation strategies <a class="citation" href="#chen2018neural">(Chen et al., 2018)</a>.</p>
+
+<h3 id="long-short-term-memory-lstms">Long Short-Term Memory (LSTMs)</h3>
+
+<p>LSTMs <a class="citation" href="#hochreiter1997long">(Hochreiter &amp; Schmidhuber, 1997)</a> improve on standard RNNs by controlling the flow of information, using gates to selectively remember, forget, or output information, allowing the network to retain long-term dependencies. The graph below illustrates this sequential structure, which is structurally similar to RNNs:</p>
+
+<p><img src="/assets/pdf/nn/lstm.png" alt="LSTM" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h4 id="mathematical-representation-3">Mathematical Representation</h4>
+
+<p>Here, \(\sigma(\cdot)\) is the sigmoid activation, \(\tanh(\cdot)\) is the hyperbolic tangent, and \(\odot\) represents element-wise multiplication. At each time step \(t\), the LSTM maintains long-term memory called a cell state (\(\mathbf{C}_t\)) and short-term memory called a hidden state (\(\mathbf{h}_t\)). They also introduce 3 types of gates:</p>
+
+<ol>
+  <li>
+    <p><strong>Forget Gate (\(\mathbf{f}_t\))</strong>:
+Decides which information to discard from the cell state:</p>
+
+\[\mathbf{f}_t = \sigma(\mathbf{W}_f \mathbf{x}_t + \mathbf{U}_f \mathbf{h}_{t-1} + \mathbf{b}_f).\]
+  </li>
+  <li>
+    <p><strong>Input Gate (\(\mathbf{i}_t\))</strong>:
+Decides which new information to add to the cell state:</p>
+
+\[\mathbf{i}_t = \sigma(\mathbf{W}_i \mathbf{x}_t + \mathbf{U}_i \mathbf{h}_{t-1} + \mathbf{b}_i).\]
+
+    <p><strong>Candidate Cell State</strong>:
+The candidate cell state (\(\tilde{\mathbf{C}}_t\)) is computed as:</p>
+
+\[\tilde{\mathbf{C}}_t = \tanh(\mathbf{W}_C \mathbf{x}_t + \mathbf{U}_C \mathbf{h}_{t-1} + \mathbf{b}_C).\]
+  </li>
+  <li>
+    <p><strong>Output Gate (\(\mathbf{o}_t\))</strong>:
+Decides the output based on the hidden state and cell state:</p>
+
+\[\mathbf{o}_t = \sigma(\mathbf{W}_o \mathbf{x}_t + \mathbf{U}_o \mathbf{h}_{t-1} + \mathbf{b}_o)\]
+  </li>
+</ol>
+
+<h5 id="updating-the-states">Updating the States</h5>
+
+<ol>
+  <li>
+    <p><strong>Cell State Update</strong>:</p>
+
+\[\mathbf{C}_t = \mathbf{f}_t \odot \mathbf{C}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{C}}_t\]
+
+    <p>The forget gate decides what to discard, and the input gate decides what to add.</p>
+  </li>
+  <li>
+    <p><strong>Hidden State Update</strong>:</p>
+
+\[\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{C}_t)\]
+  </li>
+</ol>
+
+<p>The graph below illustrates this updating process:</p>
+
+<p><img src="/assets/pdf/nn/lstmnode.png" alt="LSTM node" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h3 id="practical-implementation-1">Practical Implementation</h3>
+
+<p>Training recurrent models requires balancing sequence length, computational budget, and numerical stability; truncated backpropagation through time (TBPTT) <a class="citation" href="#williams1989learning">(Williams &amp; Zipser, 1989)</a> limits gradient propagation to manageable windows while approximating full‐sequence gradients, and gradient clipping <a class="citation" href="#pascanu2013difficulty">(Pascanu et al., 2013)</a> prevents rare but disastrous exploding updates. Layer and weight regularization techniques—such as DropConnect in the AWD‐LSTM architecture <a class="citation" href="#merity2017regularizing">(Merity et al., 2017)</a> and variational dropout <a class="citation" href="#kingma2015variational">(Kingma et al., 2015)</a>—act directly on recurrent weights and activations to reduce overfitting in language modeling tasks, allowing smaller datasets to yield robust sequence predictors. Modern deep learning frameworks provide native implementations of these gating and optimization schemes, and tools like mixed‐precision training <a class="citation" href="#micikevicius2017mixed">(Micikevicius et al., 2017)</a> and distributed sequence parallelism <a class="citation" href="#merity2017regularizing">(Merity et al., 2017; Korthikanti et al., 2023; Jacobs et al., 2023)</a> make it feasible to train very deep or very long‐sequence models on GPUs and TPUs with reproducible results <a class="citation" href="#merity2017regularizing">(Merity et al., 2017)</a>.</p>
+
+<h3 id="empirical-understandings-1">Empirical Understandings</h3>
+
+<p>Empirical benchmarks on language modeling datasets reveal that carefully regularized LSTMs such as AWD‐LSTM <a class="citation" href="#merity2017regularizing">(Merity et al., 2017)</a> achieve state‐of‐the‐art perplexities on Penn Treebank <a class="citation" href="#marcus1993building">(Marcus et al., 1993)</a> and WikiText‐2 <a class="citation" href="#merity2016pointer">(Merity et al., 2016)</a>, demonstrating the continued relevance of gated recurrence for moderate‐scale tasks. However, scaling studies show that beyond a certain compute and data threshold, self‐attention architectures outperform traditional RNNs in both speed and quality <a class="citation" href="#kaplan2020scaling">(Kaplan et al., 2020)</a>, prompting hybrid approaches that inject attention mechanisms into LSTM backbones <a class="citation" href="#bahdanau2014neural">(Bahdanau et al., 2014)</a> or employ Neural ODE layers for continuous modeling <a class="citation" href="#chen2018neural">(Chen et al., 2018)</a>. Ablation experiments on gating variants and transition depths indicate that deeper recurrent transitions and highway connections yield diminishing returns beyond a handful of layers per step, suggesting that future gains will depend on novel memory‐access patterns or adaptive computation time mechanisms <a class="citation" href="#desbouvries2023expressivity">(Desbouvries et al., 2023; Zilly et al., 2017)</a>. As attention‐first models (introduced next section) continue to dominate, the most promising directions revive recurrence through continuous dynamics, orthogonal memory networks, and differentiable neural computers that combine the best of gating, memory, and attention in a unified framework.</p>
+
+<h2 id="transformers">Transformers</h2>
+
+<p>In the transformer <a class="citation" href="#vaswani2017attention">(Vaswani et al., 2017)</a>, we represent an input sequence of $n$ tokens by their embeddings $X\in\mathbb{R}^{n\times d}$ and compute three projections—queries $Q=XW^Q$, keys $K=XW^K$, and values $V=XW^V$—each in $\mathbb{R}^{n\times d_k}$.  Self‐attention is then given by</p>
+
+\[\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\bigl(QK^{\!\top}/\sqrt{d_k}\bigr)\,V\,.\]
+
+<p><img src="/assets/pdf/nn/att.png" alt="Scaled Dot-Product Attention" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<p>Multi‐head attention runs this in parallel for $h$ heads and concatenates the results:</p>
+
+\[\mathrm{MultiHead}(X)=\mathrm{Concat}\bigl(\mathrm{head}_1,\dots,\mathrm{head}_h\bigr)\,W^O,\quad
+\mathrm{head}_i=\mathrm{Attention}(XW^Q_i,XW^K_i,XW^V_i).\]
+
+<p><img src="/assets/pdf/nn/mh.png" alt="Multi‐head attention" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<p>Each transformer layer applies a residual connection plus layer normalization, $\tilde X=\mathrm{LayerNorm}\bigl(X+\mathrm{MultiHead}(X)\bigr)$, followed by a position‐wise feed‐forward network</p>
+
+\[\mathrm{FFN}(\tilde X)=\sigma(\tilde XW_1+b_1)\,W_2+b_2\]
+
+<p>and another residual‐norm step $\mathrm{LayerNorm}\bigl(\tilde X+\mathrm{FFN}(\tilde X)\bigr)$.  Stacking $L$ such layers yields the final contextual representations used for downstream prediction.</p>
+
+<p><img src="/assets/pdf/nn/1t.png" alt="Single Transformer Layer" style="max-width:90%; height:auto; display:block; margin:1rem auto;" /></p>
+
+<h3 id="different-types-of-transformers">Different Types of Transformers</h3>
+
+<p>Beyond the canonical vanilla Transformer, nearly every variant introduces one or more mathematical tweaks to attention, embeddings, or the layer‐stacking strategy.  A common class of modifications concerns positional information, via learned absolute embeddings (BERT <a class="citation" href="#devlin2019bert">(Devlin et al., 2019)</a>, GPT-2/3 <a class="citation" href="#radford2019language">(Radford et al., 2019; Brown et al., 2020)</a>, RoBERTa <a class="citation" href="#liu2019roberta">(Liu et al., 2019)</a>), relative position biases (Transformer-XL <a class="citation" href="#dai2019transformer">(Dai et al., 2019)</a>, T5 <a class="citation" href="#raffel2020exploring">(Raffel et al., 2020)</a>, DeBERTa <a class="citation" href="#he2020deberta">(He et al., 2020)</a>), or rotary position embeddings (RoFormer <a class="citation" href="#su2024roformer">(Su et al., 2024)</a>, GPT-NeoX <a class="citation" href="#black2022gpt">(Black et al., 2022)</a>). In the original model, we add fixed sinusoidal encodings $P\in\mathbb{R}^{n\times d}$ so that the input to layer 1 is $X+P$. Later work replaces these with learned embeddings $P_\theta$, <em>relative</em> position biases $B_{ij}$, so that attention becomes</p>
+
+\[\mathrm{softmax}\bigl((QK^\top + B)/\sqrt{d_k}\bigr)\,V,\]
+
+<p>where $B\in\mathbb{R}^{n\times n}$ depends only on $i-j$, or even <em>rotary</em> embeddings that apply a learnable $2 \times 2$ rotation to each pair of dimensions in $Q$ and $K$ before dot‐product.  Such tweaks allow the model to better generalize to sequences longer than it saw in training, or to bias attention toward nearby tokens without explicit masking.</p>
+
+<p>Another rich vein of innovation is efficient or specialized attention.  For truly long sequences, full $n\times n$ attention is quadratic in cost; sparse‐attention variants insert a structured mask $M$ so</p>
+
+\[\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\bigl((QK^\top + M)/\sqrt{d_k}\bigr)V,\]
+
+<p>where $M_{ij}=-\infty$ for disallowed pairs (e.g. sliding windows in Longformer <a class="citation" href="#beltagy2020longformer">(Beltagy et al., 2020)</a> or random/global tokens in BigBird <a class="citation" href="#zaheer2020big">(Zaheer et al., 2020)</a>).  Low‐rank or kernelized methods approximate</p>
+
+\[\mathrm{softmax}(QK^\top)\approx \phi(Q)\,\phi(K)^\top\]
+
+<p>via feature maps $\phi$, yielding linear time (Performer <a class="citation" href="#choromanski2020rethinking">(Choromanski et al., 2020)</a>).  Other approaches project keys and values to a lower dimension: Linformer <a class="citation" href="#wang2020linformer">(Wang et al., 2020)</a> posits learnable $E\in\mathbb{R}^{n\times k}$, $F\in\mathbb{R}^{n\times k}$ so that $K’=E^\top K$, $V’=F^\top V$, reducing attention to $\mathrm{softmax}(QK’^\top)V’$.  Finally, mixtures‐of‐experts (Switch Transformers <a class="citation" href="#fedus2022switch">(Fedus et al., 2022)</a>) replace each feed‐forward block with a routing mechanism $G(x)$ that selects among $m$ experts, so</p>
+
+\[\mathrm{MoE}(x) = \sum_{e=1}^m G_e(x)\bigl(W_2^{(e)}\,\sigma(W_1^{(e)}x)\bigr),\]
+
+<p>trading depth for conditional computation. Other architectures include GShard <a class="citation" href="#lepikhin2020gshard">(Lepikhin et al., 2020)</a> and GLaM <a class="citation" href="#du2022glam">(Du et al., 2022)</a>.</p>
+
+<p>Together, these mathematical tweaks—positional biases, sparse or low‐rank attention, kernel approximations, adaptive-depth recurrence (Universal Transformer <a class="citation" href="#dehghani2018universal">(Dehghani et al., 2018)</a>), and conditional computation—form a rich taxonomy under the transformer umbrella, each tailored to specific tasks, modalities, or resource constraints.</p>
+
+<h3 id="theoretical-understandings">Theoretical Understandings</h3>
+
+<p>A Transformer layer computes scaled dot-product attention, where queries, keys, and values are linear projections of the same input; the resulting attention matrix is then normalized by $\sqrt{d_k}$ to maintain gradient stability, and softmaxed to produce a distribution over positions <a class="citation" href="#vaswani2017attention">(Vaswani et al., 2017)</a>. Multi-head attention extends this by learning multiple sets of projections, allowing the model to jointly attend to information from different representation subspaces at distinct positions, which empirically enhances expressivity and enables parallel processing of dependencies. Formal analysis reveals that self-attention matrices can approximate arbitrary sparse matrices—thus capturing selective interactions among tokens—provided sufficient hidden dimensionality, granting Transformers a universal approximation property for sequence-to-sequence functions <a class="citation" href="#likhosherstov2021expressive">(Likhosherstov et al., 2021)</a>. Positional encodings—either fixed sinusoidal functions or learned embeddings—inject order information lost by the permutation-invariant attention mechanism, allowing the network to distinguish between positions in a sequence while preserving the ability to generalize to longer sequences than seen during training. Recent theoretical work also explores linearized and sparse variants that reduce the quadratic complexity of full attention to linear or near-linear bounds, trading off exactness for scalability without sacrificing universal expressivity in the limit <a class="citation" href="#child2019generating">(Child et al., 2019; Choromanski et al., 2020)</a>.</p>
+
+<h3 id="practical-implementation-2">Practical Implementation</h3>
+
+<p>Effective Transformer training hinges on stabilized optimization. The AdamW <a class="citation" href="#loshchilov2017decoupled">(Loshchilov &amp; Hutter, 2017)</a> optimizer decouples weight decay from gradient updates, mitigating the tendency of adaptive methods to over-regularize while preserving the fast convergence of Adam; coupled with a linear warmup schedule for the learning rate (often over the first 10% of training steps), it prevents instability caused by large initial updates <a class="citation" href="#kosson2024analyzing">(Kosson et al., 2024)</a>. Gradient clipping <a class="citation" href="#pascanu2013difficulty">(Pascanu et al., 2013)</a> is commonly employed to bound the norm of gradients, curtailing occasional spikes during backpropagation that could derail learning, especially in deep or high-capacity models. Frameworks such as the <a href="https://huggingface.co/docs/transformers/en/index">Hugging Face Transformers library</a> provide modular building blocks—pretrained checkpoints, tokenizer classes, and optimized training loops—enabling researchers and practitioners to experiment with architectures like BERT, GPT, T5, and beyond using both <a href="https://pytorch.org/">PyTorch</a> and <a href="https://www.tensorflow.org/">TensorFlow</a> backends with minimal boilerplate. Mixed-precision training (via NVIDIA’s Apex or native AMP) significantly reduces memory usage and increases throughput by storing activations and performing many computations in a 16-bit floating-point format; to maintain numerical stability, a 32-bit master copy of the weights is used for accumulating gradients, a process that necessitates dynamic loss scaling to prevent underflow of small gradient values. Recent adapter-based fine-tuning methods such as LoRA <a class="citation" href="#hu2022lora">(Hu et al., 2022)</a> inject low-rank parameter updates into attention layers, slashing the number of trainable parameters for efficient domain adaptation without full-model retraining. Additionally, in-context learning allows large-scale Transformers to perform novel tasks by conditioning solely on a handful of demonstration examples in the input prompt, without any gradient updates to model parameters, a meta-learning capability that emerges only at sufficient model scale and is predictive of downstream few-shot performance <a class="citation" href="#brown2020language">(Brown et al., 2020)</a>.</p>
+
+<h3 id="empirical-understandings-2">Empirical Understandings</h3>
+
+<p>Empirical scaling laws for Transformers reveal that cross-entropy loss on language tasks follows a power-law decay as a function of model parameters, dataset size, and compute budget, enabling precise forecasts of performance improvements for scale investments <a class="citation" href="#kaplan2020scaling">(Kaplan et al., 2020)</a>. At extreme scales, emergent capabilities—such as few-shot in-context learning <a class="citation" href="#brown2020language">(Brown et al., 2020)</a>, chain-of-thought reasoning <a class="citation" href="#wei2022chain">(Wei et al., 2022)</a>, and compositional generalization <a class="citation" href="#anil2022exploring">(Anil et al., 2022)</a>—materialize abruptly and unpredictably, indicating qualitative shifts in model behavior that defy simple extrapolation from smaller models <a class="citation" href="#wei2022emergent">(Wei et al., 2022)</a>. Benchmarks comparing encoder-only models (e.g., BERT), decoder-only models (e.g., GPT), and encoder-decoder models (e.g., T5) demonstrate trade-offs between understanding and generation: encoder-only excels on classification and extraction tasks, decoder-only leads on open-ended generation, and encoder-decoder offers strong performance in sequence transduction. Fine-tuning studies show that the highest layers capture task-specific features while mid-layers encode transferable linguistic abstractions, guiding strategies for parameter freezing or adapter insertion during domain adaptation <a class="citation" href="#jurafsky2025speech">(Jurafsky &amp; Martin, 2025)</a>. As attention-driven models continue to dominate, the frontier now lies in integrating external memory <a class="citation" href="#graves2014neural">(Graves et al., 2014)</a>, adaptive computation time, and hybrid architectures that marry recurrence, attention, and continuous-depth dynamics to push the envelope of sequence modeling further <a class="citation" href="#israel2025enabling">(Israel et al., 2025)</a>.</p>
+
+<h2 id="generative-models">Generative Models</h2>
+
+<p>Generative modeling is one very important field in current applications and it encompasses a variety of approaches that trade off sample quality, training stability, and computational cost.</p>
+
+<h3 id="generative-adversarial-networks-gans">Generative Adversarial Networks (GANs)</h3>
+
+<p>A GAN consists of two neural networks—$G$ generates candidate samples from random noise, and $D$ discriminates between real and generated data—trained in a minimax game that converges when $G$ reproduces the true data distribution and $D$ cannot distinguish samples <a class="citation" href="#goodfellow2014generative">(Goodfellow et al., 2014)</a>. The core objective</p>
+
+\[\min_G \max_D \;V(D,G)
+=\mathbb{E}_{x\sim p_{\text{data}}}[\log D(x)]
++\mathbb{E}_{z\sim p_z}[\log(1 - D(G(z)))]\]
+
+<p>encodes a zero-sum game where $D$ seeks to maximize its classification accuracy while $G$ seeks to fool $D$. Intuitively, this adversarial setup avoids explicitly defining a distance metric between distributions; instead, $D$ implicitly shapes $G$’s loss.</p>
+
+<p>GANs are favored when high-resolution, perceptually realistic samples are required—image synthesis, style transfer (e.g., pix2pix <a class="citation" href="#isola2017image">(Isola et al., 2017)</a>), and data augmentation in medical imaging. However, training dynamics can oscillate or diverge, and GANs commonly suffer from mode collapse, where $G$ outputs limited variations, undermining data diversity <a class="citation" href="#kossale2022mode">(Kossale et al., 2022)</a>. Techniques like Wasserstein GANs <a class="citation" href="#arjovsky2017wasserstein">(Arjovsky et al., 2017)</a>, two-time-scale updates <a class="citation" href="#heusel2017gans">(Heusel et al., 2017)</a>, and minibatch discrimination <a class="citation" href="#salimans2016improved">(Salimans et al., 2016)</a> partially mitigate these failures, but stable convergence remains a challenge.</p>
+
+<h3 id="variational-autoencoders-vaes">Variational Autoencoders (VAEs)</h3>
+
+<p>VAEs frame generative modeling as approximate inference in a probabilistic graphical model <a class="citation" href="#kingma2013auto">(Kingma et al., 2013)</a>. An encoder network parameterizes a variational posterior $q_\phi(z\mid x)$ over latent $z$, and a decoder network defines $p_\theta(x\mid z)$. Training maximizes the evidence lower bound,</p>
+
+\[\mathcal{L}_{\theta,\phi}(x)
+=\mathbb{E}_{z\sim q_\phi(z\mid x)}[\log p_\theta(x\mid z)]
+-\mathrm{KL}\bigl(q_\phi(z\mid x)||p(z)\bigr),\]
+
+<p>balancing reconstruction fidelity against a Kullback–Leibler penalty that regularizes $q_\phi$ toward the prior $p(z)=\mathcal{N}(0,I)$. The reparameterization trick—expressing $z=E_\phi(x)+\sigma_\phi(x)!\odot!\epsilon$ with $\epsilon\sim\mathcal{N}(0,I)$—enables gradient descent.</p>
+
+<p>VAEs excel in learning smooth, disentangled latent spaces for downstream tasks like interpolation, anomaly detection, and semi-supervised classification. They train reliably via maximum likelihood principles but often yield blurry outputs due to pixel-wise losses and can collapse the posterior to the prior (posterior collapse), losing latent expressivity <a class="citation" href="#wang2021posterior">(Wang et al., 2021)</a>. Intuitively, one can imagine this as a librarian giving up on complex filing systems and simply dumping every single book, regardless of what it is, directly into the central pile. Remedies include KL annealing <a class="citation" href="#bowman2015generating">(Bowman et al., 2015; Fu et al., 2019)</a>, $\beta$-VAEs <a class="citation" href="#higgins2017beta">(Higgins et al., 2017)</a>, and alternative divergences <a class="citation" href="#davidson2018hyperspherical">(Davidson et al., 2018)</a>.</p>
+
+<h3 id="diffusion-models">Diffusion Models</h3>
+
+<p>Diffusion models cast generation as the learned reversal of a gradual, data-corrupting noising process <a class="citation" href="#sohl2015deep">(Sohl-Dickstein et al., 2015; Ho et al., 2020)</a>. This forward process is defined as a Markov chain that systematically adds Gaussian noise to the data over successive steps:</p>
+
+\[q(x_t\mid x_{t-1})=\mathcal{N}\bigl(x_t;\sqrt{1-\beta_t}\,x_{t-1},\;\beta_tI\bigr)\]
+
+<p>To generate new samples, a neural network—often a U-Net—is trained to learn the reverse “denoising” process, $p_\theta(x_{t-1}\mid x_t)$. The network is optimized by minimizing a variational upper bound on the negative log-likelihood, which trains it to reconstruct the data by incrementally removing the noise step by step.</p>
+
+<p>By sidestepping adversarial objectives, diffusion models offer stable training and have achieved superior fidelity in image and audio synthesis—powering DALL-E 2 <a class="citation" href="#ramesh2022hierarchical">(Ramesh et al., 2022)</a>, and Stable Diffusion <a class="citation" href="#rombach2022high">(Rombach et al., 2022)</a>—while supporting inpainting, super-resolution, and conditioned generation. Their main limitation is inference cost: thousands of sequential denoising steps lead to slow sampling and high compute demands, motivating research on accelerated samplers and trading off steps for quality.</p>
+
+<h2 id="state-space-models-ssms">State Space Models (SSMs)</h2>
+
+<p>State space models formalize sequential data by positing an unobserved (latent) state $x_t\in\mathbb{R}^n$ that evolves linearly under additive Gaussian noise and generates observations $y_t\in\mathbb{R}^m$ through another linear mapping. In the canonical form,</p>
+
+\[x_t = A\,x_{t-1} + B\,u_t + w_t,\quad w_t\sim\mathcal N(0,Q),\quad
+y_t = C\,x_t + D\,u_t + v_t,\quad v_t\sim\mathcal N(0,R),\]
+
+<p>where $u_t$ denotes known inputs, and $Q,R$ are covariance matrices governing process and measurement noise <a class="citation" href="#kalman1960new">(Kalman, 1960; Kalman, 1963; Durbin &amp; Koopman, 2012)</a>.</p>
+
+<p>Intuitively, the latent state $x_t$ captures the system’s memory and structure, while Bayesian filtering algorithms (e.g., the Kalman filter) recursively update the posterior $\mathbb P(x_t\mid y_{1:t})$ as new data arrive. The Kalman filter computes the minimum-variance estimate of the latent state via a predict–update cycle:</p>
+
+\[\hat x_{t|t-1}=A\hat x_{t-1|t-1}+B u_t,\quad P_{t|t-1}=A P_{t-1|t-1}A^\top+Q,\]
+
+\[K_t=P_{t|t-1}C^\top\bigl(CP_{t|t-1}C^\top+R\bigr)^{-1},\quad
+\hat x_{t|t}=\hat x_{t|t-1}+K_t\,(y_t-C\hat x_{t|t-1}),\quad
+P_{t|t}=(I-K_tC)\,P_{t|t-1}.\]
+
+<p>It yields the optimal minimum mean-square error estimate by minimizing $\mathbb{E}||x_t-\hat{x}_{t\mid t}||^2$ under Gaussian noise assumptions. When exact Gaussian updates become intractable—due to nonlinearity or high dimensionality—sequential Monte Carlo and MCMC methods provide flexible approximate inference.</p>
+
+<p>These models are prized for handling noisy, partially observed time series: they naturally accommodate measurement error, cope with missing data, and decompose signals into interpretable components such as trend and seasonality. The linear Gaussian assumption, however, can fail when dynamics are strongly nonlinear or noise is non-Gaussian. The extended Kalman filter may diverge under severe nonlinearity, and even unscented variants can underperform if noise covariances are misspecified. More critically, simple SSMs can exhibit biased or imprecise parameter estimates when measurement error dominates true signal variance <a class="citation" href="#julier2004unscented">(Julier &amp; Uhlmann, 2004; Auger-Méthé et al., 2016)</a>.</p>
+
+<p>In practice, state space models underpin econometric forecasting and structural time series analysis <a class="citation" href="#harvey1990forecasting">(Harvey, 1990)</a>, speech recognition via continuous-emission HMMs <a class="citation" href="#rabiner2002tutorial">(Rabiner, 2002)</a>, robotic localization and SLAM through probabilistic state estimation, and modern deep latent-variable learning such as deep Kalman filters for counterfactual inference in health care and vision <a class="citation" href="#krishnan2015deep">(Krishnan et al., 2015)</a>. Recent advances in Gaussian process state-space models and fully variational inference further extend classical SSMs to nonparametric, high-dimensional settings <a class="citation" href="#fan2023free">(Fan et al., 2023; Särkkä &amp; Svensson, 2023)</a>.</p>
+
+<h2 id="graph-neural-networks-gnns">Graph Neural Networks (GNNs)</h2>
+
+<p>GNNs generalize deep neural networks to graph-structured data by iteratively aggregating information from each node’s local neighbourhood. Formally, a $k$-th layer representation of node $v$ is given by</p>
+
+\[h_v^{(k)} = \text{update}^{(k)}\bigl(h_v^{(k-1)},\;\text{aggregate}^{(k)}\{\,(h_u^{(k-1)},e_{uv}):u\in\mathcal{N}(v)\}\bigr),\]
+
+<p>where $h_v^{(k)}\in\mathbb{R}^d$ and $e_{uv}$ denotes edge features <a class="citation" href="#gori2005new">(Gori et al., 2005)</a>. This message-passing paradigm casts learning as finding a fixed point of a contraction mapping over node states, ensuring convergence under mild conditions <a class="citation" href="#scarselli2008graph">(Scarselli et al., 2008)</a>. A widely used special case is the graph convolutional network, which approximates localized spectral graph convolutions via</p>
+
+\[\mathbf{H} = \sigma\bigl(\tilde{\mathbf{D}}^{-\frac12}\tilde{\mathbf{A}}\tilde{\mathbf{D}}^{-\frac12}\mathbf{X}\mathbf{\Theta}\bigr),\]
+
+<p>with $\tilde{\mathbf{A}}=\mathbf{A}+\mathbf{I}$ and $\tilde{\mathbf{D}}$ the augmented degree matrix, yielding scalable filters on irregular domains <a class="citation" href="#kipf2016semi">(Kipf &amp; Welling, 2016)</a>.</p>
+
+<p>Intuitively, GNNs capture both attribute and structural information by smoothing and propagating features along edges, effectively exploiting the homophily principle prevalent in many real-world networks; empirical evidence shows such pooling enhances node and graph embeddings for downstream tasks <a class="citation" href="#wu2020comprehensive">(Wu et al., 2020)</a>. However, the representational capacity of standard GNNs aligns with the Weisfeiler-Lehman test: without injective aggregation functions, message-passing GNNs cannot distinguish certain non-isomorphic graphs, motivating more expressive variants <a class="citation" href="#xu2018powerful">(Xu et al., 2018)</a>.</p>
+
+<p>GNNs have become a de facto choice for node classification, link prediction, and graph-level tasks across domains such as social recommendation, molecular chemistry, and traffic forecasting, thanks to their relational inductive biases and ability to handle non-Euclidean data <a class="citation" href="#zhou2020graph">(Zhou et al., 2020)</a>. Nonetheless, they can suffer from over-smoothing: as layers deepen, node embeddings converge to similar vectors, degrading discrimination capacity <a class="citation" href="#chen2020measuring">(Chen et al., 2020)</a>; this phenomenon has been formalized and mitigated through techniques such as residual connections, normalization, and graph rewiring, with recent work proving residual links provably mitigate oversmoothing rates <a class="citation" href="#chen2025residual">(Chen et al., 2025)</a>.</p>
+
+<p>Practically, GNNs underpin breakthroughs such as AlphaFold’s Evoformer for protein folding <a class="citation" href="#jumper2021highly">(Jumper et al., 2021)</a>, spatio-temporal traffic forecasting, recommender systems exploiting user-item graphs <a class="citation" href="#wu2022graph">(Wu et al., 2022)</a>, and combinatorial solvers leveraging relational inductive biases <a class="citation" href="#battaglia2018relational">(Battaglia et al., 2018; Cappart et al., 2023)</a>, showcasing their versatility in modeling heterogeneous and dynamic graph data.</p>
+
+<h2 id="deep-reinforcement-learning">Deep Reinforcement Learning</h2>
+
+<p>Deep reinforcement learning formalizes sequential decision‐making as a Markov decision process, defined by a state set $S$, action set $A$, transition dynamics $P(s’ \mid s,a)$, reward function $r(s,a)$, and discount factor $\gamma$, with the goal of finding a policy $\pi$ that maximizes the expected cumulative discounted return $\mathbb{E}\big[\sum_{t=0}^\infty \gamma^t r(s_t,a_t)\big]$ <a class="citation" href="#mnih2013playing">(Mnih et al., 2013; Mnih et al., 2015; Williams, 1992)</a>. Exact solutions rely on the Bellman equations, for example</p>
+
+\[Q^*(s,a) \;=\; \mathbb{E}\big[r(s,a) + \gamma \max_{a'} Q^*(s',a') \,\mid\,s,a\big],\]
+
+<p>but tabular methods scale poorly when $|S|$ or $|A|$ is large <a class="citation" href="#sutton1998reinforcement">(Sutton et al., 1998)</a>.</p>
+
+<p>Deep neural networks serve as function approximators for value functions or policies, trained via stochastic gradient descent on losses such as the temporal‐difference error</p>
+
+\[L(\theta)=\mathbb{E}\Big[\big(r + \gamma \max_{a'} Q(s',a';\theta^-) - Q(s,a;\theta)\big)^2\Big],\]
+
+<p>as introduced in the Deep Q‐Network (DQN) algorithm. Actor‐critic methods generalize this approach to continuous action spaces by maintaining both a critic $Q(s,a;\theta^Q)$ and an actor $\mu(s;\theta^\mu)$, updating the latter via the deterministic policy gradient $\nabla_{\theta^\mu}J\approx\mathbb{E}[\nabla_a Q(s,a;\theta^Q)\mid_{a=\mu(s)}\nabla_{\theta^\mu}\mu(s;\theta^\mu)]$, as in Deep Deterministic Policy Gradient <a class="citation" href="#lillicrap2015continuous">(Lillicrap et al., 2015; Mnih et al., 2016)</a>.</p>
+
+<p>The core intuition of deep reinforcement learning is that deep networks can extract abstract features from raw sensory inputs, enabling end‐to‐end learning of complex behaviors without manual feature engineering. This allows agents to directly map high‐dimensional observations to actions, as demonstrated by DQN’s human‐level performance on a suite of Atari games, where the agent learned directly from pixel inputs and sparse reward signals.</p>
+
+<p>Despite these advances, deep RL often fails due to extreme sample inefficiency, requiring millions of interactions to converge—an untenable cost in real‐world settings where data collection is slow or expensive. Training can also be unstable because of nonstationary targets, correlated samples, and hyperparameter sensitivity, which can lead to catastrophic forgetting or divergence unless techniques like experience replay buffers and target networks are employed carefully <a class="citation" href="#franccois2018introduction">(François-Lavet et al., 2018)</a>.</p>
+
+<p>Deep RL excels in domains with well‐defined simulators or abundant data: game playing (e.g., Atari via DQN and Go via AlphaGo and AlphaGo Zero) <a class="citation" href="#mnih2015human">(Mnih et al., 2015; Silver et al., 2016)</a>, robotics for locomotion and manipulation under physics‐based simulation and real‐world trials as surveyed in recent robotics deployments <a class="citation" href="#tang2025deep">(Tang et al., 2025)</a>, autonomous driving and resource allocation in networking, finance for portfolio optimization and algorithmic trading, and healthcare for treatment planning and personalized intervention strategies.</p>
+
+<h2 id="ethical-and-societal-implications">Ethical and Societal Implications</h2>
+
+<p>Algorithmic systems can perpetuate and even amplify biases present in training data, leading to unfair outcomes across demographic groups as studied extensively <a class="citation" href="#barocas2016big">(Barocas &amp; Selbst, 2016; Mehrabi et al., 2021)</a>; these biases may arise both from historical inequities encoded in data and from algorithmic design choices that inadvertently disadvantage protected groups. Efforts to protect individual privacy via formal techniques such as differential privacy provide mathematical guarantees against reidentification but introduce trade-offs with utility and require meticulous implementation—floating-point pitfalls and parameter tuning can silently undermine privacy guarantees <a class="citation" href="#dwork2014algorithmic">(Dwork et al., 2014)</a>. AI technologies also enable the rapid generation and dissemination of misinformation, and the malicious use of AI for disinformation campaigns, cyber-threat development, and political manipulation presents urgent challenges <a class="citation" href="#brundage2018malicious">(Brundage et al., 2018)</a>. The substantial computational resources demanded by training and deploying modern models entail significant environmental footprints, and the energy and carbon costs of deep learning and recommending targeted policy interventions—concerns reinforced by subsequent studies on sustainable NLP practices <a class="citation" href="#strubell2020energy">(Strubell et al., 2020)</a>. Accountability and transparency in AI systems remain paramount, as interpretability frameworks strive to render model decisions understandable, auditable, and contestable; however, the lack of consensus on definitions and evaluation metrics for interpretability underscores the need for a rigorous science of explainability <a class="citation" href="#doshi2017towards">(Doshi-Velez &amp; Kim, 2017)</a>.</p>
+
+
+    </div>
+
+    <div id='bibliography'>
+        <div class='wrap'>
+            <ol class="bibliography"><li><span id="cybenko1989approximation">Cybenko, G. (1989). Approximation by superpositions of a sigmoidal function. <i>Mathematics of Control, Signals and Systems</i>, <i>2</i>(4), 303–314.</span></li>
+<li><span id="hornik1989multilayer">Hornik, K., Stinchcombe, M., &amp; White, H. (1989). Multilayer feedforward networks are universal approximators. <i>Neural Networks</i>, <i>2</i>(5), 359–366.</span></li>
+<li><span id="lu2017expressive">Lu, Z., Pu, H., Wang, F., Hu, Z., &amp; Wang, L. (2017). The expressive power of neural networks: A view from the width. <i>Advances in Neural Information Processing Systems</i>, <i>30</i>.</span></li>
+<li><span id="kidger2020universal">Kidger, P., &amp; Lyons, T. (2020). Universal approximation with deep narrow networks. <i>Conference on Learning Theory</i>, 2306–2327.</span></li>
+<li><span id="choromanska2015loss">Choromanska, A., Henaff, M., Mathieu, M., Arous, G. B., &amp; LeCun, Y. (2015). The loss surfaces of multilayer networks. <i>Artificial Intelligence and Statistics</i>, 192–204.</span></li>
+<li><span id="belkin2019reconciling">Belkin, M., Hsu, D., Ma, S., &amp; Mandal, S. (2019). Reconciling modern machine-learning practice and the classical bias–variance trade-off. <i>Proceedings of the National Academy of Sciences</i>, <i>116</i>(32), 15849–15854.</span></li>
+<li><span id="ioffe2015batch">Ioffe, S., &amp; Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. <i>International Conference on Machine Learning</i>, 448–456.</span></li>
+<li><span id="zhu2025transformers">Zhu, J., Chen, X., He, K., LeCun, Y., &amp; Liu, Z. (2025). Transformers without normalization. <i>Proceedings of the Computer Vision and Pattern Recognition Conference</i>, 14901–14911.</span></li>
+<li><span id="kingma2014adam">Kingma, D. P. (2014). Adam: A method for stochastic optimization. <i>ArXiv Preprint ArXiv:1412.6980</i>.</span></li>
+<li><span id="kaplan2020scaling">Kaplan, J., McCandlish, S., Henighan, T., Brown, T. B., Chess, B., Child, R., Gray, S., Radford, A., Wu, J., &amp; Amodei, D. (2020). Scaling laws for neural language models. <i>ArXiv Preprint ArXiv:2001.08361</i>.</span></li>
+<li><span id="frankle2018lottery">Frankle, J., &amp; Carbin, M. (2018). The lottery ticket hypothesis: Finding sparse, trainable neural networks. <i>ArXiv Preprint ArXiv:1803.03635</i>.</span></li>
+<li><span id="lecun2002gradient">LeCun, Y., Bottou, L., Bengio, Y., &amp; Haffner, P. (2002). Gradient-based learning applied to document recognition. <i>Proceedings of the IEEE</i>, <i>86</i>(11), 2278–2324.</span></li>
+<li><span id="mallat2012group">Mallat, S. (2012). Group invariant scattering. <i>Communications on Pure and Applied Mathematics</i>, <i>65</i>(10), 1331–1398.</span></li>
+<li><span id="zhang2016understanding">Zhang, C., Bengio, S., Hardt, M., Recht, B., &amp; Vinyals, O. (2016). Understanding deep learning requires rethinking generalization. <i>ArXiv Preprint ArXiv:1611.03530</i>.</span></li>
+<li><span id="yosinski2014transferable">Yosinski, J., Clune, J., Bengio, Y., &amp; Lipson, H. (2014). How transferable are features in deep neural networks? <i>Advances in Neural Information Processing Systems</i>, <i>27</i>.</span></li>
+<li><span id="krizhevsky2012imagenet">Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. <i>Advances in Neural Information Processing Systems</i>, <i>25</i>.</span></li>
+<li><span id="deng2009imagenet">Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., &amp; Fei-Fei, L. (2009). ImageNet: A large-scale hierarchical image database. <i>2009 IEEE Conference on Computer Vision and Pattern Recognition</i>, 248–255.</span></li>
+<li><span id="simonyan2014very">Simonyan, K., &amp; Zisserman, A. (2014). Very deep convolutional networks for large-scale image recognition. <i>ArXiv Preprint ArXiv:1409.1556</i>.</span></li>
+<li><span id="szegedy2015going">Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D., Vanhoucke, V., &amp; Rabinovich, A. (2015). Going deeper with convolutions. <i>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</i>, 1–9.</span></li>
+<li><span id="he2016deep">He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep residual learning for image recognition. <i>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</i>, 770–778.</span></li>
+<li><span id="tan2019efficientnet">Tan, M., &amp; Le, Q. (2019). EfficientNet: Rethinking model scaling for convolutional neural networks. <i>International Conference on Machine Learning</i>, 6105–6114.</span></li>
+<li><span id="tan2021efficientnetv2">Tan, M., &amp; Le, Q. (2021). EfficientNetV2: Smaller models and faster training. <i>International Conference on Machine Learning</i>, 10096–10106.</span></li>
+<li><span id="sennrich2015neural">Sennrich, R., Haddow, B., &amp; Birch, A. (2015). Neural machine translation of rare words with subword units. <i>ArXiv Preprint ArXiv:1508.07909</i>.</span></li>
+<li><span id="mikolov2013efficient">Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013). Efficient estimation of word representations in vector space. <i>ArXiv Preprint ArXiv:1301.3781</i>.</span></li>
+<li><span id="vaswani2017attention">Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <i>Advances in Neural Information Processing Systems</i>, <i>30</i>.</span></li>
+<li><span id="si2023sub">Si, C., Zhang, Z., Chen, Y., Qi, F., Wang, X., Liu, Z., Wang, Y., Liu, Q., &amp; Sun, M. (2023). Sub-character tokenization for Chinese pretrained language models. <i>Transactions of the Association for Computational Linguistics</i>, <i>11</i>, 469–487.</span></li>
+<li><span id="nguyen2017sub">Nguyen, V., Brooke, J., &amp; Baldwin, T. (2017). Sub-character neural language modelling in Japanese. <i>Proceedings of the First Workshop on Subword and Character Level Models in NLP</i>, 148–153.</span></li>
+<li><span id="elman1990finding">Elman, J. L. (1990). Finding structure in time. <i>Cognitive Science</i>, <i>14</i>(2), 179–211.</span></li>
+<li><span id="hochreiter1998vanishing">Hochreiter, S. (1998). The vanishing gradient problem during learning recurrent neural nets and problem solutions. <i>International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems</i>, <i>6</i>(02), 107–116.</span></li>
+<li><span id="bengio1994learning">Bengio, Y., Simard, P., &amp; Frasconi, P. (1994). Learning long-term dependencies with gradient descent is difficult. <i>IEEE Transactions on Neural Networks</i>, <i>5</i>(2), 157–166.</span></li>
+<li><span id="pascanu2013difficulty">Pascanu, R., Mikolov, T., &amp; Bengio, Y. (2013). On the difficulty of training recurrent neural networks. <i>International Conference on Machine Learning</i>, 1310–1318.</span></li>
+<li><span id="hochreiter1997long">Hochreiter, S., &amp; Schmidhuber, J. (1997). Long short-term memory. <i>Neural Computation</i>, <i>9</i>(8), 1735–1780.</span></li>
+<li><span id="zilly2017recurrent">Zilly, J. G., Srivastava, R. K., Koutnık, J., &amp; Schmidhuber, J. (2017). Recurrent highway networks. <i>International Conference on Machine Learning</i>, 4189–4198.</span></li>
+<li><span id="mhammedi2017efficient">Mhammedi, Z., Hellicar, A., Rahman, A., &amp; Bailey, J. (2017). Efficient orthogonal parametrisation of recurrent neural networks using householder reflections. <i>International Conference on Machine Learning</i>, 2401–2409.</span></li>
+<li><span id="arjovsky2016unitary">Arjovsky, M., Shah, A., &amp; Bengio, Y. (2016). Unitary evolution recurrent neural networks. <i>International Conference on Machine Learning</i>, 1120–1128.</span></li>
+<li><span id="chen2018neural">Chen, R. T. Q., Rubanova, Y., Bettencourt, J., &amp; Duvenaud, D. K. (2018). Neural ordinary differential equations. <i>Advances in Neural Information Processing Systems</i>, <i>31</i>.</span></li>
+<li><span id="williams1989learning">Williams, R. J., &amp; Zipser, D. (1989). A learning algorithm for continually running fully recurrent neural networks. <i>Neural Computation</i>, <i>1</i>(2), 270–280.</span></li>
+<li><span id="merity2017regularizing">Merity, S., Keskar, N. S., &amp; Socher, R. (2017). Regularizing and optimizing LSTM language models. <i>ArXiv Preprint ArXiv:1708.02182</i>.</span></li>
+<li><span id="kingma2015variational">Kingma, D. P., Salimans, T., &amp; Welling, M. (2015). Variational dropout and the local reparameterization trick. <i>Advances in Neural Information Processing Systems</i>, <i>28</i>.</span></li>
+<li><span id="micikevicius2017mixed">Micikevicius, P., Narang, S., Alben, J., Diamos, G., Elsen, E., Garcia, D., Ginsburg, B., Houston, M., Kuchaiev, O., Venkatesh, G., &amp; others. (2017). Mixed precision training. <i>ArXiv Preprint ArXiv:1710.03740</i>.</span></li>
+<li><span id="korthikanti2023reducing">Korthikanti, V. A., Casper, J., Lym, S., McAfee, L., Andersch, M., Shoeybi, M., &amp; Catanzaro, B. (2023). Reducing activation recomputation in large Transformer models. <i>Proceedings of Machine Learning and Systems</i>, <i>5</i>, 341–353.</span></li>
+<li><span id="jacobs2023deepspeed">Jacobs, S. A., Tanaka, M., Zhang, C., Zhang, M., Song, S. L., Rajbhandari, S., &amp; He, Y. (2023). DeepSpeed Ulysses: System optimizations for enabling training of extreme long sequence Transformer models. <i>ArXiv Preprint ArXiv:2309.14509</i>.</span></li>
+<li><span id="marcus1993building">Marcus, M., Santorini, B., &amp; Marcinkiewicz, M. A. (1993). Building a large annotated corpus of English: The Penn Treebank. <i>Computational Linguistics</i>, <i>19</i>(2), 313–330.</span></li>
+<li><span id="merity2016pointer">Merity, S., Xiong, C., Bradbury, J., &amp; Socher, R. (2016). Pointer sentinel mixture models. <i>ArXiv Preprint ArXiv:1609.07843</i>.</span></li>
+<li><span id="bahdanau2014neural">Bahdanau, D., Cho, K., &amp; Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. <i>ArXiv Preprint ArXiv:1409.0473</i>.</span></li>
+<li><span id="desbouvries2023expressivity">Desbouvries, F., Petetin, Y., &amp; Salaün, A. (2023). Expressivity of Hidden Markov Chains vs. Recurrent Neural Networks from a system theoretic viewpoint. <i>IEEE Transactions on Signal Processing</i>, <i>71</i>, 4178–4191.</span></li>
+<li><span id="devlin2019bert">Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. <i>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</i>, 4171–4186.</span></li>
+<li><span id="radford2019language">Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., Sutskever, I., &amp; others. (2019). Language models are unsupervised multitask learners. <i>OpenAI Blog</i>, <i>1</i>(8), 9.</span></li>
+<li><span id="brown2020language">Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., &amp; others. (2020). Language models are few-shot learners. <i>Advances in Neural Information Processing Systems</i>, <i>33</i>, 1877–1901.</span></li>
+<li><span id="liu2019roberta">Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O., Lewis, M., Zettlemoyer, L., &amp; Stoyanov, V. (2019). RoBERTa: A robustly optimized bert pretraining approach. <i>ArXiv Preprint ArXiv:1907.11692</i>.</span></li>
+<li><span id="dai2019transformer">Dai, Z., Yang, Z., Yang, Y., Carbonell, J., Le, Q. V., &amp; Salakhutdinov, R. (2019). Transformer-XL: Attentive language models beyond a fixed-length context. <i>ArXiv Preprint ArXiv:1901.02860</i>.</span></li>
+<li><span id="raffel2020exploring">Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., Zhou, Y., Li, W., &amp; Liu, P. J. (2020). Exploring the limits of transfer learning with a unified text-to-text transformer. <i>Journal of Machine Learning Research</i>, <i>21</i>(140), 1–67.</span></li>
+<li><span id="he2020deberta">He, P., Liu, X., Gao, J., &amp; Chen, W. (2020). DeBERTa: Decoding-enhanced BERT with disentangled attention. <i>ArXiv Preprint ArXiv:2006.03654</i>.</span></li>
+<li><span id="su2024roformer">Su, J., Ahmed, M., Lu, Y., Pan, S., Bo, W., &amp; Liu, Y. (2024). RoFormer: Enhanced Transformer with rotary position embedding. <i>Neurocomputing</i>, <i>568</i>, 127063.</span></li>
+<li><span id="black2022gpt">Black, S., Biderman, S., Hallahan, E., Anthony, Q., Gao, L., Golding, L., He, H., Leahy, C., McDonell, K., Phang, J., &amp; others. (2022). GPT-NeoX-20B: An open-source autoregressive language model. <i>ArXiv Preprint ArXiv:2204.06745</i>.</span></li>
+<li><span id="beltagy2020longformer">Beltagy, I., Peters, M. E., &amp; Cohan, A. (2020). Longformer: The long-document Transformer. <i>ArXiv Preprint ArXiv:2004.05150</i>.</span></li>
+<li><span id="zaheer2020big">Zaheer, M., Guruganesh, G., Dubey, K. A., Ainslie, J., Alberti, C., Ontanon, S., Pham, P., Ravula, A., Wang, Q., Yang, L., &amp; others. (2020). Big Bird: Transformers for longer sequences. <i>Advances in Neural Information Processing Systems</i>, <i>33</i>, 17283–17297.</span></li>
+<li><span id="choromanski2020rethinking">Choromanski, K., Likhosherstov, V., Dohan, D., Song, X., Gane, A., Sarlos, T., Hawkins, P., Davis, J., Mohiuddin, A., Kaiser, L., &amp; others. (2020). Rethinking attention with Performers. <i>ArXiv Preprint ArXiv:2009.14794</i>.</span></li>
+<li><span id="wang2020linformer">Wang, S., Li, B. Z., Khabsa, M., Fang, H., &amp; Ma, H. (2020). Linformer: Self-attention with linear complexity. <i>ArXiv Preprint ArXiv:2006.04768</i>.</span></li>
+<li><span id="fedus2022switch">Fedus, W., Zoph, B., &amp; Shazeer, N. (2022). Switch Transformers: Scaling to trillion parameter models with simple and efficient sparsity. <i>Journal of Machine Learning Research</i>, <i>23</i>(120), 1–39.</span></li>
+<li><span id="lepikhin2020gshard">Lepikhin, D., Lee, H. J., Xu, Y., Chen, D., Firat, O., Huang, Y., Krikun, M., Shazeer, N., &amp; Chen, Z. (2020). GShard: Scaling giant models with conditional computation and automatic sharding. <i>ArXiv Preprint ArXiv:2006.16668</i>.</span></li>
+<li><span id="du2022glam">Du, N., Huang, Y., Dai, A. M., Tong, S., Lepikhin, D., Xu, Y., Krikun, M., Zhou, Y., Yu, A. W., Firat, O., &amp; others. (2022). GLaM: Efficient scaling of language models with mixture-of-experts. <i>International Conference on Machine Learning</i>, 5547–5569.</span></li>
+<li><span id="dehghani2018universal">Dehghani, M., Gouws, S., Vinyals, O., Uszkoreit, J., &amp; Kaiser, Ł. (2018). Universal Transformers. <i>ArXiv Preprint ArXiv:1807.03819</i>.</span></li>
+<li><span id="likhosherstov2021expressive">Likhosherstov, V., Choromanski, K., &amp; Weller, A. (2021). On the expressive power of self-attention matrices. <i>ArXiv Preprint ArXiv:2106.03764</i>.</span></li>
+<li><span id="child2019generating">Child, R., Gray, S., Radford, A., &amp; Sutskever, I. (2019). Generating long sequences with sparse Transformers. <i>ArXiv Preprint ArXiv:1904.10509</i>.</span></li>
+<li><span id="loshchilov2017decoupled">Loshchilov, I., &amp; Hutter, F. (2017). Decoupled weight decay regularization. <i>ArXiv Preprint ArXiv:1711.05101</i>.</span></li>
+<li><span id="kosson2024analyzing">Kosson, A., Messmer, B., &amp; Jaggi, M. (2024). Analyzing &amp; reducing the need for learning rate warmup in GPT training. <i>Advances in Neural Information Processing Systems</i>, <i>37</i>, 2914–2942.</span></li>
+<li><span id="hu2022lora">Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., Chen, W., &amp; others. (2022). LoRA: Low-rank adaptation of large language models. <i>ICLR</i>, <i>1</i>(2), 3.</span></li>
+<li><span id="wei2022chain">Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., Le, Q. V., Zhou, D., &amp; others. (2022). Chain-of-thought prompting elicits reasoning in large language models. <i>Advances in Neural Information Processing Systems</i>, <i>35</i>, 24824–24837.</span></li>
+<li><span id="anil2022exploring">Anil, C., Wu, Y., Andreassen, A., Lewkowycz, A., Misra, V., Ramasesh, V., Slone, A., Gur-Ari, G., Dyer, E., &amp; Neyshabur, B. (2022). Exploring length generalization in large language models. <i>Advances in Neural Information Processing Systems</i>, <i>35</i>, 38546–38556.</span></li>
+<li><span id="wei2022emergent">Wei, J., Tay, Y., Bommasani, R., Raffel, C., Zoph, B., Borgeaud, S., Yogatama, D., Bosma, M., Zhou, D., Metzler, D., &amp; others. (2022). Emergent abilities of large language models. <i>ArXiv Preprint ArXiv:2206.07682</i>.</span></li>
+<li><span id="jurafsky2025speech">Jurafsky, D., &amp; Martin, J. H. (2025). Masked Language Models. In <i>Speech and language processing</i> (pp. 223–241). https://web.stanford.edu/ jurafsky/slp3/</span></li>
+<li><span id="graves2014neural">Graves, A., Wayne, G., &amp; Danihelka, I. (2014). Neural turing machines. <i>ArXiv Preprint ArXiv:1410.5401</i>.</span></li>
+<li><span id="israel2025enabling">Israel, D., Grover, A., &amp; Broeck, G. V. den. (2025). Enabling Autoregressive Models to Fill In Masked Tokens. <i>ArXiv Preprint ArXiv:2502.06901</i>.</span></li>
+<li><span id="goodfellow2014generative">Goodfellow, I. J., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., &amp; Bengio, Y. (2014). Generative adversarial nets. <i>Advances in Neural Information Processing Systems</i>, <i>27</i>.</span></li>
+<li><span id="isola2017image">Isola, P., Zhu, J.-Y., Zhou, T., &amp; Efros, A. A. (2017). Image-to-image translation with conditional adversarial networks. <i>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</i>, 1125–1134.</span></li>
+<li><span id="kossale2022mode">Kossale, Y., Airaj, M., &amp; Darouichi, A. (2022). Mode collapse in generative adversarial networks: An overview. <i>2022 8th International Conference on Optimization and Applications (ICOA)</i>, 1–6.</span></li>
+<li><span id="arjovsky2017wasserstein">Arjovsky, M., Chintala, S., &amp; Bottou, L. (2017). Wasserstein generative adversarial networks. <i>International Conference on Machine Learning</i>, 214–223.</span></li>
+<li><span id="heusel2017gans">Heusel, M., Ramsauer, H., Unterthiner, T., Nessler, B., &amp; Hochreiter, S. (2017). GANs trained by a two time-scale update rule converge to a local Nash equilibrium. <i>Advances in Neural Information Processing Systems</i>, <i>30</i>.</span></li>
+<li><span id="salimans2016improved">Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A., &amp; Chen, X. (2016). Improved techniques for training GANs. <i>Advances in Neural Information Processing Systems</i>, <i>29</i>.</span></li>
+<li><span id="kingma2013auto">Kingma, D. P., Welling, M., &amp; others. (2013). <i>Auto-encoding variational Bayes</i>. Banff, Canada.</span></li>
+<li><span id="wang2021posterior">Wang, Y., Blei, D., &amp; Cunningham, J. P. (2021). Posterior collapse and latent variable non-identifiability. <i>Advances in Neural Information Processing Systems</i>, <i>34</i>, 5443–5455.</span></li>
+<li><span id="bowman2015generating">Bowman, S. R., Vilnis, L., Vinyals, O., Dai, A. M., Jozefowicz, R., &amp; Bengio, S. (2015). Generating sentences from a continuous space. <i>ArXiv Preprint ArXiv:1511.06349</i>.</span></li>
+<li><span id="fu2019cyclical">Fu, H., Li, C., Liu, X., Gao, J., Celikyilmaz, A., &amp; Carin, L. (2019). Cyclical annealing schedule: A simple approach to mitigating KL vanishing. <i>ArXiv Preprint ArXiv:1903.10145</i>.</span></li>
+<li><span id="higgins2017beta">Higgins, I., Matthey, L., Pal, A., Burgess, C., Glorot, X., Botvinick, M., Mohamed, S., &amp; Lerchner, A. (2017). beta-VAE: Learning basic visual concepts with a constrained variational framework. <i>International Conference on Learning Representations</i>.</span></li>
+<li><span id="davidson2018hyperspherical">Davidson, T. R., Falorsi, L., De Cao, N., Kipf, T., &amp; Tomczak, J. M. (2018). Hyperspherical variational auto-encoders. <i>ArXiv Preprint ArXiv:1804.00891</i>.</span></li>
+<li><span id="sohl2015deep">Sohl-Dickstein, J., Weiss, E., Maheswaranathan, N., &amp; Ganguli, S. (2015). Deep unsupervised learning using nonequilibrium thermodynamics. <i>International Conference on Machine Learning</i>, 2256–2265.</span></li>
+<li><span id="ho2020denoising">Ho, J., Jain, A., &amp; Abbeel, P. (2020). Denoising diffusion probabilistic models. <i>Advances in Neural Information Processing Systems</i>, <i>33</i>, 6840–6851.</span></li>
+<li><span id="ramesh2022hierarchical">Ramesh, A., Dhariwal, P., Nichol, A., Chu, C., &amp; Chen, M. (2022). Hierarchical text-conditional image generation with clip latents. <i>ArXiv Preprint ArXiv:2204.06125</i>, <i>1</i>(2), 3.</span></li>
+<li><span id="rombach2022high">Rombach, R., Blattmann, A., Lorenz, D., Esser, P., &amp; Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. <i>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</i>, 10684–10695.</span></li>
+<li><span id="kalman1960new">Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. <i>Journal of Basic Engineering</i>, <i>82</i>(1), 35–45.</span></li>
+<li><span id="kalman1963mathematical">Kalman, R. E. (1963). Mathematical description of linear dynamical systems. <i>Journal of the Society for Industrial and Applied Mathematics, Series A: Control</i>, <i>1</i>(2), 152–192.</span></li>
+<li><span id="durbin2012time">Durbin, J., &amp; Koopman, S. J. (2012). <i>Time series analysis by state space methods</i>. Oxford University Press (UK).</span></li>
+<li><span id="julier2004unscented">Julier, S. J., &amp; Uhlmann, J. K. (2004). Unscented filtering and nonlinear estimation. <i>Proceedings of the IEEE</i>, <i>92</i>(3), 401–422.</span></li>
+<li><span id="auger2016state">Auger-Méthé, M., Field, C., Albertsen, C. M., Derocher, A. E., Lewis, M. A., Jonsen, I. D., &amp; Mills Flemming, J. (2016). State-space models’ dirty little secrets: even simple linear Gaussian models can have estimation problems. <i>Scientific Reports</i>, <i>6</i>(1), 26677.</span></li>
+<li><span id="harvey1990forecasting">Harvey, A. C. (1990). <i>Forecasting, structural time series models and the Kalman filter</i>.</span></li>
+<li><span id="rabiner2002tutorial">Rabiner, L. R. (2002). A tutorial on hidden Markov models and selected applications in speech recognition. <i>Proceedings of the IEEE</i>, <i>77</i>(2), 257–286.</span></li>
+<li><span id="krishnan2015deep">Krishnan, R. G., Shalit, U., &amp; Sontag, D. (2015). Deep Kalman filters. <i>ArXiv Preprint ArXiv:1511.05121</i>.</span></li>
+<li><span id="fan2023free">Fan, X., Bonilla, E. V., O’Kane, T., &amp; Sisson, S. A. (2023). Free-form variational inference for Gaussian process state-space models. <i>International Conference on Machine Learning</i>, 9603–9622.</span></li>
+<li><span id="sarkka2023bayesian">Särkkä, S., &amp; Svensson, L. (2023). <i>Bayesian filtering and smoothing</i> (Vol. 17). Cambridge university press.</span></li>
+<li><span id="gori2005new">Gori, M., Monfardini, G., &amp; Scarselli, F. (2005). A new model for learning in graph domains. <i>Proceedings. 2005 IEEE International Joint Conference on Neural Networks, 2005.</i>, <i>2</i>, 729–734.</span></li>
+<li><span id="scarselli2008graph">Scarselli, F., Gori, M., Tsoi, A. C., Hagenbuchner, M., &amp; Monfardini, G. (2008). The graph neural network model. <i>IEEE Transactions on Neural Networks</i>, <i>20</i>(1), 61–80.</span></li>
+<li><span id="kipf2016semi">Kipf, T. N., &amp; Welling, M. (2016). Semi-supervised classification with graph convolutional networks. <i>ArXiv Preprint ArXiv:1609.02907</i>.</span></li>
+<li><span id="wu2020comprehensive">Wu, Z., Pan, S., Chen, F., Long, G., Zhang, C., &amp; Yu, P. S. (2020). A comprehensive survey on graph neural networks. <i>IEEE Transactions on Neural Networks and Learning Systems</i>, <i>32</i>(1), 4–24.</span></li>
+<li><span id="xu2018powerful">Xu, K., Hu, W., Leskovec, J., &amp; Jegelka, S. (2018). How powerful are graph neural networks? <i>ArXiv Preprint ArXiv:1810.00826</i>.</span></li>
+<li><span id="zhou2020graph">Zhou, J., Cui, G., Hu, S., Zhang, Z., Yang, C., Liu, Z., Wang, L., Li, C., &amp; Sun, M. (2020). Graph neural networks: A review of methods and applications. <i>AI Open</i>, <i>1</i>, 57–81.</span></li>
+<li><span id="chen2020measuring">Chen, D., Lin, Y., Li, W., Li, P., Zhou, J., &amp; Sun, X. (2020). Measuring and relieving the over-smoothing problem for graph neural networks from the topological view. <i>Proceedings of the AAAI Conference on Artificial Intelligence</i>, <i>34</i>(04), 3438–3445.</span></li>
+<li><span id="chen2025residual">Chen, Z., Lin, Z., Chen, S., Polyanskiy, Y., &amp; Rigollet, P. (2025). Residual connections provably mitigate oversmoothing in graph neural networks. <i>ArXiv e-Prints</i>, arXiv–2501.</span></li>
+<li><span id="jumper2021highly">Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., Tunyasuvunakool, K., Bates, R., Žı́dek Augustin, Potapenko, A., &amp; others. (2021). Highly accurate protein structure prediction with AlphaFold. <i>Nature</i>, <i>596</i>(7873), 583–589.</span></li>
+<li><span id="wu2022graph">Wu, S., Sun, F., Zhang, W., Xie, X., &amp; Cui, B. (2022). Graph neural networks in recommender systems: a survey. <i>ACM Computing Surveys</i>, <i>55</i>(5), 1–37.</span></li>
+<li><span id="battaglia2018relational">Battaglia, P. W., Hamrick, J. B., Bapst, V., Sanchez-Gonzalez, A., Zambaldi, V., Malinowski, M., Tacchetti, A., Raposo, D., Santoro, A., Faulkner, R., &amp; others. (2018). Relational inductive biases, deep learning, and graph networks. <i>ArXiv Preprint ArXiv:1806.01261</i>.</span></li>
+<li><span id="cappart2023combinatorial">Cappart, Q., Chételat, D., Khalil, E. B., Lodi, A., Morris, C., &amp; Veličković, P. (2023). Combinatorial optimization and reasoning with graph neural networks. <i>Journal of Machine Learning Research</i>, <i>24</i>(130), 1–61.</span></li>
+<li><span id="mnih2013playing">Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., &amp; Riedmiller, M. (2013). Playing atari with deep reinforcement learning. <i>ArXiv Preprint ArXiv:1312.5602</i>.</span></li>
+<li><span id="mnih2015human">Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., Graves, A., Riedmiller, M., Fidjeland, A. K., Ostrovski, G., &amp; others. (2015). Human-level control through deep reinforcement learning. <i>Nature</i>, <i>518</i>(7540), 529–533.</span></li>
+<li><span id="williams1992simple">Williams, R. J. (1992). Simple statistical gradient-following algorithms for connectionist reinforcement learning. <i>Machine Learning</i>, <i>8</i>, 229–256.</span></li>
+<li><span id="sutton1998reinforcement">Sutton, R. S., Barto, A. G., &amp; others. (1998). <i>Reinforcement learning: An introduction</i> (Vol. 1, Number 1). MIT press Cambridge.</span></li>
+<li><span id="lillicrap2015continuous">Lillicrap, T. P., Hunt, J. J., Pritzel, A., Heess, N., Erez, T., Tassa, Y., Silver, D., &amp; Wierstra, D. (2015). Continuous control with deep reinforcement learning. <i>ArXiv Preprint ArXiv:1509.02971</i>.</span></li>
+<li><span id="mnih2016asynchronous">Mnih, V., Badia, A. P., Mirza, M., Graves, A., Lillicrap, T., Harley, T., Silver, D., &amp; Kavukcuoglu, K. (2016). Asynchronous methods for deep reinforcement learning. <i>International Conference on Machine Learning</i>, 1928–1937.</span></li>
+<li><span id="franccois2018introduction">François-Lavet, V., Henderson, P., Islam, R., Bellemare, M. G., Pineau, J., &amp; others. (2018). An introduction to deep reinforcement learning. <i>Foundations and Trends&#0174 in Machine Learning</i>, <i>11</i>(3-4), 219–354.</span></li>
+<li><span id="silver2016mastering">Silver, D., Huang, A., Maddison, C. J., Guez, A., Sifre, L., Van Den Driessche, G., Schrittwieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M., &amp; others. (2016). Mastering the game of Go with deep neural networks and tree search. <i>Nature</i>, <i>529</i>(7587), 484–489.</span></li>
+<li><span id="tang2025deep">Tang, C., Abbatematteo, B., Hu, J., Chandra, R., Martı́n-Martı́n Roberto, &amp; Stone, P. (2025). Deep reinforcement learning for robotics: A survey of real-world successes. <i>Proceedings of the AAAI Conference on Artificial Intelligence</i>, <i>39</i>(27), 28694–28698.</span></li>
+<li><span id="barocas2016big">Barocas, S., &amp; Selbst, A. D. (2016). Big data’s disparate impact. <i>California Law Review</i>, <i>104</i>, 671.</span></li>
+<li><span id="mehrabi2021survey">Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., &amp; Galstyan, A. (2021). A survey on bias and fairness in machine learning. <i>ACM Computing Surveys (CSUR)</i>, <i>54</i>(6), 1–35.</span></li>
+<li><span id="dwork2014algorithmic">Dwork, C., Roth, A., &amp; others. (2014). The algorithmic foundations of differential privacy. <i>Foundations and Trends&#0174 in Theoretical Computer Science</i>, <i>9</i>(3–4), 211–407.</span></li>
+<li><span id="brundage2018malicious">Brundage, M., Avin, S., Clark, J., Toner, H., Eckersley, P., Garfinkel, B., Dafoe, A., Scharre, P., Zeitzoff, T., Filar, B., &amp; others. (2018). The malicious use of artificial intelligence: Forecasting, prevention, and mitigation. <i>ArXiv Preprint ArXiv:1802.07228</i>.</span></li>
+<li><span id="strubell2020energy">Strubell, E., Ganesh, A., &amp; McCallum, A. (2020). Energy and policy considerations for modern deep learning research. <i>Proceedings of the AAAI Conference on Artificial Intelligence</i>, <i>34</i>(09), 13693–13696.</span></li>
+<li><span id="doshi2017towards">Doshi-Velez, F., &amp; Kim, B. (2017). Towards a rigorous science of interpretable machine learning. <i>ArXiv Preprint ArXiv:1702.08608</i>.</span></li></ol>
+
+        </div>
+        <div class="wrap">
+            <section id="social-icons">
+  <ul class="social-list">
+    <li>
+      <a href="https://github.com/glenntfung" aria-label="GitHub" target="_blank">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://x.com/glenntfung" aria-label="X" target="_blank">
+        <i class="fab fa-x-twitter fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/glennfung/" aria-label="LinkedIn" target="_blank">
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:glenntfung@gmail.com" aria-label="Email" target="_blank">
+        <i class="fas fa-envelope fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.kaggle.com/glennfung1" aria-label="Kaggle" target="_blank">
+        <i class="fab fa-kaggle fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://medium.com/@glenntfung" aria-label="Medium" target="_blank">
+        <i class="fab fa-medium fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="/feed.xml" aria-label="RSS Feed" target="_blank">
+        <i class="fas fa-rss fa-lg"></i>
+      </a>
+    </li>
+  </ul>
+
+  <br>
+</section>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

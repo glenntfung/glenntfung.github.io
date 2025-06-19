@@ -1,0 +1,71 @@
+---
+---
+
+<html>
+<head>
+    <title>{{ page.title }}</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+
+
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    {% include head.html %}
+    {% include mathjax.html %}
+</head>
+<body>
+
+<div class='content'>
+    {% include nav.html %}
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>{{ page.title }}</h1>
+            <h4>{{ page.subtitle }}</h4>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>{{ page.date |  date: '%d %B %Y' }}</p>
+                </div>
+                <div class='byline'>
+                    <h3>Author</h3>
+                    <p>
+                        <a href="/">Glenn</a>
+                    </p>
+                </div>
+                {% if page.tags %}
+                <div class='byline'>
+                    <h3>Tags</h3>
+                    <p>
+                        {% for tag in page.tags %}
+                        <a href="{{ '/tags/' | append: tag | relative_url }}">#{{ tag }}</a>
+                        {% endfor %}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+
+    
+
+<div class='wrap article'>
+        {{ content }}
+    </div>
+
+    <div id='bibliography'>
+        <div class='wrap'>
+            {% include bib.html file=page.scholar.bibliography %}
+        </div>
+        <div class="wrap">
+            {% include footer.html %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

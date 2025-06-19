@@ -1,0 +1,53 @@
+---
+layout: pages
+title: All Posts
+permalink: /blog/
+pagination:
+  enabled: true
+  collection: posts
+  per_page: 8
+  permalink: /blog/page/:num/
+---
+
+<head>
+  <link href='/css/blog.css' rel='stylesheet'/>
+  <link rel='shortcut icon' href='/assets/img/icon.png' />
+</head>
+
+<div class="all-tags section">
+  <hr>
+  {% assign tag_list = site.tags | sort_natural: "first" %}
+  {% for tag in site.tags %}
+  {% assign tagname = tag[0] %}
+  {% if tagname != "" %}
+    <a class="tag-pill" href="{{ '/tags/' | append: tagname | relative_url }}">
+      # {{ tagname }} ({{ tag[1] | size }})
+    </a>
+  {% endif %}
+{% endfor %}
+<hr>
+</div>
+
+
+<div id="posts" class="section">
+  {% assign sorted_posts = site.posts | sort: "date" | reverse %}
+  {% for post in sorted_posts %}
+    <div class="post-entry"> 
+      <div class="post-row">
+        <p class="post-title">
+          <a href="{{ post.url | relative_url }}">
+            {% katexmm %}{{ post.title }}{% endkatexmm %}
+          </a>
+        </p>
+        <p class="post-date">
+          {{ post.date | date_to_long_string }}
+        </p>
+      </div>
+      {% if post.subtitle %}
+        <p class="post-subtitle">
+          {% katexmm %}{{ post.subtitle }}{% endkatexmm %}
+        </p>
+      {% endif %}
+    </div> {% endfor %}
+</div>
+

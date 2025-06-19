@@ -1,0 +1,113 @@
+---
+layout: pages
+permalink: /about/
+title: About Me
+---
+
+<html>
+    <head>
+        <title>Glenn Fung</title>
+        <meta charset='UTF-8'>
+        <meta content='width=device-width, initial-scale=1' name='viewport'/>
+        <link rel='shortcut icon' href='/assets/img/icon.png' />
+        <link href='/css/blog.css' rel='stylesheet'/>
+        {% include head.html %}
+        {% include mathjax.html %}
+        <link rel='shortcut icon' href='/assets/img/icon.png' />
+    </head>
+    <body>
+
+        <div id='intro' class='wrap'>
+            <div>
+                <!-- Add image and text side by side -->
+                <div style="width: 28%; float: right!important; margin-left: 3rem;">
+                    <img src="/assets/img/prof_pic.jpg" width=100%>
+                </div>
+                <div>
+                    <p>
+                        Welcome :wave:! I am Glenn Fung. I am a predoctoral research fellow at Northwestern University Kellogg School of Management. I hold an MA in economics from The University of Chicago, a B.S. with First-Class Honors in Applied Mathematics from The University of Birmingham, and a B.Econ. in Economics from Jinan University. My research applies deep learning and statistical learning methods to address behavioral issues of consumers, financial markets, measurements, matching, etc. I am particularly interested in using edge-cutting methods (machine learning, optimization, causal inference, game thoery) in analyzing behavioral problems and in marketing applications.
+                        <!-- Here is my <a href="/assets/resume.pdf">CV</a>. -->
+                    </p>
+                    <p>
+                        <a href="/assets/pdf/CV.pdf">My Curriculum Vitae.</a>
+                    </p>
+                    <p>
+                        Emails are the best way to reach me. I am also available for a chat via Zoom or in person if you are in the Chicago area, <a href="https://cal.com/glenn-fung-mqul3k/default">you can pick a timeslot here to chat</a>. You can find my contact information below or at the bottom of every page. Please feel free to reach out!
+                        <div style="font-family: courier;">glenntfung[at]gmail.com</div>
+                        <div style="font-family: courier;"><s>[first]f[at]uchicago.edu</s></div>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── START: Latest News (3 items) ─── -->
+        <br>
+        <section id="recent-news" class="section">
+            <h3>Latest News</h3>
+            <ul>
+                {%- assign sorted_news = site.news | sort: "date" | reverse -%}
+                {%- for item in sorted_news limit:3 -%}
+                    <li class="news-row">
+                        <a class="news-title" href="{{ item.url | relative_url }}">
+                            <b>{{ item.title }}</b>
+                        </a>
+                        <div class="news-date">
+                            <time datetime="{{ item.date | date_to_xmlschema }}">
+                                {{ item.date | date: "%b %-d, %Y" }}
+                            </time>
+                        </div>
+                    </li>
+                {%- endfor -%}
+            </ul>
+            <p style="text-align: right">
+                <a href="/news/">View all News →</a>
+            </p>
+        </section>
+        <!-- ─── END: Latest News ─── -->
+
+        <!-- ─── START: Latest Posts (3 items) ─── -->
+        <section id="recent-posts" class="section">
+            <h3>Latest Posts</h3>
+            <ul>
+                {%- assign sorted_posts = site.posts | sort: "date" | reverse -%}
+                {%- for post in sorted_posts limit:3 -%}
+                    <li class="post-row">
+                        <a class="post-title" href="{{ post.url | relative_url }}">
+                            <b>{{ post.title }}</b>
+                        </a>
+                        <div class="post-date">
+                            <time datetime="{{ post.date | date_to_xmlschema }}">
+                                {{ post.date | date: "%b %-d, %Y" }}
+                            </time>
+                        </div>
+                    </li>
+                {%- endfor -%}
+            </ul>
+            <p style="text-align: right">
+                <a href="/blog/">View all Posts →</a>
+            </p>
+        </section>
+        <!-- ─── END: Latest Posts ─── -->
+
+        <div id='more' class='wrap'>
+            <section id="name" class="section">
+                <h3>A little more about me</h2>
+            </section>
+            <p>
+                I love traveling! Here are some places I've been to: :cn: :hong_kong: :macau: :us: :singapore: :malaysia: :thailand: :united_arab_emirates: :australia: :new_zealand: :tr: :ru: :gb: :jp: :kr: :fr: :it: :switzerland: :vatican_city: :canada:. Exploring different cuisines around the world is one of my favorite things to do!
+            </p>
+            <p>
+                I grew up in Guangzhou, a vibrant subtropical city in southern China near Hong Kong (if you look at the world map, you'll find it on the Tropic of Cancer), known for its amazing Cantonese cuisine (yes, dim sum!). These days, I live in Chicago—a wonderful city in the U.S., if you don’t mind the occasional gust of strong wind.
+            </p>
+            <p>
+                Before majoring in math, I was deeply interested in history—a passion I still hold onto through reading. More recently, I’ve become fascinated by physics beyond my formal studies. Physical models are just so powerful and elegant!
+            </p>
+            <p>
+                I’m passionate about languages! I’m fluent in Mandarin, Cantonese, and English, and currently learning Spanish and Japanese. I also speak a bit of Korean. My name in my native Cantonese is Fung Tsz Yui. However, I prefer to go by Glenn. In Mandarin, my name is Feng Zirui, so you sometimes do see me using the last name Feng. 
+            </p>
+            <p>
+                In my free time, I enjoy reading (both classical and modern works in Chinese and English), watching films from around the world, and playing video games (you’ll find me on Steam!). Some games I’ve enjoyed recently include Split Fiction, Don’t Starve Together, Fall Guys, It Takes Two, and Naraka: Bladepoint—gaming is always more fun with friends! I used to play the violin and piano (though not anymore), but I still love music from all over the world, especially in my native Cantonese.
+            </p>
+        </div>
+    </body>
+</html>

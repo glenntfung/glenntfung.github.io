@@ -1,0 +1,264 @@
+<html>
+<head>
+    <title>Using pairwise comparisons</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+
+
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    
+<meta name='description' content="Glenn's website.">
+    <meta name='keywords' content=''>
+    <meta name='author' content='Glenn Fung'>
+
+    <meta name='description' content="Glenn's website.">
+    <!-- A decent browser will parse this fine:
+         https://webmasters.stackexchange.com/questions/92744. -->
+    <meta name='keywords' content='
+        machine learning,
+        statistical machine learning,
+        bayesian inference,
+        statistics,
+        computational statistics,
+        linear algebra,
+        numerical linear algebra,
+        deep learning,
+        computer science, 
+        marketing
+    '>
+    <meta name='author' content='Glenn Fung'>
+
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+    <link href='/css/toc.css' rel='stylesheet'>
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+    
+
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+</head>
+<body>
+
+<div class='content'>
+    <div class='navigation'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/about'>About</a></li>
+        <li><a href='/blog'>Blog</a></li>       
+        <li><a href='/research'>Research</a></li>
+        <li><a href='/teaching'>Teaching</a></li>
+        <li><a href='/photos'>Photos</a></li>
+    </ul>
+</div>
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>Using pairwise comparisons</h1>
+            <h4>Pairwise comparisons in social sciences, clinical studies, and machine learning</h4>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>08 June 2025</p>
+                </div>
+                <div class='byline'>
+                    <h3>Author</h3>
+                    <p>
+                        <a href="/">Glenn</a>
+                    </p>
+                </div>
+                
+                <div class='byline'>
+                    <h3>Tags</h3>
+                    <p>
+                        
+                        <a href="/tags/Statistics">#Statistics</a>
+                        
+                        <a href="/tags/ML">#ML</a>
+                        
+                        <a href="/tags/DL">#DL</a>
+                        
+                    </p>
+                </div>
+                
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+
+    
+
+<div class='wrap article'>
+        <p>In <a href="/blog/2023/12/12/cj/">this blog post</a> we introduced pairwise comparisons with the Bradley-Terry model and the Bayesian Spatial Bradley-Terry model. On this page, we introduce systematically the use of pairwise comparisons in social sciences, clinical studies, and machine learning.</p>
+
+<h2 id="machine-learning">Machine Learning</h2>
+
+<p>In machine learning, pairwise objectives unify modern ranking, retrieval and representation methods by directly comparing examples to shape a model’s output space. <strong>Ranking models</strong> such as RankNet and LambdaMART enforce that if item $i$ should outrank $j$, then $f(x_i)&gt;f(x_j)$. For example, the <strong>hinge loss</strong></p>
+
+\[\max\bigl(0,\,m - f(x_i) + f(x_j)\bigr)\]
+
+<p>with margin $m&gt;0$, and the <strong>logistic loss</strong></p>
+
+\[-\bigl[y_{ij}\log\sigma(f(x_i)-f(x_j)) + (1-y_{ij})\log(1-\sigma(f(x_i)-f(x_j)))\bigr],\]
+
+<p>where $y_{ij}=1$ if $i$ should rank above $j$ and $\sigma$ is the sigmoid, both drive superior performance in information retrieval and recommendation. LambdaMART augments these by computing lambdas—pairwise swap gradients weighted by metrics like NDCG—to optimize listwise objectives directly.</p>
+
+<p><strong>Contrastive and self-supervised frameworks</strong> (e.g., SimCLR, MoCo) learn representations by maximizing agreement between positives—two augmentations of the same instance—and repelling negatives. They use the <strong>InfoNCE loss</strong></p>
+
+\[-\frac{1}{N}\sum_{i=1}^N \log\frac{\exp\!\bigl(\mathrm{sim}(z_i,z_i^+)/\tau\bigr)}{\sum_{k\neq i}\exp\!\bigl(\mathrm{sim}(z_i,z_k)/\tau\bigr)},\]
+
+<p>where $\mathrm{sim}(u,v)=u^\top v/|u||v|$ and $\tau$ is a temperature. MoCo stabilizes training by maintaining a momentum-updated encoder and a large FIFO queue of negatives, while hard-negative mining and learnable weighting schemes accelerate convergence and improve discriminability.</p>
+
+<p><strong>Triplet and hierarchical metric learning</strong> extend pairwise comparisons to three examples—anchor $a$, positive $p$, and negative $n$—via</p>
+
+\[\max\bigl(0,\;d\bigl(f(a),f(p)\bigr)-d\bigl(f(a),f(n)\bigr)+m\bigr),\]
+
+<p>where $d$ is typically squared Euclidean or cosine distance. Cutting-edge variants sample negatives at multiple granularity levels, enforcing distinct margins for coarse and fine clusters, and adaptively schedule the margin $m$ during training based on batch statistics to balance intra-class compactness against inter-class separation.</p>
+
+<p>By integrating ranking losses, contrastive objectives and higher-order triplet constraints—and by carefully designing sampling strategies, temperature scaling, margin dynamics and encoder architectures—state-of-the-art systems converge faster and yield representations that robustly generalize across downstream tasks.</p>
+
+<h2 id="social-sciences">Social Sciences</h2>
+
+<p>Pairwise comparisons are fundamental in the social sciences for eliciting latent preferences—judges choose between stimuli pairs (e.g. policy options, products or artworks) and probabilistic models such as Bradley–Terry or Thurstone’s Case V yield robust ordinal data from which continuous utility or ability parameters are inferred. In the classic Bradley–Terry model each item $i$ has latent ability $\theta_i$, so</p>
+
+\[\Pr(i \succ j) = \frac{e^{\theta_i}}{e^{\theta_i} + e^{\theta_j}},\]
+
+<p>and one estimates ${\theta_k}$ by maximizing</p>
+
+\[\ell = \sum_{i&lt;j}\bigl[n_{ij}\ln \Pr(i\succ j) + n_{ji}\ln \Pr(j\succ i)\bigr]\]
+
+<p>subject to $\sum_k\theta_k=0$.</p>
+
+<p>Recent extensions push beyond unidimensional scales by</p>
+
+<ul>
+  <li>introducing judge-specific deviations $\delta_{k,r}\sim N(0,\sigma^2)$ so that $\theta_{k,r}=\theta_k+\delta_{k,r}$ for partial pooling (multilevel BT),</li>
+  <li>
+    <p>treating each utility $u_i\sim N(\mu_i,1)$ to derive</p>
+
+\[\Pr(i\succ j)=\Phi\!\bigl((\mu_i-\mu_j)/\sqrt2\bigr)\]
+
+    <p>and allowing correlated judgments (Thurstone Case V),</p>
+  </li>
+  <li>constructing network‐based graphs of pairwise wins to uncover community structure and influence patterns, and</li>
+  <li>
+    <p>employing adaptive designs that at each step pick the pair $(i,j)$ maximizing the Fisher information</p>
+
+\[I_{ij} = \frac{e^{\theta_i + \theta_j}}{\bigl(e^{\theta_i} + e^{\theta_j}\bigr)^2},\]
+
+    <p>thereby minimizing the posterior variance of ${\theta_k}$.</p>
+  </li>
+</ul>
+
+<h2 id="clinical-studies">Clinical Studies</h2>
+
+<p>Head-to-head trials—randomizing subjects to treatments A or B and often employing crossover or sequential designs—remain the gold standard for assessing treatment effects and diagnostic accuracy. For binary endpoints (e.g. response vs. failure), one directly estimates $\pi = \Pr(A\text{ better than }B) = \Pr(X_A=1,\,X_B=0)$ and tests symmetry with McNemar’s statistic \(\chi^2 = \frac{(n_{10}-n_{01})^2}{n_{10}+n_{01}}\sim\chi^2_1\). For continuous outcomes (e.g. symptom scores), let $d_i = Y_{A,i}-Y_{B,i}$ and compute $\;t = \frac{\bar d}{s_d/\sqrt n}$, where $s_d^2 = \frac{1}{n-1}\sum_i(d_i-\bar d)^2$.</p>
+
+<p>Beyond these classical designs, modern trials integrate adaptive and network-meta techniques. In a Bayesian adaptive design one assumes $\delta\sim N(0,\tau^2)$, updates its posterior after each cohort, and stops when $\Pr(\delta&gt;0\mid\mathrm{data})&gt;0.975$. Network meta-analysis unifies direct and indirect log-odds ratios $d_{ij}$ by estimating effects ${\Delta_k}$ that minimize $\sum_{(i,j)\in\mathcal E}w_{ij}(\Delta_i-\Delta_j-d_{ij})^2$ subject to consistency loops. Sequential group-sequential methods employ an α-spending function $\alpha(t)$ (e.g. O’Brien–Fleming) to set interim $Z$-boundaries while preserving the overall type I error. Finally, utility-elicitation frameworks ask patients to compare health states pairwise, deriving QALY weights under probabilistic models. These integrated approaches extend the reach of head-to-head trials when direct comparisons are sparse, improving evidence-based decision-making.</p>
+
+    </div>
+
+    <div id='bibliography'>
+        <div class='wrap'>
+            <ol class="bibliography"></ol>
+
+        </div>
+        <div class="wrap">
+            <section id="social-icons">
+  <ul class="social-list">
+    <li>
+      <a href="https://github.com/glenntfung" aria-label="GitHub" target="_blank">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://x.com/glenntfung" aria-label="X" target="_blank">
+        <i class="fab fa-x-twitter fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/glennfung/" aria-label="LinkedIn" target="_blank">
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:glenntfung@gmail.com" aria-label="Email" target="_blank">
+        <i class="fas fa-envelope fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.kaggle.com/glennfung1" aria-label="Kaggle" target="_blank">
+        <i class="fab fa-kaggle fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://medium.com/@glenntfung" aria-label="Medium" target="_blank">
+        <i class="fab fa-medium fa-lg"></i>
+      </a>
+    </li>
+    <li>
+      <a href="/feed.xml" aria-label="RSS Feed" target="_blank">
+        <i class="fas fa-rss fa-lg"></i>
+      </a>
+    </li>
+  </ul>
+
+  <br>
+</section>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

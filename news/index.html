@@ -1,0 +1,35 @@
+---
+layout: pages
+title: All News
+permalink: /news/
+pagination:
+  enabled: true
+  collection: news
+  per_page: 16
+  permalink: /news/page/:num/
+---
+<head>
+  <title>Glenn Fung - News</title>
+  <meta charset='UTF-8'>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <link rel='shortcut icon' href='/assets/img/icon.png' />
+  </head>
+<div id="news" class="section">
+  {% assign sorted_news = site.news | sort: "date" | reverse %}
+  {% for item in sorted_news %}
+    <div class="news-row">
+      <p class="news-title">
+        <a href="{{ item.url | relative_url }}">
+          {{ item.title }}
+        </a>
+        <span style="float:right;" class="news-date">{{ item.date | date_to_long_string }}</span>
+      </p>
+    </div>
+    {% if item.subtitle %}
+      <p class="news-subtitle">
+        {{ item.subtitle }}
+      </p>
+    {% endif %}
+    <span class="hidden">{{ forloop.index }}</span>
+  {% endfor %}
+</div>

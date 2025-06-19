@@ -1,0 +1,14 @@
+{%- comment -%}
+/_includes/bib.html
+Usage: in your layout, after {{ content }} do:
+  {% include bib.html file=page.scholar.bibliography %}
+This will:
+- Use `include.file` if set,
+- Otherwise fall back to `site.scholar.bibliography`,
+- Remove the ".bib" extension,
+- And call the plugin without wrapping the filename in extra quotes.
+{%- endcomment -%}
+
+{%- assign bibsource = include.file | default: site.scholar.bibliography -%}
+{%- assign bibname   = bibsource | remove: ".bib"                 -%}
+{% bibliography --cited --file {{ bibname }} %}

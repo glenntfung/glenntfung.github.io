@@ -1,0 +1,48 @@
+permalink: /blog/:year/:month/:day/:title/
+environment: prod
+url: "https://glenntfung.github.io"  # Sitemap base URL.
+baseurl: ""
+plugins:
+  - jekyll-scholar
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-katex
+  - jekyll-paginate-v2
+  - jemoji
+  - jekyll-archives
+  - jekyll-toc
+katex:
+  js_path: "assets"  # Path used to search for katex.min.js
+  rendering_options:
+    # Default KaTeX rendering options. See https://github.com/Khan/KaTeX#rendering-options
+    throw_error: false      # throwOnError - set to false if you want rendering to output error as text rather than a build error
+    error_color: "#cc0000"  # errorColor
+
+highlighter: rouge
+rouge:
+  line_numbers: true
+
+scholar:
+  style: apa
+  locale: en
+  source: _bibliography
+  bibliography: "references.bib"
+
+# Tell Jekyll about a “news” collection
+collections:
+  news:
+    output: true
+    permalink: /news/:title/
+
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Configure jekyll-archives so it makes a page for each tag
+jekyll-archives:
+  enabled:
+    - tags
+  layouts:
+    tag: archive
+  permalinks:
+    tag: /tags/:name/

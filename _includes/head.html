@@ -1,0 +1,51 @@
+
+<meta name='description' content="Glenn's website.">
+    <meta name='keywords' content='{{ page.keywords }}'>
+    <meta name='author' content='Glenn Fung'>
+
+    <meta name='description' content="Glenn's website.">
+    <!-- A decent browser will parse this fine:
+         https://webmasters.stackexchange.com/questions/92744. -->
+    <meta name='keywords' content='
+        machine learning,
+        statistical machine learning,
+        bayesian inference,
+        statistics,
+        computational statistics,
+        linear algebra,
+        numerical linear algebra,
+        deep learning,
+        computer science, 
+        marketing
+    '>
+    <meta name='author' content='Glenn Fung'>
+
+    <link rel='shortcut icon' href='/assets/img/icon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+    <link href='/css/toc.css' rel='stylesheet'>
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+    {% if page.toc and page.toc.sidebar %}
+  <!-- Sidebar Table of Contents -->
+  <link
+    href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"
+    rel="stylesheet"
+  />
+{% endif %}
+
+
+{% include mathjax.html %}
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+

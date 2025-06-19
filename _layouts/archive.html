@@ -1,0 +1,21 @@
+---
+layout: pages
+---
+<head>
+  <title>Archive</title>
+  <meta charset='UTF-8'>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <link rel='shortcut icon' href='/assets/img/icon.png' />
+  {% include head.html %}
+  {% include mathjax.html %}
+</head>
+<body>
+<ul>
+  {% for post in page.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <span>&mdash; {{ post.date | date: "%b %-d, %Y" }}</span>
+    </li>
+  {% endfor %}
+</ul>
+</body>
