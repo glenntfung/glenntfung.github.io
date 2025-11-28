@@ -73,46 +73,55 @@ export const ContactOrbiting = ({ delay = 0 }: ContactOrbitingProps) => {
           </p>
         </div>
 
-        {/* Social Links */}
+        {/* Orbiting Circles */}
         <motion.div
           variants={orbitingVariants}
-          className="w-full flex items-center justify-center pt-8"
+          className="relative overflow-hidden h-[500px] w-full flex items-center justify-center"
         >
-          <div className="flex gap-4">
-            <Link
-              href={DATA.contact.social.email.url}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
-              title="Send Email"
-            >
-              <Mail className="size-6 text-foreground" />
-            </Link>
-            <Link
-              href={DATA.contact.social.LinkedIn.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
-              title="Connect on LinkedIn"
-            >
-              <Linkedin className="size-6 text-foreground" />
-            </Link>
-            <Link
-              href={DATA.contact.social.GitHub.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
-              title="View GitHub"
-            >
-              <Github className="size-6 text-foreground" />
-            </Link>
-            <Link
-              href={DATA.contact.social.Calendar.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
-              title="Book a Chat"
-            >
-              <CalendarIcon className="size-6 text-foreground" />
-            </Link>
+          {/* Inner orbit - Email circles (no icons) */}
+          <OrbitingCircles radius={80} duration={0} />
+          
+          {/* Outer orbit - Social circles (no icons) */}
+          <OrbitingCircles radius={140} reverse duration={0} />
+
+          {/* Center content - clickable links */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex gap-4">
+              <Link
+                href={DATA.contact.social.email.url}
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
+                title="Send Email"
+              >
+                <Mail className="size-6 text-foreground" />
+              </Link>
+              <Link
+                href={DATA.contact.social.LinkedIn.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
+                title="Connect on LinkedIn"
+              >
+                <Linkedin className="size-6 text-foreground" />
+              </Link>
+              <Link
+                href={DATA.contact.social.GitHub.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
+                title="View GitHub"
+              >
+                <Github className="size-6 text-foreground" />
+              </Link>
+              <Link
+                href={DATA.contact.social.Calendar.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-background border shadow-lg hover:scale-110 transition-transform duration-200"
+                title="Book a Chat"
+              >
+                <CalendarIcon className="size-6 text-foreground" />
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>
