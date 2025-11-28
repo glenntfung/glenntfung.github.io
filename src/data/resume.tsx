@@ -59,7 +59,9 @@ export const DATA = {
       logoUrl: "/assets/img/logos/kellogg.png",
       start: "2025",
       end: "Present",
-      bullets: [],
+      bullets: [
+        "Working with Professor Artem Timoshenko",
+      ],
     },
     {
       company: "The University of Chicago Booth School of Business",
@@ -70,7 +72,9 @@ export const DATA = {
       logoUrl: "/assets/img/logos/booth.jpg",
       start: "2025",
       end: "2025",
-      bullets: [],
+      bullets: [
+        "Worked with Professor Dacheng Xiu for applications of LLMs",
+      ],
     },
     {
       company: "National University of Singapore Business School",
@@ -81,7 +85,9 @@ export const DATA = {
       logoUrl: "/assets/img/logos/nusbs.jpeg",
       start: "2024",
       end: "2025",
-      bullets: [],
+      bullets: [
+        "Worked with Professor Yuting Zhu for sales and applications of LLMs",
+      ],
     },
      {
       company: "Jinan University – University of Birmingham Joint Institute",
@@ -92,7 +98,9 @@ export const DATA = {
       logoUrl: "/assets/img/logos/jbji.png",
       start: "2023",
       end: "2024",
-      bullets: [],
+      bullets: [
+        "Worked with Professor David Ong for behavioral economics",
+      ],
     },
      {
       company: "The University of Birmingham School of Mathematics",
@@ -103,7 +111,9 @@ export const DATA = {
       logoUrl: "/assets/img/logos/birmingham.svg.png",
       start: "2023",
       end: "2023",
-      bullets: [],
+      bullets: [
+        "Worked with Professor Rowland Seymour on Bayesian computations",
+      ],
     },
     {
       company: "Jinan University – University of Birmingham Joint Institute",
