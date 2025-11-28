@@ -51,7 +51,7 @@ export const DATA = {
 
   technicalExperience: [
     {
-      company: "Northwestern University Kellogg School of Management",
+      company: "Northwestern Kellogg",
       href: "https://www.kellogg.northwestern.edu",
       badges: [],
       location: "Evanston, IL",
@@ -64,7 +64,7 @@ export const DATA = {
       ],
     },
     {
-      company: "The University of Chicago Booth School of Business",
+      company: "UChicago Booth",
       badges: [],
       href: "https://www.chicagobooth.edu",
       location: "Chicago, IL",
@@ -77,7 +77,7 @@ export const DATA = {
       ],
     },
     {
-      company: "National University of Singapore Business School",
+      company: "NUS Business School",
       href: "https://bschool.nus.edu.sg",
       badges: [],
       location: "Singapore",
@@ -90,7 +90,7 @@ export const DATA = {
       ],
     },
      {
-      company: "Jinan University – University of Birmingham Joint Institute",
+      company: "Jinan – Birmingham Joint Institute",
       href: "",
       badges: [],
       location: "Guangzhou, China",
@@ -103,7 +103,7 @@ export const DATA = {
       ],
     },
      {
-      company: "The University of Birmingham School of Mathematics",
+      company: "University of Birmingham School of Mathematics",
       href: "https://www.birmingham.ac.uk/schools/mathematics",
       badges: [],
       location: "Birmingham, UK",
@@ -116,7 +116,7 @@ export const DATA = {
       ],
     },
     {
-      company: "Jinan University – University of Birmingham Joint Institute",
+      company: "Jinan – Birmingham Joint Institute",
       href: "",
       badges: [],
       location: "Guangzhou, China",
