@@ -69,10 +69,10 @@ export default function Page() {
               My research blends methodological innovation—benchmarking and calibrating foundation models, designing deep structural causal networks for multi-modal experiments, and developing game-theoretic and RL approaches—with practical applications in marketing mix allocation and operational planning. I’ve worked on projects involving facial emotion analysis, person re-identification, survey-based Bayesian computations, financial econometrics, and survey statistical modeling. Building on this foundation, I plan to pursue a Ph.D. in marketing or operations where I can further advance AI-driven decision science and bridge cutting-edge machine-learning models with real-world strategy.
             </p>
             <p>
-              <a href="/assets/pdf/CV.pdf" className="underline hover:text-primary">My Curriculum Vitae.</a>
+              <a href="/assets/pdf/CV.pdf" className="text-blue-600 hover:underline">My Curriculum Vitae.</a>
             </p>
             <p>
-              Emails are the best way to reach me. I am also available for a chat via Zoom or in person if you are in the Greater Chicago area, <a href="https://cal.com/glenn-fung-mqul3k/default" className="underline hover:text-primary">you can pick a timeslot here to chat</a>. You can find my contact information below or at the bottom of every page. Please feel free to reach out!
+              Emails are the best way to reach me. I am also available for a chat via Zoom or in person if you are in the Greater Chicago area, <a href="https://cal.com/glenn-fung-mqul3k/default" className="text-blue-600 hover:underline">you can pick a timeslot here to chat</a>. You can find my contact information below or at the bottom of every page. Please feel free to reach out!
             </p>
             <div className="font-mono text-xs md:text-sm">
               <div>glenntfung[at]gmail[dot]com</div>

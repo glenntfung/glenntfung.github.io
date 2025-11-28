@@ -49,6 +49,7 @@ export const TimelineItem = ({
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest("a")) return;
     if (description || bullets) {
       e.preventDefault();
       setIsExpanded(!isExpanded);
@@ -139,7 +140,7 @@ export const TimelineItem = ({
                     {bullets.map((bullet, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="size-1.5 rounded-full bg-muted-foreground mt-2 flex-shrink-0" />
-                        <span className="leading-relaxed" dangerouslySetInnerHTML={{ __html: bullet }} />
+                        <span className="leading-relaxed [&_a]:text-blue-600 [&_a]:hover:underline" dangerouslySetInnerHTML={{ __html: bullet }} />
                       </li>
                     ))}
                   </ul>
