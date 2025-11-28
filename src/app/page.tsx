@@ -122,6 +122,7 @@ export default function Page() {
                 altText={education.school}
                 title={education.school}
                 subtitle={education.degree}
+                href={education.href}
                 period={education.start === education.end ? education.start : `${education.start} - ${education.end}`}
                   isLast={id === DATA.education.length - 1}
               />

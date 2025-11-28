@@ -56,7 +56,7 @@ export const TimelineItem = ({
     }
   };
 
-  const content = (
+  return (
     <div className="relative pl-6 sm:pl-8 pb-8 sm:pb-12 last:pb-0">
       {/* Timeline line */}
       {!isLast && (
@@ -65,14 +65,27 @@ export const TimelineItem = ({
       
       {/* Timeline dot with logo */}
       <div className="absolute left-0 top-0 w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 border-background shadow-lg bg-background flex items-center justify-center">
-        <Avatar className="size-6 sm:size-10 border">
-          <AvatarImage
-            src={logoUrl}
-            alt={altText}
-            className="object-contain"
-          />
-          <AvatarFallback className="text-xs">{altText[0]}</AvatarFallback>
-        </Avatar>
+        {href && href !== "#" ? (
+          <Link href={href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
+            <Avatar className="size-6 sm:size-10 border">
+              <AvatarImage
+                src={logoUrl}
+                alt={altText}
+                className="object-contain"
+              />
+              <AvatarFallback className="text-xs">{altText[0]}</AvatarFallback>
+            </Avatar>
+          </Link>
+        ) : (
+          <Avatar className="size-6 sm:size-10 border">
+            <AvatarImage
+              src={logoUrl}
+              alt={altText}
+              className="object-contain"
+            />
+            <AvatarFallback className="text-xs">{altText[0]}</AvatarFallback>
+          </Avatar>
+        )}
       </div>
 
       {/* Content */}
@@ -82,7 +95,13 @@ export const TimelineItem = ({
           <div className="space-y-3 sm:space-y-0 sm:flex sm:items-start sm:justify-between sm:gap-4 mb-3">
             <div className="flex-1">
               <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 leading-tight">
-                {title}
+                {href && href !== "#" ? (
+                  <Link href={href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {title}
+                  </Link>
+                ) : (
+                  title
+                )}
               </h3>
               {subtitle && (
                 <p className="text-muted-foreground text-sm mt-1 leading-relaxed whitespace-pre-line">
@@ -156,16 +175,6 @@ export const TimelineItem = ({
       </div>
     </div>
   );
-
-  if (href && href !== "#") {
-    return (
-      <Link href={href} target="_blank" rel="noopener noreferrer">
-        {content}
-      </Link>
-    );
-  }
-
-  return content;
 };
 
 export const ResumeCard = ({

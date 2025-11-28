@@ -91,7 +91,7 @@ export const DATA = {
     },
      {
       company: "Jinan – Birmingham Joint Institute",
-      href: "",
+      href: "https://www.birmingham.ac.uk/about/college-of-engineering-and-physical-sciences/mathematics/undergraduate/jinan-birmingham",
       badges: [],
       location: "Guangzhou, China",
       title: "Research Assistant",
@@ -117,7 +117,7 @@ export const DATA = {
     },
     {
       company: "Jinan – Birmingham Joint Institute",
-      href: "",
+      href: "https://www.birmingham.ac.uk/about/college-of-engineering-and-physical-sciences/mathematics/undergraduate/jinan-birmingham",
       badges: [],
       location: "Guangzhou, China",
       title: "Teaching Assistant",
@@ -157,7 +157,7 @@ export const DATA = {
     },
     {
       school: "Jinan University",
-      href: "https://www.jnu.edu.cn",
+      href: "https://english.jnu.edu.cn",
       degree: "B.A., Economics",
       logoUrl: "/assets/img/logos/jinan.png",
       start: "2020",
