@@ -38,7 +38,7 @@ export const DATA = {
         name: "Send Email",
         url: "mailto:glenntfung@gmail.com",
         icon: Icons.email,
-        navbar: false,
+        navbar: true,
       },
       Calendar: {
         name: "Book a Chat",
