@@ -1,0 +1,4 @@
+type = "text"
+title = "Some fonts in LaTeX"
+description = "Times New Roman, Palatino, Garamond, Erewhon, Georgia"
+source = "blog/fonts.md"

@@ -1,0 +1,4 @@
+type = "text"
+title = "Learn LaTeX Quickly"
+description = "A quick guide to LaTeX"
+source = "blog/tex.md"

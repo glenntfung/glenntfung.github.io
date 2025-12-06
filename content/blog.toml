@@ -1,0 +1,38 @@
+type = "card"
+title = "Blog"
+
+[[items]]
+title = "When Linear Models Outshine the Fancy Stuff"
+subtitle = "2025-08-07"
+content = "A reminder that simple ≠ weak."
+link = "/blog-linear"
+
+[[items]]
+title = "Neural Networks, CNNs, RNNs, Transformers, and Beyond"
+subtitle = "2025-05-21"
+content = "A (long) introduction to neural nets, and popular options of CNNs, RNNs, Transformers, and other modern machine learning models"
+link = "/blog-nn"
+
+[[items]]
+title = "Applying for Predoctoral Positions in Social Sciences and Business"
+subtitle = "2025-03-01"
+content = "A brief review of my predoc applications during AY 2024–2025"
+link = "/blog-predoc"
+
+[[items]]
+title = "Some fonts in LaTeX"
+subtitle = "2024-05-16"
+content = "Times New Roman, Palatino, Garamond, Erewhon, Georgia"
+link = "/blog-fonts"
+
+[[items]]
+title = "Comparative Judgment, Pairwise Comparison, and Bradley–Terry Model"
+subtitle = "2023-12-12"
+content = "Using pairwise comparison data to assess abilities"
+link = "/blog-cj"
+
+[[items]]
+title = "Learn LaTeX Quickly"
+subtitle = "2023-01-15"
+content = "A quick guide to LaTeX"
+link = "/blog-tex"

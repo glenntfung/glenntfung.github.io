@@ -1,0 +1,4 @@
+type = "text"
+title = "When Linear Models Outshine the Fancy Stuff"
+description = "A reminder that simple ≠ weak."
+source = "blog/linear.md"

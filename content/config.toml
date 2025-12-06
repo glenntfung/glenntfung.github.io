@@ -1,0 +1,101 @@
+[site]
+title = "Glenn Fung"
+description = "Empirical Research Fellow in Quantitative Marketing at Northwestern University Kellogg School of Management."
+favicon = "/icon.png"
+last_updated = "2025-03-01"
+
+[author]
+name = "Glenn Fung"
+title = "Empirical Research Fellow"
+institution = "Northwestern University Kellogg School of Management"
+avatar = "/me.jpg"
+
+[social]
+email = "glenntfung@gmail.com"
+email_work = "zirui.feng@kellogg.northwestern.edu"
+calendar = "https://cal.com/glenn-fung-mqul3k/default"
+github = "https://github.com/glenntfung"
+linkedin = "https://www.linkedin.com/in/glennfung/"
+
+[features]
+enable_likes = false
+enable_one_page_mode = false
+
+[[navigation]]
+title = "About"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "News"
+type = "page"
+target = "news"
+href = "/news"
+hidden = true
+
+[[navigation]]
+title = "Blog"
+type = "page"
+target = "blog"
+href = "/blog"
+
+[[navigation]]
+title = "Teaching"
+type = "page"
+target = "teaching"
+href = "/teaching"
+
+[[navigation]]
+title = "Misc"
+type = "page"
+target = "misc"
+href = "/misc"
+
+[[navigation]]
+title = "Blog - Comparative Judgment"
+type = "page"
+target = "blog-cj"
+href = "/blog-cj"
+hidden = true
+
+[[navigation]]
+title = "Blog - Fonts"
+type = "page"
+target = "blog-fonts"
+href = "/blog-fonts"
+hidden = true
+
+[[navigation]]
+title = "Blog - Linear Models"
+type = "page"
+target = "blog-linear"
+href = "/blog-linear"
+hidden = true
+
+[[navigation]]
+title = "Blog - Neural Networks"
+type = "page"
+target = "blog-nn"
+href = "/blog-nn"
+hidden = true
+
+[[navigation]]
+title = "Blog - Predoc"
+type = "page"
+target = "blog-predoc"
+href = "/blog-predoc"
+hidden = true
+
+[[navigation]]
+title = "Blog - TeX"
+type = "page"
+target = "blog-tex"
+href = "/blog-tex"
+hidden = true
+
+[[navigation]]
+title = "CV"
+type = "page"
+target = "cv"
+href = "/cv"

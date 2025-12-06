@@ -1,0 +1,4 @@
+type = "text"
+title = "Comparative Judgment, Pairwise Comparison, and Bradley–Terry Model"
+description = "Using pairwise comparison data to assess abilities"
+source = "blog/cj.md"

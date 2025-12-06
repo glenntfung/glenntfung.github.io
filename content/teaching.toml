@@ -1,0 +1,17 @@
+type = "card"
+title = "Teaching"
+description = "Courses I have taught or assisted with."
+
+[[items]]
+title = "Introduction to Microeconomics"
+subtitle = "Teaching Assistant, Jinan – Birmingham Joint Institute"
+date = "2022"
+content = ""
+
+[[items]]
+title = "Intermediate Microeconomics"
+subtitle = "Teaching Assistant, Jinan – Birmingham Joint Institute"
+date = "2022"
+content = ""
+link = "/assets/pdf/returns-to-scale.pdf"
+link_text = "Course materials: returns-to-scale notes"

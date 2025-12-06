@@ -1,0 +1,4 @@
+type = "text"
+title = "Misc"
+description = "Notes, experiments, and other items."
+source = "misc.md"

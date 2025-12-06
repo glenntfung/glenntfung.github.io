@@ -1,0 +1,109 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface GitHubContributionsProps {
+  username: string;
+}
+
+export default function GitHubContributions({ username }: GitHubContributionsProps) {
+  const [days, setDays] = useState<ContributionDay[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const query = `
+          query($login: String!) {
+            user(login: $login) {
+              contributionsCollection {
+                contributionCalendar {
+                  weeks {
+                    contributionDays {
+                      date
+                      contributionCount
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `;
+        const res = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify({ query, variables: { login: username } }),
+        });
+        if (!res.ok) throw new Error("GitHub API error");
+        const data = await res.json();
+        const weeks = data.data?.user?.contributionsCollection?.contributionCalendar?.weeks || [];
+        const all: ContributionDay[] = [];
+        weeks.forEach((week: any) => week.contributionDays.forEach((d: any) => all.push(d)));
+        setDays(all.slice(-365));
+      } catch (e) {
+        setError("Unable to load contributions (set NEXT_PUBLIC_GITHUB_TOKEN for full data).");
+      }
+    };
+    fetchData();
+  }, [token, username]);
+
+  const colorFor = (count: number) => {
+    if (count === 0) return "#ebedf0";
+    if (count <= 3) return "#9be9a8";
+    if (count <= 6) return "#40c463";
+    if (count <= 9) return "#30a14e";
+    return "#216e39";
+  };
+
+  const weeks: ContributionDay[][] = [];
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7));
+  }
+
+  return (
+    <div className="border rounded-lg p-6 bg-card space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-primary">GitHub activity</h2>
+          <p className="text-sm text-neutral-500">Past year for @{username}</p>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-neutral-500">
+          <span>Less</span>
+          {["#ebedf0","#9be9a8","#40c463","#30a14e","#216e39"].map(c => (
+            <span key={c} className="w-3 h-3 rounded-sm" style={{ background: c }} />
+          ))}
+          <span>More</span>
+        </div>
+      </div>
+      {error ? (
+        <div className="text-sm text-red-500">{error}</div>
+      ) : (
+        <div className="overflow-x-auto">
+          <div className="flex gap-1 min-w-[640px]">
+            {weeks.map((week, i) => (
+              <div key={i} className="flex flex-col gap-1">
+                {week.map((day, j) => (
+                  <div
+                    key={j}
+                    className="w-3 h-3 rounded-sm"
+                    style={{ background: colorFor(day.contributionCount) }}
+                    title={`${day.date}: ${day.contributionCount} contributions`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
