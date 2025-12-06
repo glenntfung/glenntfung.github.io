@@ -7,7 +7,8 @@ import rehypeKatex from 'rehype-katex';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import { TextPageConfig } from '@/types/page';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { isValidElement, useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import GithubSlugger from 'github-slugger';
 
 interface TextPageProps {
@@ -41,15 +42,15 @@ export default function TextPage({ config, content, embedded = false }: TextPage
         return tree;
     }, [content]);
 
-    const extractText = (node: React.ReactNode): string => {
+    const extractText = (node: ReactNode): string => {
         if (typeof node === 'string' || typeof node === 'number') return String(node);
         if (Array.isArray(node)) return node.map(extractText).join(' ');
-        if (node && typeof node === 'object' && 'props' in (node as any)) {
-            return extractText((node as any).props.children);
+        if (isValidElement(node)) {
+            return extractText(node.props.children);
         }
         return '';
     };
-    const slugify = (children: React.ReactNode): string => slugifyText(extractText(children));
+    const slugify = (children: ReactNode): string => slugifyText(extractText(children));
 
     const [expanded, setExpanded] = useState<Record<string, boolean>>(() =>
         toc.reduce((acc, item) => ({ ...acc, [item.id]: false }), {})

@@ -2,12 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
+import type { FeatureCollection } from "geojson";
 import geoData from "@/data/world-countries.json";
 
 const visitedCountries = [
   "CHN", "TWN", "USA", "SGP", "MYS", "THA", "ARE", "AUS", "NZL", "TUR", "RUS",
   "GBR", "JPN", "KOR", "FRA", "ITA", "CHE", "VAT", "CAN"
 ];
+
+const geographyData = geoData as FeatureCollection;
 
 export default function WorldMap() {
   const [isClient, setIsClient] = useState(false);
@@ -45,7 +48,7 @@ export default function WorldMap() {
             center={position.coordinates}
             onMoveEnd={({ coordinates, zoom }) => setPosition({ coordinates, zoom })}
           >
-            <Geographies geography={geoData as any}>
+            <Geographies geography={geographyData}>
               {({ geographies }) =>
                 geographies.map((geo) => {
                   const code = geo.id;

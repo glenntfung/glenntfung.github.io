@@ -6,7 +6,7 @@ export default function Random() {
       <h2 className="text-xl font-semibold text-primary">Random</h2>
       <div className="space-y-3 text-sm text-neutral-700 dark:text-neutral-400">
         <p>
-          I grew up in Guangzhou, a vibrant subtropical city in southern China near Hong Kong (if you look at the world map, you'll find it on the Tropic of Cancer), known for its amazing Cantonese cuisine (yes, dim sum!). These days, I live in the Greater Chicago area—a wonderful place in the U.S., if you don’t mind the occasional gust of strong wind.
+          I grew up in Guangzhou, a vibrant subtropical city in southern China near Hong Kong (if you look at the world map, you&apos;ll find it on the Tropic of Cancer), known for its amazing Cantonese cuisine (yes, dim sum!). These days, I live in the Greater Chicago area—a wonderful place in the U.S., if you don’t mind the occasional gust of strong wind.
         </p>
         <p>
           Before majoring in math, I was deeply interested in history—a passion I still hold onto through reading. More recently, I’ve become fascinated by physics beyond my formal studies. Physical models are just so powerful and elegant!

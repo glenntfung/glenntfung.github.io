@@ -7,6 +7,22 @@ interface ContributionDay {
   contributionCount: number;
 }
 
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
+interface ContributionResponse {
+  data?: {
+    user?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          weeks?: ContributionWeek[];
+        };
+      };
+    };
+  };
+}
+
 interface GitHubContributionsProps {
   username: string;
 }
@@ -44,12 +60,12 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
           body: JSON.stringify({ query, variables: { login: username } }),
         });
         if (!res.ok) throw new Error("GitHub API error");
-        const data = await res.json();
-        const weeks = data.data?.user?.contributionsCollection?.contributionCalendar?.weeks || [];
+        const data: ContributionResponse = await res.json();
+        const weeks = data.data?.user?.contributionsCollection?.contributionCalendar?.weeks ?? [];
         const all: ContributionDay[] = [];
-        weeks.forEach((week: any) => week.contributionDays.forEach((d: any) => all.push(d)));
+        weeks.forEach((week) => week.contributionDays.forEach((day) => all.push(day)));
         setDays(all.slice(-365));
-      } catch (e) {
+      } catch {
         setError("Unable to load contributions (set NEXT_PUBLIC_GITHUB_TOKEN for full data).");
       }
     };
