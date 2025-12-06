@@ -17,6 +17,7 @@ export interface SiteConfig {
     };
     social: {
         email?: string;
+        calendar?: string;
         location?: string;
         location_url?: string;
         location_details?: string[];

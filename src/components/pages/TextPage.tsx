@@ -9,6 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import { TextPageConfig } from '@/types/page';
 import { isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import type { Pluggable, PluggableList } from 'unified';
 import GithubSlugger from 'github-slugger';
 
 interface TextPageProps {
@@ -19,6 +20,11 @@ interface TextPageProps {
 
 export default function TextPage({ config, content, embedded = false }: TextPageProps) {
     const slugifyText = (text: string) => new GithubSlugger().slug(text);
+    const rehypePlugins: PluggableList = [
+        rehypeRaw as unknown as Pluggable,
+        rehypeKatex as unknown as Pluggable,
+        rehypeHighlight as unknown as Pluggable
+    ];
 
     const toc = useMemo(() => {
         const raw = content
@@ -45,8 +51,8 @@ export default function TextPage({ config, content, embedded = false }: TextPage
     const extractText = (node: ReactNode): string => {
         if (typeof node === 'string' || typeof node === 'number') return String(node);
         if (Array.isArray(node)) return node.map(extractText).join(' ');
-        if (isValidElement(node)) {
-            return extractText(node.props.children);
+        if (isValidElement<{ children?: ReactNode }>(node)) {
+            return extractText(node.props.children ?? '');
         }
         return '';
     };
@@ -154,7 +160,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                     <div className="markdown-body text-neutral-700 dark:text-neutral-600 leading-relaxed">
                         <ReactMarkdown
                             remarkPlugins={[remarkMath]}
-                            rehypePlugins={[rehypeRaw, rehypeKatex, rehypeHighlight]}
+                            rehypePlugins={rehypePlugins}
                             components={{
                                 h1: ({ children }) => <h1 className="text-3xl font-serif font-bold text-primary mt-8 mb-4">{children}</h1>,
                                 h2: ({ children }) => {
