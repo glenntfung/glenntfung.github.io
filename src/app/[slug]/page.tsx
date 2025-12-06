@@ -16,8 +16,9 @@ import { Metadata } from 'next';
 
 export function generateStaticParams() {
     const config = getConfig();
+    const dedicatedRoutes = new Set(['about', 'blog', 'misc']);
     return config.navigation
-        .filter(nav => nav.type === 'page' && nav.target !== 'about') // 'about' is handled by root page
+        .filter(nav => nav.type === 'page' && !dedicatedRoutes.has(nav.target)) // handled by dedicated routes
         .map(nav => ({
             slug: nav.target,
         }));
