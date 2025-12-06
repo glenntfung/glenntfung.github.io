@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    optimizeCss: false,
+  },
   /* config options here */
   webpack: (config) => {
     config.module.rules.push({
