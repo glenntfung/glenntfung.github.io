@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "bibtex-parse-js": "^0.0.24",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "^12.23.25",
     "github-slugger": "^2.0.0",
     "highlight.js": "^11.11.1",
     "katex": "^0.16.25",
