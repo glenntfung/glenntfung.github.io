@@ -14,18 +14,26 @@ import {
 
 import { Metadata } from 'next';
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
     const config = getConfig();
     const dedicatedRoutes = new Set(['about', 'blog', 'misc']);
-    return config.navigation
+    const navSlugs = config.navigation
         .filter(nav => nav.type === 'page' && !dedicatedRoutes.has(nav.target)) // handled by dedicated routes
         .map(nav => ({
             slug: nav.target,
         }));
+
+    // Ensure /404 route resolves to the global not-found page during export/dev
+    return [...navSlugs, { slug: '404' }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
+    if (slug === '404') {
+        return {};
+    }
     const pageConfig = getPageConfig(slug) as BasePageConfig | null;
 
     if (!pageConfig) {
@@ -40,6 +48,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
+    if (slug === '404') {
+        notFound();
+    }
     const pageConfig = getPageConfig(slug) as BasePageConfig | null;
 
     if (!pageConfig) {
