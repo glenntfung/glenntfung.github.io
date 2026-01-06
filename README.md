@@ -1,4 +1,4 @@
-## Glenn Fung — Personal Site
+## Personal Site
 
 This repo hosts my personal site. It started from the excellent [PRISM](https://github.com/xyjoey/PRISM) template.
 
