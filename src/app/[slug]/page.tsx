@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
-import { getPageConfig, getMarkdownContent, getBibtexContent } from '@/lib/content';
+import { getPageConfig, getMarkdownContent, getBibtexContent, getTomlContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
+import News, { NewsItem } from '@/components/home/News';
+import PageMotion from '@/components/ui/PageMotion';
 import {
     BasePageConfig,
     PublicationPageConfig,
@@ -58,17 +60,22 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {pageConfig.type === 'publication' && (
-                <PublicationPage config={pageConfig as PublicationPageConfig} />
-            )}
-            {pageConfig.type === 'text' && (
-                <TextPageWrapper config={pageConfig as TextPageConfig} />
-            )}
-            {pageConfig.type === 'card' && (
-                <CardPage config={pageConfig as CardPageConfig} />
-            )}
-        </div>
+        <PageMotion className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="space-y-16">
+                {pageConfig.type === 'publication' && (
+                    <PublicationPage config={pageConfig as PublicationPageConfig} />
+                )}
+                {pageConfig.type === 'text' && slug !== 'news' && (
+                    <TextPageWrapper config={pageConfig as TextPageConfig} />
+                )}
+                {pageConfig.type === 'card' && (
+                    <CardPage config={pageConfig as CardPageConfig} />
+                )}
+                {(pageConfig.type === 'news' || slug === 'news') && (
+                    <NewsPage config={pageConfig} />
+                )}
+            </div>
+        </PageMotion>
     );
 }
 
@@ -81,4 +88,10 @@ function PublicationPage({ config }: { config: PublicationPageConfig }) {
 function TextPageWrapper({ config }: { config: TextPageConfig }) {
     const content = getMarkdownContent(config.source);
     return <TextPage config={config} content={content} />;
+}
+
+function NewsPage({ config }: { config: BasePageConfig }) {
+    const newsData = getTomlContent<{ news: NewsItem[] }>('news.toml');
+    const items = newsData?.news || [];
+    return <News items={items} title={config.title} />;
 }

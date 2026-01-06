@@ -1,17 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import {
     EnvelopeIcon,
     AcademicCapIcon,
-    HeartIcon,
     MapPinIcon,
-    CalendarDaysIcon
+    CalendarDaysIcon,
+    DocumentTextIcon
 } from '@heroicons/react/24/outline';
 import { MapPinIcon as MapPinSolidIcon } from '@heroicons/react/24/solid';
-import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { Github, Linkedin, Pin } from 'lucide-react';
 import { SiteConfig } from '@/lib/config';
 
@@ -30,49 +29,27 @@ const OrcidIcon = ({ className }: { className?: string }) => (
 interface ProfileProps {
     author: SiteConfig['author'];
     social: SiteConfig['social'];
-    features: SiteConfig['features'];
-    researchInterests?: string[];
 }
 
-export default function Profile({ author, social, features, researchInterests }: ProfileProps) {
+export default function Profile({ author, social }: ProfileProps) {
 
-    const [hasLiked, setHasLiked] = useState(false);
-    const [showThanks, setShowThanks] = useState(false);
     const [showAddress, setShowAddress] = useState(false);
     const [isAddressPinned, setIsAddressPinned] = useState(false);
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-    // Check local storage for user's like status
-    useEffect(() => {
-        if (!features.enable_likes) return;
-
-        const userHasLiked = localStorage.getItem('jiale-website-user-liked');
-        if (userHasLiked === 'true') {
-            setHasLiked(true);
-        }
-    }, [features.enable_likes]);
-
-    const handleLike = () => {
-        const newLikedState = !hasLiked;
-        setHasLiked(newLikedState);
-
-        if (newLikedState) {
-            localStorage.setItem('jiale-website-user-liked', 'true');
-            setShowThanks(true);
-            setTimeout(() => setShowThanks(false), 2000);
-        } else {
-            localStorage.removeItem('jiale-website-user-liked');
-            setShowThanks(false);
-        }
-    };
 
     const socialLinks = [
         ...(social.email ? [{
-            name: 'Email',
+            name: 'Personal Email',
             href: `mailto:${social.email}`,
             icon: EnvelopeIcon,
             isEmail: true,
             displayText: social.email,
+        }] : []),
+        ...(social.email_work ? [{
+            name: 'Work Email',
+            href: `mailto:${social.email_work}`,
+            icon: EnvelopeIcon,
+            isEmail: true,
+            displayText: social.email_work,
         }] : []),
         ...(social.calendar ? [{
             name: 'Book a Chat',
@@ -105,45 +82,72 @@ export default function Profile({ author, social, features, researchInterests }:
             href: social.linkedin,
             icon: Linkedin,
         }] : []),
+        {
+            name: 'CV',
+            href: '/CV.pdf',
+            icon: DocumentTextIcon,
+        },
     ];
 
-    const iconClass = "flex items-center justify-center h-10 w-10 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200";
+    const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-all duration-200 group";
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="sticky top-8"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full"
         >
-            {/* Profile Image */}
-            <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-                <Image
-                    src={author.avatar}
-                    alt={author.name}
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover object-[32%_center]"
-                    priority
-                />
+            {/* Header Content: Avatar + Info */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-24 mb-10">
+                {/* Profile Image */}
+                <div className="w-48 h-56 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.02] shrink-0">
+                    <Image
+                        src={author.avatar}
+                        alt={author.name}
+                        width={192}
+                        height={224}
+                        className="w-full h-full object-cover object-[32%_center]"
+                        priority
+                    />
+                </div>
+
+                {/* Name and Title */}
+                <div className="text-center sm:text-left pt-2">
+                    <h1 className="text-4xl font-bold text-primary mb-3 tracking-tight">
+                        {author.name}
+                    </h1>
+                    <p className="text-xl text-neutral-600 dark:text-neutral-400 font-medium mb-1">
+                        {author.title}
+                    </p>
+                    <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
+                        {author.institution}
+                    </p>
+
+                    {/* Emails below position - Box style with Icon and Text */}
+                    <div className="flex flex-col gap-3">
+                        {socialLinks.filter(link => link.isEmail).map((link) => {
+                            const IconComponent = link.icon;
+                            return (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    className={boxClass}
+                                >
+                                    <IconComponent className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                                    <span className="text-sm font-medium underline underline-offset-4 decoration-transparent group-hover:decoration-accent">
+                                        {link.displayText}
+                                    </span>
+                                </a>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
 
-            {/* Name and Title */}
-            <div className="text-center mb-6">
-                <h1 className="text-3xl font-serif font-bold text-primary mb-2">
-                    {author.name}
-                </h1>
-                <p className="text-lg text-accent font-medium mb-1">
-                    {author.title}
-                </p>
-                <p className="text-neutral-600 mb-2">
-                    {author.institution}
-                </p>
-            </div>
-
-            {/* Contact Links */}
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2 items-center">
-        {socialLinks.map((link, idx) => {
+            {/* Contact Links (Centered Icons + Text) */}
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 relative items-center border-b border-neutral-100 dark:border-neutral-900 pb-8">
+                {socialLinks.filter(link => !link.isEmail).map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {
                         return (
@@ -155,24 +159,25 @@ export default function Profile({ author, social, features, researchInterests }:
                                         setIsAddressPinned(!isAddressPinned);
                                         setShowAddress(!isAddressPinned);
                                     }}
-                                    className={`${iconClass} ${isAddressPinned ? 'text-accent' : ''}`}
+                                    className={`${boxClass} ${isAddressPinned ? 'text-accent' : ''}`}
                                     aria-label={link.name}
                                 >
                                     {isAddressPinned ? (
-                                        <MapPinSolidIcon className="h-5 w-5" />
+                                        <MapPinSolidIcon className="h-4 w-4" />
                                     ) : (
-                                        <MapPinIcon className="h-5 w-5" />
+                                        <MapPinIcon className="h-4 w-4" />
                                     )}
+                                    <span className="text-sm font-medium underline underline-offset-4 decoration-transparent group-hover:decoration-accent">{link.name}</span>
                                 </button>
 
                                 {/* Address tooltip */}
                                 <AnimatePresence>
                                     {(showAddress || isAddressPinned) && (
                                         <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                                            initial={{ opacity: 0, y: 5, scale: 0.95 }}
                                             animate={{ opacity: 1, y: -10, scale: 1 }}
-                                            exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap z-20"
+                                            exit={{ opacity: 0, y: -5, scale: 0.95 }}
+                                            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-900 text-white px-4 py-3 rounded-md text-sm font-medium shadow-xl max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap z-20"
                                             onMouseEnter={() => !isAddressPinned && setShowAddress(true)}
                                             onMouseLeave={() => !isAddressPinned && setShowAddress(false)}
                                         >
@@ -211,107 +216,23 @@ export default function Profile({ author, social, features, researchInterests }:
                             </div>
                         );
                     }
-                    const tooltipText = link.isEmail ? link.displayText : link.name;
                     const href = link.href || '#';
-                    const content = link.isEmail ? (
-                        <a
-                            key={link.name}
-                            href={href}
-                            onMouseEnter={() => setHoveredIndex(idx)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            onFocus={() => setHoveredIndex(idx)}
-                            onBlur={() => setHoveredIndex(null)}
-                            className={iconClass}
-                            aria-label={tooltipText}
-                        >
-                            <IconComponent className="h-5 w-5" />
-                        </a>
-                    ) : (
-                        <a
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onMouseEnter={() => setHoveredIndex(idx)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            onFocus={() => setHoveredIndex(idx)}
-                            onBlur={() => setHoveredIndex(null)}
-                            className={iconClass}
-                            aria-label={tooltipText}
-                        >
-                            <IconComponent className="h-5 w-5" />
-                        </a>
-                    );
-
                     return (
                         <div key={link.name} className="relative">
-                            {content}
-                            <AnimatePresence>
-                                {hoveredIndex === idx && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                        animate={{ opacity: 1, y: -8, scale: 1 }}
-                                        exit={{ opacity: 0, y: -16, scale: 0.9 }}
-                                        className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-3 py-2 rounded-md text-xs font-medium shadow-lg whitespace-nowrap z-20"
-                                    >
-                                        {tooltipText}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                            <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={boxClass}
+                                aria-label={link.name}
+                            >
+                                <IconComponent className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                                <span className="text-sm font-medium underline underline-offset-4 decoration-transparent group-hover:decoration-accent">{link.name}</span>
+                            </a>
                         </div>
                     );
                 })}
             </div>
-
-            {/* Research Interests */}
-            {researchInterests && researchInterests.length > 0 && (
-                <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
-                    <h3 className="font-semibold text-primary mb-3">Research Interests</h3>
-                    <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
-                        {researchInterests.map((interest, index) => (
-                            <div key={index}>{interest}</div>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            {/* Like Button */}
-            {features.enable_likes && (
-                <div className="flex justify-center">
-                    <div className="relative">
-                        <motion.button
-                            onClick={handleLike}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${hasLiked
-                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                                : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
-                                }`}
-                        >
-                            {hasLiked ? (
-                                <HeartSolidIcon className="h-4 w-4" />
-                            ) : (
-                                <HeartIcon className="h-4 w-4" />
-                            )}
-                            <span>{hasLiked ? 'Liked' : 'Like'}</span>
-                        </motion.button>
-
-                        {/* Thanks bubble */}
-                        <AnimatePresence>
-                            {showThanks && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                                    animate={{ opacity: 1, y: -10, scale: 1 }}
-                                    exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-accent text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg whitespace-nowrap"
-                                >
-                                    Thanks! 😊
-                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-accent"></div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                </div>
-            )}
         </motion.div>
     );
 }

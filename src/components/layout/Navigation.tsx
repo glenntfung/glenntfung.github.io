@@ -104,7 +104,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                 >
                   <Link
                     href="/"
-                    className="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200"
+                    className="text-xl lg:text-2xl font-semibold text-primary hover:text-accent transition-colors duration-200"
                   >
                     {siteTitle}
                   </Link>
@@ -132,17 +132,17 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             prefetch={true}
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             className={cn(
-                              'relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm',
+                              'relative px-1 py-2 text-sm font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary'
-                                : 'text-neutral-600 hover:text-primary'
+                                ? 'text-accent'
+                                : 'text-neutral-600 hover:text-accent'
                             )}
                           >
                             <span className="relative z-10">{item.title}</span>
                             {isActive && (
                               <motion.div
                                 layoutId="activeTab"
-                                className="absolute inset-0 bg-accent/10 rounded-lg"
+                                className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
                                 initial={false}
                                 transition={{
                                   type: 'spring',

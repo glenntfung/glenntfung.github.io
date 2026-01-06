@@ -128,7 +128,8 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                                                     {item.text}
                                                 </a>
                                             </span>
-                                            <span className="text-xs text-neutral-400">{isOpen ? '−' : '+'}</span>
+                                            <span className="text-xs text-neutral-400">{isOpen ? '−' : '+'}
+</span>
                                         </button>
                                         {isOpen && item.children.length > 0 && (
                                             <div className="ml-3 space-y-1">
@@ -151,49 +152,51 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                 )}
 
                 <div className="flex-1 min-w-0">
-                    <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
-                    {config.description && (
-                        <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 mb-8 max-w-2xl`}>
-                            {config.description}
-                        </p>
-                    )}
-                    <div className="markdown-body text-neutral-700 dark:text-neutral-600 leading-relaxed">
-                        <ReactMarkdown
-                            remarkPlugins={[remarkMath]}
-                            rehypePlugins={rehypePlugins}
-                            components={{
-                                h1: ({ children }) => <h1 className="text-3xl font-serif font-bold text-primary mt-8 mb-4">{children}</h1>,
-                                h2: ({ children }) => {
-                                    const id = slugify(children);
-                                    return <h2 id={id} className="scroll-mt-28 text-2xl font-serif font-bold text-primary mt-8 mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">{children}</h2>;
-                                },
-                                h3: ({ children }) => {
-                                    const id = slugify(children);
-                                    return <h3 id={id} className="scroll-mt-28 text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>;
-                                },
-                                p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
-                                ul: ({ children }) => <ul className="list-disc list-inside mb-4 space-y-1 ml-4">{children}</ul>,
-                                ol: ({ children }) => <ol className="list-decimal list-inside mb-4 space-y-1 ml-4">{children}</ol>,
-                                li: ({ children }) => <li className="mb-1">{children}</li>,
-                                a: ({ ...props }) => (
-                                    <a
-                                        {...props}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-accent font-medium hover:underline transition-colors"
-                                    />
-                                ),
-                                blockquote: ({ children }) => (
-                                    <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-500">
-                                        {children}
-                                    </blockquote>
-                                ),
-                                strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
-                                em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
-                            }}
-                        >
-                            {content}
-                        </ReactMarkdown>
+                    <div className={embedded ? "mb-4" : "mb-8"}>
+                        <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary mb-4`}>{config.title}</h1>
+                        {config.description && (
+                            <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 mb-8 max-w-2xl`}>
+                                {config.description}
+                            </p>
+                        )}
+                        <div className="markdown-body text-neutral-700 dark:text-neutral-600 leading-relaxed">
+                            <ReactMarkdown
+                                remarkPlugins={[remarkMath]}
+                                rehypePlugins={rehypePlugins}
+                                components={{
+                                    h1: ({ children }) => <h1 className="text-3xl font-bold text-primary mt-8 mb-4">{children}</h1>,
+                                    h2: ({ children }) => {
+                                        const id = slugify(children);
+                                        return <h2 id={id} className="scroll-mt-28 text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">{children}</h2>;
+                                    },
+                                    h3: ({ children }) => {
+                                        const id = slugify(children);
+                                        return <h3 id={id} className="scroll-mt-28 text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>;
+                                    },
+                                    p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
+                                    ul: ({ children }) => <ul className="list-disc list-outside mb-4 space-y-2 ml-6 [&_ul]:mt-4 [&_ul]:mb-0">{children}</ul>,
+                                    ol: ({ children }) => <ol className="list-decimal list-outside mb-4 space-y-2 ml-6 [&_ol]:mt-4 [&_ol]:mb-0">{children}</ol>,
+                                    li: ({ children }) => <li className="pl-1 mb-2 last:mb-0">{children}</li>,
+                                    a: ({ ...props }) => (
+                                        <a
+                                            {...props}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-accent font-medium hover:underline transition-colors"
+                                        />
+                                    ),
+                                    blockquote: ({ children }) => (
+                                        <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-500">
+                                            {children}
+                                        </blockquote>
+                                    ),
+                                    strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
+                                    em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                                }}
+                            >
+                                {content}
+                            </ReactMarkdown>
+                        </div>
                     </div>
                 </div>
             </div>

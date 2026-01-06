@@ -18,7 +18,7 @@ export default function SelectedPublications({ publications, title = 'Selected P
             transition={{ duration: 0.6, delay: 0.4 }}
         >
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-serif font-bold text-primary">{title}</h2>
+                <h2 className="text-2xl font-bold text-primary">{title}</h2>
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}
                     prefetch={true}
@@ -27,16 +27,16 @@ export default function SelectedPublications({ publications, title = 'Selected P
                     View All →
                 </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-10">
                 {publications.map((pub, index) => (
                     <motion.div
                         key={pub.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+                        transition={{ duration: 0.4, delay: 0.1 * index, ease: "easeOut" }}
+                        className="group signature-hover"
                     >
-                        <h3 className="font-semibold text-primary mb-2 leading-tight">
+                        <h3 className="font-semibold text-primary mb-2 leading-tight group-hover:text-accent transition-colors text-lg">
                             {pub.title}
                         </h3>
                         <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">

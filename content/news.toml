@@ -1,7 +1,6 @@
-type = "text"
+type = "news"
 title = "News"
 description = "Updates, milestones, and announcements."
-source = "news.md"
 
 [[news]]
 date = "2025-06-07"

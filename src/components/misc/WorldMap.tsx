@@ -24,15 +24,12 @@ export default function WorldMap() {
   }
 
   return (
-    <div className="border rounded-lg p-6 bg-card">
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <h2 className="text-xl font-semibold text-primary">Where I&apos;ve Been</h2>
-          <p className="text-sm text-neutral-500">Hover to explore</p>
-        </div>
-        <div className="flex items-center gap-3 text-xs text-neutral-500">
-          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{ background: "#5AC8FA" }} />Visited</div>
-          <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{ background: "#e5e7eb" }} />Not yet</div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-end mb-4">
+        <h2 className="text-3xl font-bold text-primary">Where I&apos;ve Been</h2>
+        <div className="flex items-center gap-4 text-sm text-neutral-500 mb-1">
+          <div className="flex items-center gap-2"><span className="w-4 h-4 rounded-sm" style={{ background: "#5AC8FA" }} />Visited</div>
+          <div className="flex items-center gap-2"><span className="w-4 h-4 rounded-sm" style={{ background: "#e5e7eb" }} />Not yet</div>
         </div>
       </div>
       <div className="relative">

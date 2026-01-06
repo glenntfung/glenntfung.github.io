@@ -11,6 +11,7 @@ import CardPage from '@/components/pages/CardPage';
 
 import { Publication } from '@/types/publication';
 import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
+import PageMotion from '@/components/ui/PageMotion';
 
 // Define types for section config
 interface SectionConfig {
@@ -38,7 +39,6 @@ export default function Home() {
 
   // Always load about page config for profile info
   const aboutConfig = getPageConfig('about');
-  const researchInterests = (aboutConfig as { profile?: { research_interests?: string[] } })?.profile?.research_interests;
 
   // Helper function to process sections (for about page)
   const processSections = (sections: SectionConfig[]) => {
@@ -132,22 +132,20 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen">
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
-        {/* Left Column - Profile */}
-        <div className="lg:col-span-1">
+    <PageMotion 
+      className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen"
+    >
+      <div className="flex flex-col space-y-16">
+        {/* Top Profile Section */}
+        <section>
           <Profile
             author={config.author}
             social={config.social}
-            features={config.features}
-            researchInterests={researchInterests}
           />
-        </div>
+        </section>
 
-        {/* Right Column - Content */}
-        <div className="lg:col-span-2 space-y-8">
+        {/* Content Sections */}
+        <div className="space-y-16">
           {pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
               {page.type === 'about' && page.sections.map((section: SectionConfig) => {
@@ -206,6 +204,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </PageMotion>
   );
 }

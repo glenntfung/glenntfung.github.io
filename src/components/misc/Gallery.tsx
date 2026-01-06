@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const photos = [
   { src: "/assets/img/gal/nyc.jpg", alt: "NYC" },
@@ -16,18 +17,26 @@ const photos = [
 
 export default function Gallery() {
   return (
-    <div className="border rounded-lg p-6 bg-card space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-primary">Gallery</h2>
-          <p className="text-sm text-neutral-500">Snapshots from travels and life</p>
-        </div>
-      </div>
+    <div className="space-y-6">
+      <h2 className="text-3xl font-bold text-primary">Gallery</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {photos.map((photo) => (
-          <div key={photo.src} className="relative aspect-video overflow-hidden rounded-lg border bg-neutral-50 dark:bg-neutral-900">
-            <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
-          </div>
+        {photos.map((photo, index) => (
+          <motion.div 
+            key={photo.src} 
+            initial={{ opacity: 0, y: 5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            className="relative aspect-video overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 group"
+          >
+            <Image 
+              src={photo.src} 
+              alt={photo.alt} 
+              fill 
+              className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02]" 
+              sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" 
+            />
+          </motion.div>
         ))}
       </div>
     </div>

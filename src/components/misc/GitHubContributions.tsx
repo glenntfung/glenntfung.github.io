@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface ContributionDay {
   date: string;
@@ -86,13 +87,19 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
   }
 
   return (
-    <div className="border rounded-lg p-6 bg-card space-y-4">
-      <div className="flex items-center justify-between">
+    <motion.div 
+      initial={{ opacity: 0, y: 5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="space-y-6"
+    >
+      <div className="flex justify-between items-end mb-4">
         <div>
-          <h2 className="text-xl font-semibold text-primary">GitHub activity</h2>
-          <p className="text-sm text-neutral-500">Past year for @{username}</p>
+          <h2 className="text-3xl font-bold text-primary">GitHub Activity</h2>
+          <p className="text-sm text-neutral-500 mt-1">Past year for @{username}</p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-neutral-500">
+        <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
           <span>Less</span>
           {["#ebedf0","#9be9a8","#40c463","#30a14e","#216e39"].map(c => (
             <span key={c} className="w-3 h-3 rounded-sm" style={{ background: c }} />
@@ -103,14 +110,14 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
       {error ? (
         <div className="text-sm text-red-500">{error}</div>
       ) : (
-        <div className="overflow-x-auto">
-          <div className="flex gap-1 min-w-[640px]">
+        <div className="overflow-x-auto pb-2">
+          <div className="flex gap-1 min-w-max">
             {weeks.map((week, i) => (
               <div key={i} className="flex flex-col gap-1">
                 {week.map((day, j) => (
                   <div
                     key={j}
-                    className="w-3 h-3 rounded-sm"
+                    className="w-3 h-3 rounded-sm transition-all duration-200 hover:ring-2 hover:ring-accent hover:ring-offset-1 dark:hover:ring-offset-black"
                     style={{ background: colorFor(day.contributionCount) }}
                     title={`${day.date}: ${day.contributionCount} contributions`}
                   />
@@ -120,6 +127,6 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

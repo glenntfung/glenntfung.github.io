@@ -19,21 +19,25 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
         <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
         >
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-serif font-bold text-primary">{title}</h2>
+                <h2 className="text-2xl font-bold text-primary">{title}</h2>
                 {viewAllHref && (
                     <Link href={viewAllHref} className="text-sm text-accent hover:underline">
                         View all
                     </Link>
                 )}
             </div>
-            <div className="space-y-3">
+            <div className="space-y-4">
                 {items.map((item, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                        <span className="text-xs text-neutral-500 mt-1 w-24 flex-shrink-0 whitespace-nowrap text-left">{item.date}</span>
-                        <p className="text-sm text-neutral-700">{item.content}</p>
+                    <div key={index} className="flex items-baseline space-x-4 group signature-hover">
+                        <span className="text-xs text-neutral-500 dark:text-neutral-500 w-24 flex-shrink-0">
+                            {item.date}
+                        </span>
+                        <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed group-hover:text-accent transition-colors">
+                            {item.content}
+                        </p>
                     </div>
                 ))}
             </div>
