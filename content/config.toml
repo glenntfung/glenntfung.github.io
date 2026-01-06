@@ -1,7 +1,7 @@
 [site]
 title = "Glenn Fung"
 description = "Empirical Research Fellow in Quantitative Marketing at Northwestern University Kellogg School of Management."
-favicon = "/icon.png"
+favicon = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
 last_updated = "2025-03-01"
 
 [author]
