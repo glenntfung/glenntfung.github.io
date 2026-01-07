@@ -11,14 +11,14 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
         >
-            <div className={embedded ? "mb-4" : "mb-8"}>
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary mb-4`}>{config.title}</h1>
+            <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
+                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
                 {config.description && (
-                    <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl`}>
+                    <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
                         {config.description}
                     </p>
                 )}
-            </div>
+            </header>
 
             <div className="grid gap-12">
                 {config.items.map((item, index) => (
@@ -41,7 +41,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         </div>
                         
                         {item.subtitle && (
-                            <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>
+                            <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 font-medium mb-3`}>
                                 {item.subtitle}
                             </p>
                         )}
