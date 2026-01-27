@@ -20,7 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: config.author.name,
     publisher: config.author.name,
     icons: {
-      icon: config.site.favicon,
+      icon: [
+        { url: config.site.favicon, type: "image/svg+xml" },
+        { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+      shortcut: ["/favicon.ico"],
     },
     openGraph: {
       type: "website",
@@ -43,6 +49,11 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href={config.site.favicon} type="image/svg+xml" />
+        <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
         {/* Speed up font connections */}
         <link rel="dns-prefetch" href="https://google-fonts.jialeliu.com" />
         <link rel="preconnect" href="https://google-fonts.jialeliu.com" crossOrigin="" />
