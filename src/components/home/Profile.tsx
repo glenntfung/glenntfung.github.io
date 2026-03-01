@@ -146,7 +146,7 @@ export default function Profile({ author, social }: ProfileProps) {
             </div>
 
             {/* Contact Links (Centered Icons + Text) */}
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 relative items-center border-b border-neutral-100 dark:border-neutral-900 pb-8">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 relative items-center border-b border-neutral-200 pb-8">
                 {socialLinks.filter(link => !link.isEmail).map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {

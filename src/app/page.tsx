@@ -135,7 +135,7 @@ export default function Home() {
     <PageMotion 
       className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen"
     >
-      <div className="flex flex-col space-y-16">
+      <div className="flex flex-col space-y-24">
         {/* Top Profile Section */}
         <section>
           <Profile
@@ -145,7 +145,7 @@ export default function Home() {
         </section>
 
         {/* Content Sections */}
-        <div className="space-y-16">
+        <div className="space-y-24">
           {pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
               {page.type === 'about' && page.sections.map((section: SectionConfig) => {

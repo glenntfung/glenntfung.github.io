@@ -20,7 +20,7 @@ export default function About({ content, title = 'About' }: AboutProps) {
                 <ReactMarkdown
                     components={{
                         h1: ({ children }) => <h1 className="text-3xl font-bold text-primary mt-8 mb-4">{children}</h1>,
-                        h2: ({ children }) => <h2 className="text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">{children}</h2>,
+                        h2: ({ children }) => <h2 className="text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-100/50 dark:border-neutral-800/50 pb-2">{children}</h2>,
                         h3: ({ children }) => <h3 className="text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>,
                         p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
                         ul: ({ children }) => <ul className="list-disc list-outside mb-4 space-y-2 ml-6 [&_ul]:mt-4 [&_ul]:mb-0">{children}</ul>,
