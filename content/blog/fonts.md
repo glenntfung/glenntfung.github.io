@@ -67,7 +67,7 @@ which gives
 This solution comes from the [an answer on StackExchange](https://tex.stackexchange.com/a/464586/317380). To use the font in this way with math, use LuaLaTeX instead of PDFLaTeX! The example output comes from the original answer.
 
 ![Georgia](/assets/img/fonts/g.png)
-<div style={{fontSize: '0.9rem', color: '#555', textAlign: 'center', marginTop: '0.5rem'}}>
+<div style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem;">
 Source: <a href="https://i.stack.imgur.com/3uEFd.png">https://i.stack.imgur.com/3uEFd.png</a>, <a href="https://tex.stackexchange.com/a/464586/317380">https://tex.stackexchange.com/a/464586/317380</a>.
 </div>
 

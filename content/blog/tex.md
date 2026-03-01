@@ -1,4 +1,4 @@
-<div style={{textAlign: 'center', fontWeight: 'bold', fontSize: '13pt'}}>
+<div style="text-align: center; font-weight: bold; font-size: 13pt;">
   <a href="/assets/pdf/tex/tex.pdf">PDF Version Available Here</a> (It might be more useful!)
 </div>
 
