@@ -6,29 +6,29 @@
 /* Default to light theme colors - no system preference detection */
 :root,
 .light {
-  /* Light theme colors */
-  --background: #ffffff;
-  --foreground: #000000;
+  /* Light theme colors - Refined Professional (Off-white for less eye strain) */
+  --background: #fdfdfd;
+  --foreground: #1a1a1a;
   
-  /* Brand colors - Sharp High Contrast & Blue */
-  --primary: #000000;
-  --primary-light: #18181b;
+  /* Brand colors - Sophisticated Indigo/Blue */
+  --primary: #1a1a1a;
+  --primary-light: #262626;
   --primary-dark: #000000;
-  --accent: #0066cc;
-  --accent-light: #3385ff;
-  --accent-dark: #004c99;
+  --accent: #2563eb;
+  --accent-light: #60a5fa;
+  --accent-dark: #1d4ed8;
   
-  /* Neutral colors - Very Dark for Light Mode Body Text */
-  --neutral-50: #f9fafb;
-  --neutral-100: #f3f4f6;
-  --neutral-200: #e5e7eb;
-  --neutral-300: #d1d5db;
-  --neutral-400: #18181b; /* Aggressively darkened */
-  --neutral-500: #09090b; /* Aggressively darkened */
-  --neutral-600: #000000; /* Pure black */
-  --neutral-700: #000000;
-  --neutral-800: #000000;
-  --neutral-900: #000000;
+  /* Neutral colors - Softened for better hierarchy */
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
   
   /* Semantic colors */
   --success: #10b981;
@@ -37,9 +37,9 @@
   --info: #3b82f6;
   
   /* Glass effect */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-shadow: rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(226, 232, 240, 0.5);
+  --glass-shadow: rgba(0, 0, 0, 0.03);
 }
 
 @theme inline {
@@ -130,36 +130,34 @@
 
 /* Dark mode styles */
 .dark {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Midnight Dark Theme - Deep and Rich, not just Black */
+  --background: #09090b;
+  --foreground: #f8fafc;
   
-  /* Adjust colors for dark mode - High Contrast */
+  /* Adjust colors for dark mode */
   --primary: #ffffff;
-  --primary-light: #f3f4f6;
-  --primary-dark: #e5e7eb;
+  --primary-light: #f1f5f9;
+  --primary-dark: #cbd5e1;
   --accent: #3b82f6;
   --accent-light: #60a5fa;
   --accent-dark: #2563eb;
   
   /* Dark mode glass effect */
-  --glass-bg: rgba(0, 0, 0, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(9, 9, 11, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
   
-  /* Neutral colors for dark mode - Inverted Scale for High Contrast 
-     50 = Darkest (Backgrounds)
-     900 = Lightest (Text)
-  */
-  --neutral-50: #000000;  /* Main Background */
-  --neutral-100: #111111; /* Card Background (slightly lighter) */
-  --neutral-200: #262626;
-  --neutral-300: #404040;
-  --neutral-400: #a3a3a3; /* Brightened from 737373 */
-  --neutral-500: #d4d4d4; /* Brightened from a3a3a3 */
-  --neutral-600: #e5e5e5; /* Brightened from d4d4d4 */
-  --neutral-700: #f5f5f5; /* Brightened from e5e5e5 */
-  --neutral-800: #fafafa;
-  --neutral-900: #ffffff; /* Main Text */
+  /* Neutral colors for dark mode - Refined Slate/Zinc */
+  --neutral-50: #09090b;
+  --neutral-100: #18181b;
+  --neutral-200: #27272a;
+  --neutral-300: #3f3f46;
+  --neutral-400: #52525b;
+  --neutral-500: #71717a;
+  --neutral-600: #a1a1aa;
+  --neutral-700: #d4d4d4;
+  --neutral-800: #e5e5e5;
+  --neutral-900: #ffffff;
 }
 
 
