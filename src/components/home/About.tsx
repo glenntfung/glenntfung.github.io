@@ -31,7 +31,7 @@ export default function About({ content, title = 'About' }: AboutProps) {
                                 {...props}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-accent hover:text-accent-dark font-medium underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all duration-200"
+                                className="text-accent hover:text-accent-dark font-medium underline underline-offset-4 decoration-accent/20 hover:decoration-accent/100 transition-all duration-300"
                             />
                         ),
                         blockquote: ({ children }) => (

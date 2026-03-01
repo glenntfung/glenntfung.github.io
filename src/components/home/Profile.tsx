@@ -101,7 +101,7 @@ export default function Profile({ author, social }: ProfileProps) {
             {/* Header Content: Avatar + Info */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-24 mb-10">
                 {/* Profile Image */}
-                <div className="w-48 h-60 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.02] shrink-0">
+                <div className="w-48 h-60 rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.01] shrink-0 ring-1 ring-neutral-100 dark:ring-neutral-800">
                     <Image
                         src={author.avatar}
                         alt={author.name}
