@@ -70,30 +70,30 @@ const BentoBox = ({
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.8, delay, ease: [0.21, 0.45, 0.32, 0.9] }}
-    className={`relative overflow-hidden rounded-3xl border border-neutral-100/50 dark:border-neutral-800/50 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md p-6 group transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5 hover:-translate-y-1 ${className}`}
+    className={`relative overflow-hidden rounded-3xl border border-neutral-200 dark:border-accent/20 bg-white dark:bg-neutral-100 backdrop-blur-md p-6 group transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 ${className}`}
   >
-    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/5 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
+    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
     
     <div className="flex items-center gap-3 mb-6">
       <div className="p-2 rounded-xl bg-accent/10 text-accent">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-xl font-bold font-serif text-primary">{title}</h3>
+      <h3 className="text-xl font-bold font-serif text-neutral-900 dark:text-neutral-900">{title}</h3>
     </div>
 
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-4">
       {items.map((item) => (
         <div key={item.name} className="flex flex-col items-center gap-2 group/item">
-          <div className="relative w-8 h-8 transition-all duration-300 group-hover/item:scale-110 grayscale group-hover/item:grayscale-0 opacity-60 group-hover/item:opacity-100">
+          <div className="relative w-8 h-8 transition-all duration-300 group-hover/item:scale-110 grayscale group-hover/item:grayscale-0 opacity-100">
             <Image
               src={item.logo}
               alt={item.name}
               fill
-              className="object-contain dark:invert"
+              className="object-contain"
               unoptimized
             />
           </div>
-          <span className="text-[9px] font-semibold text-neutral-400 group-hover/item:text-accent uppercase tracking-widest text-center transition-colors">
+          <span className="text-[9px] font-bold text-neutral-600 dark:text-neutral-800 group-hover/item:text-accent uppercase tracking-widest text-center transition-colors">
             {item.name}
           </span>
         </div>

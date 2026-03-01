@@ -131,15 +131,15 @@ export default function WorldMap() {
                       onMouseLeave={() => setHoveredEntity(null)}
                       style={{
                         default: {
-                          fill: isVisited ? "var(--accent)" : "var(--neutral-200)",
-                          fillOpacity: isVisited ? 0.4 : 0.6,
+                          fill: isVisited ? "var(--accent)" : "rgb(163 163 163)", // neutral-400 equivalent for better visibility
+                          fillOpacity: isVisited ? 0.8 : 0.4,
                           stroke: "var(--background)",
                           strokeWidth: 0.4,
                           outline: "none",
                         },
                         hover: {
-                          fill: isVisited ? "var(--accent)" : "var(--neutral-300)",
-                          fillOpacity: isVisited ? 0.7 : 0.9,
+                          fill: isVisited ? "var(--accent)" : "rgb(212 212 212)", // neutral-300 equivalent
+                          fillOpacity: isVisited ? 1.0 : 0.6,
                           stroke: "var(--background)",
                           strokeWidth: 0.4,
                           outline: "none",
@@ -161,7 +161,7 @@ export default function WorldMap() {
                   onMouseLeave={() => setHoveredEntity(null)}
                   className="cursor-pointer"
                 >
-                   <circle r={10} fill="var(--accent)" className="animate-ping opacity-10" />
+                   <circle r={10} fill="var(--accent)" className="animate-ping opacity-20" />
                    <circle r={5} fill="var(--accent)" className="shadow-lg" />
                    <circle r={2} fill="white" />
                 </motion.g>
@@ -183,40 +183,40 @@ export default function WorldMap() {
                     transform: 'translate(-50%, -100%)',
                     zIndex: 50
                 }}
-                className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md px-4 py-2 rounded-xl border border-neutral-100 dark:border-neutral-800 shadow-xl pointer-events-none text-center min-w-[140px] whitespace-nowrap"
+                className="bg-white dark:bg-neutral-100 px-4 py-2 rounded-xl border border-neutral-200 dark:border-accent/30 shadow-2xl pointer-events-none text-center min-w-[140px] whitespace-nowrap"
               >
                 <div className="flex flex-col items-center gap-0.5">
                   <p className={`text-[9px] uppercase tracking-[0.2em] font-black ${
                     hoveredEntity.type === 'hub' ? 'text-accent' : 
-                    hoveredEntity.type === 'visited' ? 'text-accent/70' : 'text-neutral-400'
+                    hoveredEntity.type === 'visited' ? 'text-accent/80' : 'text-neutral-500 dark:text-neutral-700'
                   }`}>
                     {hoveredEntity.type === 'hub' ? 'Academic' : 
                      hoveredEntity.type === 'visited' ? 'Visited' : 'To Be Explored'}
                   </p>
-                  <h4 className="text-base font-bold text-primary font-serif tracking-tight">{hoveredEntity.name}</h4>
+                  <h4 className="text-base font-bold text-neutral-900 dark:text-neutral-900 font-serif tracking-tight">{hoveredEntity.name}</h4>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
           
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-100/40 dark:bg-neutral-800/40 text-[9px] uppercase tracking-widest text-neutral-500 font-bold backdrop-blur-md pointer-events-none border border-neutral-200/10">
-             <Move className="h-3 w-3" />
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 dark:bg-neutral-100/95 text-[9px] uppercase tracking-widest text-neutral-800 dark:text-neutral-900 font-bold backdrop-blur-md pointer-events-none border border-neutral-200 dark:border-accent/30 shadow-lg">
+             <Move className="h-3 w-3 text-accent" />
              <span>Drag to Explore</span>
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 mt-4 px-8 py-4 rounded-3xl border border-neutral-100/50 dark:border-neutral-900/50 bg-neutral-50/20 dark:bg-neutral-900/20 backdrop-blur-sm w-full max-w-2xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 mt-4 px-8 py-4 rounded-3xl border border-neutral-200 dark:border-accent/20 bg-white dark:bg-neutral-100 backdrop-blur-sm w-full max-w-2xl mx-auto shadow-xl">
           <div className="flex items-center gap-2.5">
-            <div className="w-3.5 h-3.5 rounded-full bg-accent shadow-[0_0_8px_rgba(37,99,235,0.3)]" />
-            <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.12em]">Academic</span>
+            <div className="w-3.5 h-3.5 rounded-full bg-accent shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
+            <span className="text-[10px] font-bold text-neutral-800 dark:text-neutral-900 uppercase tracking-[0.12em]">Academic Hub</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <div className="w-3.5 h-3.5 rounded-full bg-accent/30" />
-            <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.12em]">Visited</span>
+            <div className="w-3.5 h-3.5 rounded-full bg-accent/60" />
+            <span className="text-[10px] font-bold text-neutral-800 dark:text-neutral-900 uppercase tracking-[0.12em]">Visited</span>
           </div>
           <div className="flex items-center gap-2.5">
-             <Globe className="h-3.5 w-3.5 text-neutral-300" />
-             <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.12em]">Rotate Control</span>
+             <Globe className="h-3.5 w-3.5 text-accent" />
+             <span className="text-[10px] font-bold text-neutral-800 dark:text-neutral-900 uppercase tracking-[0.12em]">Interactive</span>
           </div>
         </div>
       </div>
