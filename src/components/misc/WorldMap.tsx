@@ -113,7 +113,7 @@ export default function WorldMap() {
             height={800}
             style={{ width: "100%", height: "auto", cursor: isDragging ? "grabbing" : "grab" }}
           >
-            <Sphere id="sphere" fill="transparent" stroke="transparent" />
+            <Sphere id="sphere" fill="transparent" stroke="transparent" strokeWidth={0} />
             <Graticule stroke="rgba(128,128,128,0.08)" strokeWidth={0.5} />
 
             <Geographies geography={geographyData}>
