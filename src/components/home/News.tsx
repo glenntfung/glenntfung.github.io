@@ -21,10 +21,11 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
         >
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-primary">{title}</h2>
+            <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
+                <div className="h-[1px] w-full bg-neutral-100 dark:bg-neutral-900" />
                 {viewAllHref && (
-                    <Link href={viewAllHref} className="text-sm text-accent hover:underline">
+                    <Link href={viewAllHref} className="text-sm text-accent hover:underline whitespace-nowrap">
                         View all
                     </Link>
                 )}
