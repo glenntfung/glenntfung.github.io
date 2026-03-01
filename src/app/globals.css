@@ -112,15 +112,14 @@
   --line-height-relaxed: 1.75;
   --line-height-loose: 2;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-  --shadow-glass: 0 8px 32px 0 rgba(0, 102, 204, 0.15);
+  /* Shadows - Softer and deeper */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+  --shadow-glass: 0 8px 32px 0 rgba(37, 99, 235, 0.05);
   
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -327,13 +326,9 @@ code.hljs {
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
-/* Unified Sharp Blue Signature Hover Effect */
-.signature-hover {
-  @apply transition-all duration-200 ease-out border-l-2 border-transparent hover:border-accent hover:pl-4;
-}
-
-.signature-hover-text {
-  @apply transition-colors duration-200 ease-out hover:text-accent;
+/* Unified Hover Effect - More Subtle than Signature Hover */
+.item-hover {
+  @apply transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:text-accent;
 }
 
 .markdown-body a:hover {

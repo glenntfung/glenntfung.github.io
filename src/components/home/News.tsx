@@ -31,11 +31,11 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
             </div>
             <div className="space-y-4">
                 {items.map((item, index) => (
-                    <div key={index} className="flex items-baseline space-x-4 group signature-hover">
+                    <div key={index} className="flex items-baseline space-x-4 group item-hover py-1">
                         <span className="text-xs text-neutral-500 dark:text-neutral-500 w-24 flex-shrink-0">
                             {item.date}
                         </span>
-                        <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed group-hover:text-accent transition-colors">
+                        <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed transition-colors">
                             {item.content}
                         </p>
                     </div>
