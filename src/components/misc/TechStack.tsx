@@ -5,16 +5,9 @@ import Image from "next/image";
 import { 
   Beaker, 
   Code2, 
-  Settings2, 
   Terminal, 
-  Database, 
-  Layout, 
-  Cpu,
-  Sparkles,
-  Search,
-  Zap,
-  Cloud,
-  BrainCircuit
+  BrainCircuit,
+  LucideIcon
 } from "lucide-react";
 
 interface TechItem {
@@ -67,7 +60,7 @@ const BentoBox = ({
   delay = 0 
 }: { 
   title: string; 
-  icon: any; 
+  icon: LucideIcon; 
   items: TechItem[]; 
   className?: string;
   delay?: number;
