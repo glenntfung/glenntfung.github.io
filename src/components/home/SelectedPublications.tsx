@@ -17,12 +17,13 @@ export default function SelectedPublications({ publications, title = 'Selected P
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
         >
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-primary">{title}</h2>
+            <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
+                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}
                     prefetch={true}
-                    className="text-accent hover:text-accent-dark text-sm font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm"
+                    className="text-accent hover:text-accent-dark text-sm font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm whitespace-nowrap"
                 >
                     View All →
                 </Link>
@@ -39,24 +40,24 @@ export default function SelectedPublications({ publications, title = 'Selected P
                         <h3 className="font-semibold text-primary mb-2 leading-tight group-hover:text-accent transition-colors text-lg">
                             {pub.title}
                         </h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-700 mb-1">
                             {pub.authors.map((author, idx) => (
                                 <span key={idx}>
                                     <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>
                                         {author.name}
                                     </span>
                                     {author.isCorresponding && (
-                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-500'}`}>†</sup>
+                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-700'}`}>†</sup>
                                     )}
                                     {idx < pub.authors.length - 1 && ', '}
                                 </span>
                             ))}
                         </p>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-2">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-600 mb-2">
                             {pub.journal || pub.conference}
                         </p>
                         {pub.description && (
-                            <p className="text-sm text-neutral-500 dark:text-neutral-500 line-clamp-2">
+                            <p className="text-sm text-neutral-500 dark:text-neutral-700 line-clamp-2">
                                 {pub.description}
                             </p>
                         )}

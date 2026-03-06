@@ -40,6 +40,13 @@
   --glass-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(226, 232, 240, 0.5);
   --glass-shadow: rgba(0, 0, 0, 0.03);
+
+  /* Contribution Graph Colors */
+  --contrib-level-0: var(--neutral-100);
+  --contrib-level-1: #dbeafe; /* blue-100 */
+  --contrib-level-2: #93c5fd; /* blue-300 */
+  --contrib-level-3: #3b82f6; /* blue-500 */
+  --contrib-level-4: #1d4ed8; /* blue-700 */
 }
 
 @theme inline {
@@ -157,6 +164,13 @@
   --neutral-700: #d4d4d4;
   --neutral-800: #e5e5e5;
   --neutral-900: #ffffff;
+
+  /* Contribution Graph Colors - Dark Mode */
+  --contrib-level-0: #18181b; /* zinc-900 */
+  --contrib-level-1: #1e3a8a; /* blue-900 */
+  --contrib-level-2: #1d4ed8; /* blue-700 */
+  --contrib-level-3: #3b82f6; /* blue-500 */
+  --contrib-level-4: #60a5fa; /* blue-400 */
 }
 
 
@@ -365,4 +379,13 @@ code.hljs {
 .dark .markdown-body blockquote {
   background: #0f172a;
   border-color: var(--accent);
+}
+
+/* Utility to hide scrollbar but allow scrolling */
+@utility scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 }

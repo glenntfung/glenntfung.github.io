@@ -74,11 +74,11 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
   }, [token, username]);
 
   const colorFor = (count: number) => {
-    if (count === 0) return "#ebedf0";
-    if (count <= 3) return "#9be9a8";
-    if (count <= 6) return "#40c463";
-    if (count <= 9) return "#30a14e";
-    return "#216e39";
+    if (count === 0) return "var(--contrib-level-0)";
+    if (count <= 3) return "var(--contrib-level-1)";
+    if (count <= 6) return "var(--contrib-level-2)";
+    if (count <= 9) return "var(--contrib-level-3)";
+    return "var(--contrib-level-4)";
   };
 
   const weeks: ContributionDay[][] = [];
@@ -86,38 +86,50 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
     weeks.push(days.slice(i, i + 7));
   }
 
+  const contributionLevels = [
+    "var(--contrib-level-0)",
+    "var(--contrib-level-1)",
+    "var(--contrib-level-2)",
+    "var(--contrib-level-3)",
+    "var(--contrib-level-4)"
+  ];
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 5 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="space-y-6"
+      className="space-y-6 mt-12"
     >
-      <div className="flex justify-between items-end mb-4">
-        <div>
-          <h2 className="text-3xl font-bold text-primary">GitHub Activity</h2>
-          <p className="text-sm text-neutral-500 mt-1">Past year for @{username}</p>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">GitHub Activity</h2>
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
         </div>
-        <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
-          <span>Less</span>
-          {["#ebedf0","#9be9a8","#40c463","#30a14e","#216e39"].map(c => (
-            <span key={c} className="w-3 h-3 rounded-sm" style={{ background: c }} />
-          ))}
-          <span>More</span>
+        <div className="flex justify-between items-center">
+          <p className="text-sm text-neutral-500">Past year for @{username}</p>
+          <div className="flex items-center gap-2 text-xs text-neutral-500">
+            <span>Less</span>
+            {contributionLevels.map((c, i) => (
+              <span key={i} className="w-3 h-3 rounded-sm" style={{ background: c }} />
+            ))}
+            <span>More</span>
+          </div>
         </div>
       </div>
+
       {error ? (
         <div className="text-sm text-red-500">{error}</div>
       ) : (
-        <div className="overflow-x-auto pb-2">
+        <div className="overflow-x-auto pb-2 scrollbar-hide">
           <div className="flex gap-1 min-w-max">
             {weeks.map((week, i) => (
               <div key={i} className="flex flex-col gap-1">
                 {week.map((day, j) => (
                   <div
                     key={j}
-                    className="w-3 h-3 rounded-sm transition-all duration-200 hover:ring-2 hover:ring-accent hover:ring-offset-1 dark:hover:ring-offset-black"
+                    className="w-3 h-3 rounded-sm transition-all duration-300 hover:scale-110 hover:ring-2 hover:ring-accent hover:ring-offset-1 dark:hover:ring-offset-black"
                     style={{ background: colorFor(day.contributionCount) }}
                     title={`${day.date}: ${day.contributionCount} contributions`}
                   />

@@ -160,7 +160,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                             </p>
                         )}
                     </header>
-                    <div className="markdown-body text-neutral-700 dark:text-neutral-600 leading-relaxed">
+                    <div className="markdown-body text-neutral-700 dark:text-neutral-700 leading-relaxed">
                             <ReactMarkdown
                                 remarkPlugins={[remarkMath]}
                                 rehypePlugins={rehypePlugins}

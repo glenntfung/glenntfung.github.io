@@ -14,7 +14,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
             <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
                 {config.description && (
-                    <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+                    <p className="text-base text-neutral-600 dark:text-neutral-700 max-w-2xl leading-relaxed">
                         {config.description}
                     </p>
                 )}
@@ -34,14 +34,14 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                 {item.title}
                             </h3>
                             {item.date && (
-                                <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0">
+                                <span className="text-xs text-neutral-500 dark:text-neutral-600 shrink-0">
                                     {item.date}
                                 </span>
                             )}
                         </div>
                         
                         {item.subtitle && (
-                            <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 font-medium mb-3`}>
+                            <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-700 font-medium mb-3`}>
                                 {item.subtitle}
                             </p>
                         )}
@@ -55,7 +55,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         {item.tags && (
                             <div className="flex flex-wrap gap-2 mt-4">
                                 {item.tags.map(tag => (
-                                    <span key={tag} className="text-xs font-medium text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-900 px-2 py-1 rounded">
+                                    <span key={tag} className="text-xs font-medium text-neutral-600 dark:text-neutral-600 bg-neutral-100 dark:bg-neutral-900 px-2 py-1 rounded">
                                         {tag}
                                     </span>
                                 ))}

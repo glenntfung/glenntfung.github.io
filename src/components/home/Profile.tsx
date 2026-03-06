@@ -89,7 +89,7 @@ export default function Profile({ author, social }: ProfileProps) {
         },
     ];
 
-    const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-all duration-200 group";
+    const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-600 hover:text-accent transition-all duration-200 group";
 
     return (
         <motion.div
@@ -117,10 +117,10 @@ export default function Profile({ author, social }: ProfileProps) {
                     <h1 className="text-4xl font-bold text-primary mb-3 tracking-tight">
                         {author.name}
                     </h1>
-                    <p className="text-xl text-neutral-600 dark:text-neutral-400 font-medium mb-1">
+                    <p className="text-xl text-neutral-600 dark:text-neutral-700 font-medium mb-1">
                         {author.title}
                     </p>
-                    <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
+                    <p className="text-lg text-neutral-600 dark:text-neutral-700 mb-6">
                         {author.institution}
                     </p>
 
@@ -185,7 +185,7 @@ export default function Profile({ author, social }: ProfileProps) {
                                                 <div className="flex items-center justify-center space-x-2 mb-1">
                                                     <p className="font-semibold">Work Address</p>
                                                     {!isAddressPinned && (
-                                                        <div className="flex items-center space-x-0.5 text-xs text-neutral-400 opacity-60">
+                                                        <div className="flex items-center space-x-0.5 text-xs text-neutral-400 dark:text-neutral-600 opacity-60">
                                                             <Pin className="h-2.5 w-2.5" />
                                                             <span className="hidden sm:inline">Click</span>
                                                         </div>

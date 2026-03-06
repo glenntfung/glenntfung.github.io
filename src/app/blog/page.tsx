@@ -37,7 +37,7 @@ export default function BlogPage() {
     >
       <header className="space-y-3">
         <h1 className="text-4xl font-bold text-primary">Articles</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl">
+        <p className="text-neutral-600 dark:text-neutral-700 max-w-2xl">
           Search and filter posts by tags.
         </p>
       </header>
@@ -91,9 +91,9 @@ export default function BlogPage() {
               <Link href={`/blog-${post.slug}`} className="text-xl font-semibold text-primary group-hover:text-accent transition-colors">
                 {post.title}
               </Link>
-              <span className="text-xs text-neutral-500 dark:text-neutral-500 whitespace-nowrap">{post.date}</span>
+              <span className="text-xs text-neutral-500 dark:text-neutral-600 whitespace-nowrap">{post.date}</span>
             </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-3">{post.summary}</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-700 mb-3">{post.summary}</p>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span

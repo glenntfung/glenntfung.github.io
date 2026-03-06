@@ -90,7 +90,7 @@ export default function WorldMap() {
     <div className="space-y-6 relative" ref={containerRef}>
       <div className="flex items-center gap-4 mb-2 px-4 sm:px-0">
           <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Life Journey</h2>
-          <div className="h-[1px] w-full bg-neutral-100 dark:bg-neutral-900" />
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
       </div>
 
       <div 

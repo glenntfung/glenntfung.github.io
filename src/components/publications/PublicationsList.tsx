@@ -64,7 +64,7 @@ export default function PublicationsList({ config, publications, embedded = fals
             <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
                 {config.description && (
-                    <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+                    <p className="text-base text-neutral-600 dark:text-neutral-700 max-w-2xl leading-relaxed">
                         {config.description}
                     </p>
                 )}
@@ -219,13 +219,13 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                     {author.name}
                                                 </span>
                                                 {author.isCorresponding && (
-                                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-400'}`}>†</sup>
+                                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-600'}`}>†</sup>
                                                 )}
                                                 {idx < pub.authors.length - 1 && ', '}
                                             </span>
                                         ))}
                                     </p>
-                                    <p className="text-sm font-medium text-neutral-500 dark:text-neutral-500 mb-4">
+                                    <p className="text-sm font-medium text-neutral-500 dark:text-neutral-600 mb-4">
                                         {pub.journal || pub.conference} {pub.year}
                                     </p>
 
@@ -290,7 +290,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="overflow-hidden mt-4"
                                             >
                                                 <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-                                                    <p className="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">
+                                                    <p className="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed">
                                                         {pub.abstract}
                                                     </p>
                                                 </div>
@@ -305,7 +305,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="overflow-hidden mt-4"
                                             >
                                                 <div className="relative bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-                                                    <pre className="text-xs text-neutral-600 dark:text-neutral-500 overflow-x-auto whitespace-pre-wrap font-mono">
+                                                    <pre className="text-xs text-neutral-600 dark:text-neutral-600 overflow-x-auto whitespace-pre-wrap font-mono">
                                                         {pub.bibtex}
                                                     </pre>
                                                     <button

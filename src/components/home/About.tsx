@@ -17,7 +17,7 @@ export default function About({ content, title = 'About' }: AboutProps) {
         >
             <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
-                <div className="h-[1px] w-full bg-neutral-100 dark:bg-neutral-900" />
+                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
             </div>
             <div className="text-neutral-700 dark:text-neutral-700 leading-relaxed">
                 <ReactMarkdown

@@ -17,7 +17,7 @@ export default function MiscPage() {
       {/* Page Header */}
       <header className="mb-12 space-y-3">
         <h1 className="text-4xl font-bold text-primary">Miscellaneous</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+        <p className="text-neutral-600 dark:text-neutral-700 max-w-2xl leading-relaxed">
           A collection of miscellaneous projects, visualizations, and galleries.
         </p>
       </header>

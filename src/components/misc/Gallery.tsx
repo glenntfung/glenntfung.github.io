@@ -12,7 +12,7 @@ const photos = [
   { src: "/assets/img/gal/macau.jpeg", alt: "Macau Street", width: 2160, height: 2880 }, // Portrait
   { src: "/assets/img/gal/nz.jpeg", alt: "New Zealand", width: 2880, height: 2160 },
   { src: "/assets/img/gal/macao.jpeg", alt: "Macau City", width: 2302, height: 1535 },
-  { src: "/assets/img/gal/chinight.jpg", alt: "China Night", width: 4032, height: 3024 },
+  { src: "/assets/img/gal/chicagonight.jpg", alt: "Chicago's Night", width: 4032, height: 3024 },
   { src: "/assets/img/gal/jinanpanyu.jpeg", alt: "Jinan Panyu", width: 1706, height: 1280 },
   { src: "/assets/img/gal/hk.jpeg", alt: "Hong Kong", width: 2302, height: 1536 },
   { src: "/assets/img/gal/duke.jpg", alt: "Duke Chapel", width: 4032, height: 3024 },
@@ -43,7 +43,7 @@ export default function Gallery() {
     <div className="space-y-12">
       <div className="flex items-center gap-4 mb-8">
           <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Gallery</h2>
-          <div className="h-[1px] w-full bg-neutral-100 dark:bg-neutral-900" />
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
       </div>
 
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
