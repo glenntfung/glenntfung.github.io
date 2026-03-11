@@ -40,7 +40,7 @@
     "@types/react-dom": "^19",
     "@types/react-simple-maps": "^3.0.6",
     "eslint": "^9",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "16.1.6",
     "svg2ico": "^1.0.35",
     "tailwindcss": "^4",
     "typescript": "^5"
