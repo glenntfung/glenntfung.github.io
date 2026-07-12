@@ -1,13 +1,9 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import Gallery from "@/components/misc/Gallery";
+import GitHubContributions from "@/components/misc/GitHubContributions";
 import Random from "@/components/misc/Random";
+import TechStack from "@/components/misc/TechStack";
+import WorldMap from "@/components/misc/WorldMap";
 import PageMotion from "@/components/ui/PageMotion";
-
-const WorldMap = dynamic(() => import("@/components/misc/WorldMap"), { ssr: false });
-const GitHubContributions = dynamic(() => import("@/components/misc/GitHubContributions"), { ssr: false });
-const TechStack = dynamic(() => import("@/components/misc/TechStack"), { ssr: false });
 
 export default function MiscPage() {
   return (

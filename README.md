@@ -16,7 +16,7 @@ npm run build
 ```
 
 ### Deploy (GitHub Pages)
-The repo includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that installs dependencies, lints, builds, and deploys to GitHub Pages on push to main/master. Set `NEXT_PUBLIC_GITHUB_TOKEN` as a repo secret if you want GitHub activity to render.
+The repo includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that installs dependencies, lints, builds, and deploys to GitHub Pages on push to main/master. The GitHub activity section is generated during the build with the workflow's built-in `GITHUB_TOKEN`, so no custom repository secret is required.
 
 ## 📄 License
 
