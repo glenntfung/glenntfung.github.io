@@ -2,60 +2,41 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { useState } from "react";
 import { X } from "lucide-react";
 
 // Using real dimensions found from the file system
 const photos = [
-  { src: "/assets/img/gal/nyc.jpg", alt: "New York City", width: 4000, height: 3000 },
-  { src: "/assets/img/gal/uchi.jpg", alt: "UChicago", width: 4032, height: 3024 },
-  { src: "/assets/img/gal/macau.jpeg", alt: "Macau Street", width: 2160, height: 2880 }, // Portrait
-  { src: "/assets/img/gal/nz.jpeg", alt: "New Zealand", width: 2880, height: 2160 },
-  { src: "/assets/img/gal/macao.jpeg", alt: "Macau City", width: 2302, height: 1535 },
-  { src: "/assets/img/gal/chicagonight.jpg", alt: "Chicago's Night", width: 4032, height: 3024 },
-  { src: "/assets/img/gal/jinanpanyu.jpeg", alt: "Jinan Panyu", width: 1706, height: 1280 },
-  { src: "/assets/img/gal/hk.jpeg", alt: "Hong Kong", width: 2302, height: 1536 },
-  { src: "/assets/img/gal/duke.jpg", alt: "Duke Chapel", width: 4032, height: 3024 },
+  { src: "/assets/img/gal/nyc.webp", alt: "New York City", width: 2400, height: 1800 },
+  { src: "/assets/img/gal/uchi.webp", alt: "UChicago", width: 2400, height: 1800 },
+  { src: "/assets/img/gal/macau.webp", alt: "Macau Street", width: 1800, height: 2400 },
+  { src: "/assets/img/gal/nz.webp", alt: "New Zealand", width: 2400, height: 1800 },
+  { src: "/assets/img/gal/macao.webp", alt: "Macau City", width: 2302, height: 1535 },
+  { src: "/assets/img/gal/chicagonight.webp", alt: "Chicago's Night", width: 2400, height: 1800 },
+  { src: "/assets/img/gal/jinanpanyu.webp", alt: "Jinan Panyu", width: 1706, height: 1280 },
+  { src: "/assets/img/gal/hk.webp", alt: "Hong Kong", width: 2302, height: 1536 },
+  { src: "/assets/img/gal/duke.webp", alt: "Duke Chapel", width: 2400, height: 1800 },
 ];
 
 export default function Gallery() {
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-
-  // Close on Escape key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedPhoto(null);
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
-
-  // Prevent scroll when lightbox is open
-  useEffect(() => {
-    if (selectedPhoto) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [selectedPhoto]);
+  const [selectedPhoto, setSelectedPhoto] = useState<(typeof photos)[number] | null>(null);
 
   return (
     <div className="space-y-12">
       <div className="flex items-center gap-4 mb-8">
           <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Gallery</h2>
-          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
       </div>
 
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
-        {photos.map((photo, index) => (
-          <motion.div
+        {photos.map((photo) => (
+          <button
+            type="button"
             key={photo.src}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.05, ease: [0.21, 0.45, 0.32, 0.9] }}
-            onClick={() => setSelectedPhoto(photo.src)}
-            className="relative break-inside-avoid mb-8 rounded-2xl overflow-hidden cursor-zoom-in group border border-neutral-100/50 dark:border-neutral-800/50 shadow-sm hover:shadow-2xl transition-all duration-700 bg-neutral-50 dark:bg-neutral-900"
+            onClick={() => setSelectedPhoto(photo)}
+            aria-label={`Open ${photo.alt} photo`}
+            className="relative block w-full break-inside-avoid mb-8 rounded-2xl overflow-hidden cursor-zoom-in group border border-neutral-100/50 dark:border-neutral-200/50 shadow-sm hover:shadow-2xl transition-all duration-700 bg-neutral-50 dark:bg-neutral-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {/* The Image */}
             <Image
@@ -86,48 +67,57 @@ export default function Gallery() {
                
                <div className="mt-2 w-8 h-[1px] bg-white/40 relative z-10" />
             </div>
-          </motion.div>
+          </button>
         ))}
       </div>
 
       {/* Custom Lightbox / Image Zoom */}
       <AnimatePresence>
         {selectedPhoto && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedPhoto(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-20 bg-white/95 dark:bg-neutral-950/98 backdrop-blur-xl cursor-zoom-out"
+          <Dialog
+            static
+            open={true}
+            onClose={() => setSelectedPhoto(null)}
+            className="relative z-[100]"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 10 }}
-              transition={{ type: "spring", damping: 30, stiffness: 200 }}
-              className="relative max-w-7xl w-full h-full flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full h-full">
-                <Image
-                    src={selectedPhoto}
-                    alt="Zoomed photo"
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-white/95 dark:bg-neutral-50/98 backdrop-blur-xl"
+            />
+            <div className="fixed inset-0 flex items-center justify-center p-6 sm:p-20">
+              <DialogPanel className="relative max-w-7xl w-full h-full">
+                <DialogTitle className="sr-only">{selectedPhoto.alt}</DialogTitle>
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0, y: 10 }}
+                  transition={{ type: "spring", damping: 30, stiffness: 200 }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={selectedPhoto.src}
+                    alt={selectedPhoto.alt}
                     fill
                     className="object-contain"
                     priority
                     sizes="100vw"
-                />
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPhoto(null)}
+                    className="absolute -top-12 sm:top-4 -right-2 sm:right-4 p-3 text-neutral-500 hover:text-primary transition-colors rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    aria-label="Close photo preview"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </motion.div>
+              </DialogPanel>
               </div>
-              
-              <button 
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute -top-12 sm:top-4 -right-2 sm:right-4 p-3 text-neutral-500 hover:text-primary transition-colors"
-                aria-label="Close lightbox"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </motion.div>
-          </motion.div>
+          </Dialog>
         )}
       </AnimatePresence>
     </div>

@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
 interface AboutProps {
@@ -10,32 +7,30 @@ interface AboutProps {
 
 export default function About({ content, title = 'About' }: AboutProps) {
     return (
-        <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <section>
             <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
-                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
+                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
             </div>
             <div className="text-neutral-700 dark:text-neutral-700 leading-relaxed">
                 <ReactMarkdown
                     components={{
                         h1: ({ children }) => <h1 className="text-3xl font-bold text-primary mt-8 mb-4">{children}</h1>,
-                        h2: ({ children }) => <h2 className="text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-100/50 dark:border-neutral-800/50 pb-2">{children}</h2>,
+                        h2: ({ children }) => <h2 className="text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-100/50 dark:border-neutral-200/50 pb-2">{children}</h2>,
                         h3: ({ children }) => <h3 className="text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>,
                         p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
                         ul: ({ children }) => <ul className="list-disc list-outside mb-4 space-y-2 ml-6 [&_ul]:mt-4 [&_ul]:mb-0">{children}</ul>,
                         ol: ({ children }) => <ol className="list-decimal list-outside mb-4 space-y-2 ml-6 [&_ol]:mt-4 [&_ol]:mb-0">{children}</ol>,
                         li: ({ children }) => <li className="pl-1 mb-2 last:mb-0">{children}</li>,
-                        a: ({ ...props }) => (
+                        a: ({ href, children }) => (
                             <a
-                                {...props}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href={href}
+                                target={href?.startsWith('http') ? '_blank' : undefined}
+                                rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                                 className="text-accent hover:text-accent-dark font-medium underline underline-offset-4 decoration-accent/20 hover:decoration-accent/100 transition-all duration-300"
-                            />
+                            >
+                                {children}
+                            </a>
                         ),
                         blockquote: ({ children }) => (
                             <blockquote className="border-l-4 border-accent pl-4 italic my-4 text-neutral-600 dark:text-neutral-500 bg-neutral-50 dark:bg-neutral-100/50 py-2 pr-4">
@@ -49,6 +44,6 @@ export default function About({ content, title = 'About' }: AboutProps) {
                     {content}
                 </ReactMarkdown>
             </div>
-        </motion.section>
+        </section>
     );
 }

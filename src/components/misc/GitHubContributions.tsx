@@ -105,7 +105,7 @@ export default function GitHubContributions({ username }: GitHubContributionsPro
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">GitHub Activity</h2>
-          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
         </div>
         <div className="flex justify-between items-center">
           <p className="text-sm text-neutral-500">Past year for @{username}</p>

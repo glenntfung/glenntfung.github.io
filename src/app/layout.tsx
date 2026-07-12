@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
+import { Crimson_Text, Inter } from "next/font/google";
 import "./globals.css";
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github.css';
@@ -7,9 +9,23 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { getConfig } from "@/lib/config";
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const crimsonText = Crimson_Text({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
   return {
+    metadataBase: new URL(config.site.url),
     title: {
       default: config.site.title,
       template: `%s | ${config.site.title}`
@@ -19,6 +35,9 @@ export async function generateMetadata(): Promise<Metadata> {
     authors: [{ name: config.author.name }],
     creator: config.author.name,
     publisher: config.author.name,
+    alternates: {
+      canonical: "/",
+    },
     icons: {
       icon: [
         { url: config.site.favicon, type: "image/svg+xml" },
@@ -34,6 +53,21 @@ export async function generateMetadata(): Promise<Metadata> {
       title: config.site.title,
       description: config.site.description,
       siteName: `${config.author.name}'s Academic Website`,
+      url: "/",
+      images: [
+        {
+          url: config.author.avatar,
+          width: 987,
+          height: 1480,
+          alt: config.author.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: config.site.title,
+      description: config.site.description,
+      images: [config.author.avatar],
     },
   };
 }
@@ -46,7 +80,15 @@ export default function RootLayout({
   const config = getConfig();
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="scroll-smooth"
+      suppressHydrationWarning
+      style={{
+        "--font-sans": inter.style.fontFamily,
+        "--font-serif": crimsonText.style.fontFamily,
+      } as CSSProperties}
+    >
       <head>
         <link rel="icon" href={config.site.favicon} type="image/svg+xml" />
         <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
@@ -54,14 +96,6 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* Speed up font connections */}
-        <link rel="dns-prefetch" href="https://google-fonts.jialeliu.com" />
-        <link rel="preconnect" href="https://google-fonts.jialeliu.com" crossOrigin="" />
-        {/* Non-blocking Google Fonts: preload + print media swap to avoid render-blocking */}
-        <link
-          rel="stylesheet"
-          href="https://google-fonts.jialeliu.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -83,14 +117,20 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased`}>
+      <body className="antialiased">
         <ThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only fixed top-3 left-3 z-[100] rounded-md bg-background px-4 py-2 text-sm font-semibold text-primary shadow-lg ring-2 ring-accent"
+          >
+            Skip to main content
+          </a>
           <Navigation
             items={config.navigation}
             siteTitle={config.site.title}
             enableOnePageMode={config.features.enable_one_page_mode}
           />
-          <main className="min-h-screen pt-16 lg:pt-20">
+          <main id="main-content" className="min-h-screen pt-16 lg:pt-20">
             {children}
           </main>
           <Footer lastUpdated={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />

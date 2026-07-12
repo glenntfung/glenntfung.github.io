@@ -5,7 +5,7 @@ export default function Random() {
     <div className="space-y-6">
       <div className="flex items-center gap-4 mb-8">
         <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Random</h2>
-        <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
+        <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
       </div>
       <div className="space-y-4 text-base text-neutral-700 dark:text-neutral-700 leading-relaxed">
         <p>

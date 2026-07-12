@@ -43,22 +43,30 @@ export default function BlogPage() {
       </header>
 
       <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <label htmlFor="blog-search" className="sr-only">Search posts</label>
         <input
+          id="blog-search"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search posts"
-          className="w-full sm:w-2/3 rounded-lg border border-neutral-200 dark:border-neutral-800 px-3 py-2 text-sm bg-background"
+          className="w-full sm:w-2/3 rounded-lg border border-neutral-200 dark:border-neutral-200 px-3 py-2 text-sm bg-background"
         />
         <div className="relative">
           <button
+            type="button"
             onClick={() => setTagMenuOpen((o) => !o)}
-            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm bg-background transition-colors hover:border-accent hover:text-accent"
+            aria-expanded={tagMenuOpen}
+            aria-controls="blog-tag-filter"
+            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-200 text-sm bg-background transition-colors hover:border-accent hover:text-accent"
           >
             {activeTag ? `Tag: ${activeTag}` : "Filter by tag"}
           </button>
           {tagMenuOpen && (
-            <div className="absolute z-20 mt-2 w-48 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-background shadow-lg max-h-64 overflow-auto animate-in fade-in zoom-in-95 origin-top">
+            <div id="blog-tag-filter" className="absolute z-20 mt-2 w-48 rounded-lg border border-neutral-200 dark:border-neutral-200 bg-background shadow-lg max-h-64 overflow-auto animate-in fade-in zoom-in-95 origin-top">
               <button
+                type="button"
+                aria-pressed={activeTag === null}
                 onClick={() => {
                   setActiveTag(null);
                   setTagMenuOpen(false);
@@ -69,7 +77,9 @@ export default function BlogPage() {
               </button>
               {tags.map((tag) => (
                 <button
+                  type="button"
                   key={tag.name}
+                  aria-pressed={activeTag === tag.name}
                   onClick={() => {
                     setActiveTag(tag.name);
                     setTagMenuOpen(false);
@@ -91,7 +101,7 @@ export default function BlogPage() {
               <Link href={`/blog-${post.slug}`} className="text-xl font-semibold text-primary group-hover:text-accent transition-colors">
                 {post.title}
               </Link>
-              <span className="text-xs text-neutral-500 dark:text-neutral-600 whitespace-nowrap">{post.date}</span>
+              <time dateTime={post.date} className="text-xs text-neutral-500 dark:text-neutral-600 whitespace-nowrap">{post.date}</time>
             </div>
             <p className="text-sm text-neutral-600 dark:text-neutral-700 mb-3">{post.summary}</p>
             <div className="flex flex-wrap gap-2">
@@ -107,7 +117,7 @@ export default function BlogPage() {
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="text-sm text-neutral-500">No posts match your filters.</div>
+          <div role="status" className="text-sm text-neutral-500">No posts match your filters.</div>
         )}
       </div>
     </PageMotion>

@@ -1,16 +1,9 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { CardPageConfig } from '@/types/page';
 import Link from 'next/link';
 
 export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-        >
+        <div>
             <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
                 <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
                 {config.description && (
@@ -22,11 +15,8 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
 
             <div className="grid gap-12">
                 {config.items.map((item, index) => (
-                    <motion.div
+                    <div
                         key={index}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index, ease: "easeOut" }}
                         className="group signature-hover"
                     >
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
@@ -55,7 +45,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         {item.tags && (
                             <div className="flex flex-wrap gap-2 mt-4">
                                 {item.tags.map(tag => (
-                                    <span key={tag} className="text-xs font-medium text-neutral-600 dark:text-neutral-600 bg-neutral-100 dark:bg-neutral-900 px-2 py-1 rounded">
+                                    <span key={tag} className="text-xs font-medium text-neutral-600 dark:text-neutral-600 bg-neutral-100 dark:bg-neutral-100 px-2 py-1 rounded">
                                         {tag}
                                     </span>
                                 ))}
@@ -70,9 +60,9 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                                 </Link>
                             </div>
                         )}
-                    </motion.div>
+                    </div>
                 ))}
             </div>
-        </motion.div>
+        </div>
     );
 }

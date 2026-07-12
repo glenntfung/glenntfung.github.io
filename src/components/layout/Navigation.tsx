@@ -84,7 +84,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
       {({ open }) => (
         <>
           <motion.div
-            initial={{ y: -100 }}
+            initial={false}
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
@@ -162,8 +162,8 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                 {/* Mobile menu button and theme toggle */}
                 <div className="lg:hidden flex items-center space-x-2">
                   <ThemeToggle />
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
-                    <span className="sr-only">Open main menu</span>
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
+                    <span className="sr-only">{open ? 'Close main menu' : 'Open main menu'}</span>
                     <motion.div
                       animate={{ rotate: open ? 180 : 0 }}
                       transition={{ duration: 0.2 }}
@@ -206,7 +206,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                       return (
                         <motion.div
                           key={item.title}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={false}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
@@ -219,7 +219,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
                                 ? 'text-primary bg-accent/10 border-l-4 border-accent'
-                                : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
+                                : 'text-neutral-600 hover:text-primary hover:bg-neutral-50 dark:hover:bg-neutral-100'
                             )}
                           >
                             {item.title}

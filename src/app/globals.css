@@ -247,6 +247,21 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--neutral-500);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Card background utility */
 .card-bg, .bg-card {
   background-color: #ffffff;

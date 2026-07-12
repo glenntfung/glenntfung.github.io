@@ -3,20 +3,20 @@ import { getConfig } from '@/lib/config';
 
 export function generateMetadata(): Metadata {
   const config = getConfig();
-  const title = 'Misc';
-  const description = 'Experiments and more about me';
+  const title = 'Articles';
+  const description = 'Search and filter posts by tags.';
 
   return {
     title,
     description,
     alternates: {
-      canonical: '/misc/',
+      canonical: '/blog/',
     },
     openGraph: {
       title,
       description,
       siteName: `${config.author.name}'s Academic Website`,
-      url: '/misc/',
+      url: '/blog/',
       type: 'website',
       images: [config.author.avatar],
     },
@@ -29,6 +29,6 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function MiscLayout({ children }: { children: React.ReactNode }) {
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

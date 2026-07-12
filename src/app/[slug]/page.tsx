@@ -2,9 +2,6 @@ import { notFound } from 'next/navigation';
 import { getPageConfig, getMarkdownContent, getBibtexContent, getTomlContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
-import PublicationsList from '@/components/publications/PublicationsList';
-import TextPage from '@/components/pages/TextPage';
-import CardPage from '@/components/pages/CardPage';
 import News, { NewsItem } from '@/components/home/News';
 import PageMotion from '@/components/ui/PageMotion';
 import {
@@ -37,14 +34,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         return {};
     }
     const pageConfig = getPageConfig(slug) as BasePageConfig | null;
+    const config = getConfig();
 
     if (!pageConfig) {
         return {};
     }
 
+    const canonicalPath = `/${slug}/`;
+    const openGraphType = slug.startsWith('blog-') ? 'article' : 'website';
+
     return {
         title: pageConfig.title,
         description: pageConfig.description,
+        alternates: {
+            canonical: canonicalPath,
+        },
+        openGraph: {
+            title: pageConfig.title,
+            description: pageConfig.description,
+            siteName: `${config.author.name}'s Academic Website`,
+            url: canonicalPath,
+            type: openGraphType,
+            images: [config.author.avatar],
+        },
+        twitter: {
+            card: 'summary',
+            title: pageConfig.title,
+            description: pageConfig.description,
+            images: [config.author.avatar],
+        },
     };
 }
 
@@ -69,7 +87,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
                     <TextPageWrapper config={pageConfig as TextPageConfig} />
                 )}
                 {pageConfig.type === 'card' && (
-                    <CardPage config={pageConfig as CardPageConfig} />
+                    <CardPageWrapper config={pageConfig as CardPageConfig} />
                 )}
                 {(pageConfig.type === 'news' || slug === 'news') && (
                     <NewsPage config={pageConfig} />
@@ -79,15 +97,22 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     );
 }
 
-function PublicationPage({ config }: { config: PublicationPageConfig }) {
+async function PublicationPage({ config }: { config: PublicationPageConfig }) {
+    const { default: PublicationsList } = await import('@/components/publications/PublicationsList');
     const bibtex = getBibtexContent(config.source);
     const publications = parseBibTeX(bibtex);
     return <PublicationsList config={config} publications={publications} />;
 }
 
-function TextPageWrapper({ config }: { config: TextPageConfig }) {
+async function TextPageWrapper({ config }: { config: TextPageConfig }) {
+    const { default: TextPage } = await import('@/components/pages/TextPage');
     const content = getMarkdownContent(config.source);
     return <TextPage config={config} content={content} />;
+}
+
+async function CardPageWrapper({ config }: { config: CardPageConfig }) {
+    const { default: CardPage } = await import('@/components/pages/CardPage');
+    return <CardPage config={config} />;
 }
 
 function NewsPage({ config }: { config: BasePageConfig }) {

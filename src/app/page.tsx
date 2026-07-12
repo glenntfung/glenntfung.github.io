@@ -5,9 +5,6 @@ import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
-import PublicationsList from '@/components/publications/PublicationsList';
-import TextPage from '@/components/pages/TextPage';
-import CardPage from '@/components/pages/CardPage';
 
 import { Publication } from '@/types/publication';
 import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
@@ -32,6 +29,21 @@ type PageData =
   | { type: 'publication', id: string, config: PublicationPageConfig, publications: Publication[] }
   | { type: 'text', id: string, config: TextPageConfig, content: string }
   | { type: 'card', id: string, config: CardPageConfig };
+
+async function EmbeddedPublicationPage({ page }: { page: Extract<PageData, { type: 'publication' }> }) {
+  const { default: PublicationsList } = await import('@/components/publications/PublicationsList');
+  return <PublicationsList config={page.config} publications={page.publications} embedded={true} />;
+}
+
+async function EmbeddedTextPage({ page }: { page: Extract<PageData, { type: 'text' }> }) {
+  const { default: TextPage } = await import('@/components/pages/TextPage');
+  return <TextPage config={page.config} content={page.content} embedded={true} />;
+}
+
+async function EmbeddedCardPage({ page }: { page: Extract<PageData, { type: 'card' }> }) {
+  const { default: CardPage } = await import('@/components/pages/CardPage');
+  return <CardPage config={page.config} embedded={true} />;
+}
 
 export default function Home() {
   const config = getConfig();
@@ -181,24 +193,13 @@ export default function Home() {
                 }
               })}
               {page.type === 'publication' && (
-                <PublicationsList
-                  config={page.config}
-                  publications={page.publications}
-                  embedded={true}
-                />
+                <EmbeddedPublicationPage page={page} />
               )}
               {page.type === 'text' && (
-                <TextPage
-                  config={page.config}
-                  content={page.content}
-                  embedded={true}
-                />
+                <EmbeddedTextPage page={page} />
               )}
               {page.type === 'card' && (
-                <CardPage
-                  config={page.config}
-                  embedded={true}
-                />
+                <EmbeddedCardPage page={page} />
               )}
             </section>
           ))}

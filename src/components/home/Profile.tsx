@@ -92,14 +92,9 @@ export default function Profile({ author, social }: ProfileProps) {
     const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-600 hover:text-accent transition-all duration-200 group";
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full"
-        >
+        <div className="w-full">
             {/* Header Content: Avatar + Info */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-24 mb-10">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-24 mb-10">
                 {/* Profile Image */}
                 <div className="w-48 h-60 rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.01] shrink-0 ring-1 ring-neutral-100 dark:ring-neutral-800">
                     <Image
@@ -233,6 +228,6 @@ export default function Profile({ author, social }: ProfileProps) {
                     );
                 })}
             </div>
-        </motion.div>
+        </div>
     );
 }

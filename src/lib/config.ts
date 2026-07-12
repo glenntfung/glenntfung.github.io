@@ -7,6 +7,7 @@ export interface SiteConfig {
         title: string;
         description: string;
         favicon: string;
+        url: string;
     };
     author: {
         name: string;

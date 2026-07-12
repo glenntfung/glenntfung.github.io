@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export interface NewsItem {
@@ -16,14 +13,10 @@ interface NewsProps {
 
 export default function News({ items, title = 'News', viewAllHref }: NewsProps) {
     return (
-        <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-        >
+        <section>
             <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
-                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-900" />
+                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
                 {viewAllHref && (
                     <Link href={viewAllHref} className="text-sm text-accent hover:underline whitespace-nowrap">
                         View all
@@ -42,6 +35,6 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
                     </div>
                 ))}
             </div>
-        </motion.section>
+        </section>
     );
 }
