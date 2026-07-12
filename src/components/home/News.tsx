@@ -1,5 +1,17 @@
 import Link from 'next/link';
 
+const newsDateFormatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+});
+
+function formatNewsDate(date: string): string {
+    const [year, month, day] = date.split('-').map(Number);
+    return newsDateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
+}
+
 export interface NewsItem {
     date: string;
     content: string;
@@ -24,11 +36,11 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
                 )}
             </div>
             <div className="space-y-4">
-                {items.map((item, index) => (
-                    <div key={index} className="flex items-baseline space-x-4 group item-hover py-1">
-                        <span className="text-xs text-neutral-500 dark:text-neutral-500 w-24 flex-shrink-0">
-                            {item.date}
-                        </span>
+                {items.map((item) => (
+                    <div key={`${item.date}-${item.content}`} className="grid grid-cols-[max-content_1fr] items-baseline gap-4 group item-hover py-1">
+                        <time dateTime={item.date} className="text-xs text-neutral-500 dark:text-neutral-500 whitespace-nowrap">
+                            {formatNewsDate(item.date)}
+                        </time>
                         <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed transition-colors">
                             {item.content}
                         </p>
