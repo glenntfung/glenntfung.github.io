@@ -1,12 +1,14 @@
 "use client";
 
-export default function Random() {
+export default function Random({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4 mb-8">
-        <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Random</h2>
-        <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
-      </div>
+      {showHeading && (
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-3xl font-bold text-primary flex-shrink-0">Random</h2>
+          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
+        </div>
+      )}
       <div className="space-y-4 text-base text-neutral-700 dark:text-neutral-700 leading-relaxed">
         <p>
           I grew up in Guangzhou, a vibrant subtropical city in southern China near Hong Kong (if you look at the world map, you&apos;ll find it on the Tropic of Cancer), known for its amazing Cantonese cuisine (yes, dim sum!). These days, I live in the Greater Chicago area, a wonderful place in the U.S., if you don’t mind the occasional gust of strong wind.

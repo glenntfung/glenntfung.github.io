@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const newsDateFormatter = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
     timeZone: 'UTC',
@@ -27,7 +27,7 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
     return (
         <section>
             <div className="flex items-center gap-4 mb-8">
-                <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
+                <h2 className="text-3xl font-bold text-primary flex-shrink-0">{title}</h2>
                 <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
                 {viewAllHref && (
                     <Link href={viewAllHref} className="text-sm text-accent hover:underline whitespace-nowrap">
@@ -37,8 +37,8 @@ export default function News({ items, title = 'News', viewAllHref }: NewsProps) 
             </div>
             <div className="space-y-4">
                 {items.map((item) => (
-                    <div key={`${item.date}-${item.content}`} className="grid grid-cols-[max-content_1fr] items-baseline gap-4 group item-hover py-1">
-                        <time dateTime={item.date} className="text-xs text-neutral-500 dark:text-neutral-500 whitespace-nowrap">
+                    <div key={`${item.date}-${item.content}`} className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-4 group item-hover py-1">
+                        <time dateTime={item.date} className="text-right text-xs tabular-nums text-neutral-500 dark:text-neutral-500 whitespace-nowrap">
                             {formatNewsDate(item.date)}
                         </time>
                         <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed transition-colors">

@@ -19,15 +19,17 @@ const photos = [
   { src: "/assets/img/gal/duke.webp", alt: "Duke Chapel", width: 2400, height: 1800 },
 ];
 
-export default function Gallery() {
+export default function Gallery({ showHeading = true }: { showHeading?: boolean }) {
   const [selectedPhoto, setSelectedPhoto] = useState<(typeof photos)[number] | null>(null);
 
   return (
     <div className="space-y-12">
-      <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Gallery</h2>
-          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
-      </div>
+      {showHeading && (
+        <div className="flex items-center gap-4 mb-8">
+            <h2 className="text-3xl font-bold text-primary flex-shrink-0">Gallery</h2>
+            <div className="h-[1px] w-full bg-neutral-200" />
+        </div>
+      )}
 
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
         {photos.map((photo) => (
@@ -57,7 +59,7 @@ export default function Gallery() {
                <div className="absolute inset-0 mix-blend-overlay opacity-[0.15] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
                
                <motion.span 
-                  className="relative z-10 text-white font-serif italic text-xl tracking-tight drop-shadow-lg"
+                  className="relative z-10 text-white italic text-xl tracking-tight drop-shadow-lg"
                   initial={{ y: 10, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.5 }}
@@ -85,7 +87,7 @@ export default function Gallery() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-white/95 dark:bg-neutral-50/98 backdrop-blur-xl"
+              className="fixed inset-0 bg-background/95 backdrop-blur-xl"
             />
             <div className="fixed inset-0 flex items-center justify-center p-6 sm:p-20">
               <DialogPanel className="relative max-w-7xl w-full h-full">

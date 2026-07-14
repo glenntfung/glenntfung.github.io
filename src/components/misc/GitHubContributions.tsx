@@ -21,9 +21,13 @@ interface ContributionResponse {
 
 interface GitHubContributionsProps {
   username: string;
+  showHeading?: boolean;
 }
 
-export default async function GitHubContributions({ username }: GitHubContributionsProps) {
+export default async function GitHubContributions({
+  username,
+  showHeading = true,
+}: GitHubContributionsProps) {
   const query = `
     query($login: String!) {
       user(login: $login) {
@@ -88,12 +92,14 @@ export default async function GitHubContributions({ username }: GitHubContributi
   ];
 
   return (
-    <div className="space-y-6 mt-12">
+    <div className={`space-y-6 ${showHeading ? "mt-12" : ""}`}>
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-4">
-          <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">GitHub Activity</h2>
-          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
-        </div>
+        {showHeading && (
+          <div className="flex items-center gap-4">
+            <h2 className="text-3xl font-bold text-primary flex-shrink-0">GitHub Activity</h2>
+            <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
+          </div>
+        )}
         <div className="flex justify-between items-center">
           <p className="text-sm text-neutral-500">Past year for @{username}</p>
           <div className="flex items-center gap-2 text-xs text-neutral-500">
@@ -107,7 +113,18 @@ export default async function GitHubContributions({ username }: GitHubContributi
       </div>
 
       {error ? (
-        <div className="text-sm text-red-500">{error}</div>
+        <p className="text-sm text-neutral-600">
+          Contribution data is unavailable. {" "}
+          <a
+            href={`https://github.com/${username}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline-offset-4 hover:underline"
+          >
+            View @{username} on GitHub
+          </a>
+          .
+        </p>
       ) : (
         <div className="overflow-x-auto pb-2 scrollbar-hide">
           <div className="flex gap-1 min-w-max">

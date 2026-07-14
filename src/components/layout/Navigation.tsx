@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
@@ -18,19 +17,8 @@ interface NavigationProps {
 
 export default function Navigation({ items, siteTitle, enableOnePageMode }: NavigationProps) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [activeHash, setActiveHash] = useState('');
   const visibleItems = items.filter(item => !item.hidden);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (enableOnePageMode) {
@@ -83,37 +71,23 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
-          <motion.div
-            initial={false}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.6 }}
-            className={cn(
-              'transition-all duration-300 ease-out',
-              scrolled
-                ? 'bg-background/80 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg'
-                : 'bg-transparent'
-            )}
-          >
+          <div className="bg-background border-b border-neutral-200/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 lg:h-20">
                 {/* Logo/Name */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-shrink-0"
-                >
+                <div className="flex-shrink-0">
                   <Link
                     href="/"
                     className="text-xl lg:text-2xl font-semibold text-primary hover:text-accent transition-colors duration-200"
                   >
                     {siteTitle}
                   </Link>
-                </motion.div>
+                </div>
 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:block">
-                  <div className="ml-10 flex items-center space-x-8">
-                    <div className="flex items-baseline space-x-8">
+                  <div className="ml-10 flex items-center space-x-6">
+                    <div className="flex items-baseline space-x-6">
                       {visibleItems.map((item) => {
                         const isActive = enableOnePageMode
                           ? activeHash === `#${item.target}` || (!activeHash && item.target === 'about')
@@ -140,16 +114,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                           >
                             <span className="relative z-10">{item.title}</span>
                             {isActive && (
-                              <motion.div
-                                layoutId="activeTab"
-                                className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                                initial={false}
-                                transition={{
-                                  type: 'spring',
-                                  stiffness: 500,
-                                  damping: 30
-                                }}
-                              />
+                              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent" />
                             )}
                           </Link>
                         );
@@ -159,79 +124,61 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                   </div>
                 </div>
 
-                {/* Mobile menu button and theme toggle */}
-                <div className="lg:hidden flex items-center space-x-2">
-                  <ThemeToggle />
+                {/* Mobile menu button */}
+                <div className="lg:hidden flex items-center">
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
                     <span className="sr-only">{open ? 'Close main menu' : 'Open main menu'}</span>
-                    <motion.div
-                      animate={{ rotate: open ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {open ? (
-                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                      ) : (
-                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                      )}
-                    </motion.div>
+                    {open ? (
+                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    )}
                   </Disclosure.Button>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Mobile Navigation Menu */}
-          <AnimatePresence>
-            {open && (
-              <Disclosure.Panel static>
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg"
-                >
-                  <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    {visibleItems.map((item, index) => {
-                      const isActive = enableOnePageMode
-                        ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
-                        : (item.href === '/'
-                          ? pathname === '/'
-                          : pathname.startsWith(item.href));
+          {open && (
+            <Disclosure.Panel static className="lg:hidden bg-background border-b border-neutral-200/50">
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                {visibleItems.map((item) => {
+                  const isActive = enableOnePageMode
+                    ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
+                    : (item.href === '/'
+                      ? pathname === '/'
+                      : pathname.startsWith(item.href));
 
-                      const href = enableOnePageMode
-                        ? (item.href === '/' ? '/' : `/#${item.target}`)
-                        : item.href;
+                  const href = enableOnePageMode
+                    ? (item.href === '/' ? '/' : `/#${item.target}`)
+                    : item.href;
 
-                      return (
-                        <motion.div
-                          key={item.title}
-                          initial={false}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <Disclosure.Button
-                            as={Link}
-                            href={href}
-                            prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
-                            className={cn(
-                              'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
-                              isActive
-                                ? 'text-primary bg-accent/10 border-l-4 border-accent'
-                                : 'text-neutral-600 hover:text-primary hover:bg-neutral-50 dark:hover:bg-neutral-100'
-                            )}
-                          >
-                            {item.title}
-                          </Disclosure.Button>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              </Disclosure.Panel>
-            )}
-          </AnimatePresence>
+                  return (
+                    <Disclosure.Button
+                      key={item.title}
+                      as={Link}
+                      href={href}
+                      prefetch={true}
+                      onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
+                      className={cn(
+                        'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+                        isActive
+                          ? 'text-accent bg-neutral-50'
+                          : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
+                      )}
+                    >
+                      {item.title}
+                    </Disclosure.Button>
+                  );
+                })}
+                <div className="mt-2 flex items-center justify-between border-t border-neutral-200 px-3 pt-3">
+                  <span className="text-sm font-medium text-neutral-600">Theme</span>
+                  <ThemeToggle />
+                </div>
+              </div>
+            </Disclosure.Panel>
+          )}
         </>
       )}
     </Disclosure>

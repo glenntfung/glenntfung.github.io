@@ -70,7 +70,7 @@ const BentoBox = ({
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.8, delay, ease: [0.21, 0.45, 0.32, 0.9] }}
-    className={`relative overflow-hidden rounded-3xl border border-neutral-200 dark:border-accent/20 bg-white dark:bg-neutral-100 backdrop-blur-md p-6 group transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 ${className}`}
+    className={`relative overflow-hidden rounded-3xl border border-neutral-200 dark:border-accent/20 bg-card backdrop-blur-md p-6 group transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 ${className}`}
   >
     <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
     
@@ -78,7 +78,7 @@ const BentoBox = ({
       <div className="p-2 rounded-xl bg-accent/10 text-accent">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-xl font-bold font-serif text-neutral-900 dark:text-neutral-900">{title}</h3>
+      <h3 className="text-xl font-bold text-primary">{title}</h3>
     </div>
 
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-4">
@@ -93,7 +93,7 @@ const BentoBox = ({
               unoptimized
             />
           </div>
-          <span className="text-[9px] font-bold text-neutral-600 dark:text-neutral-800 group-hover/item:text-accent uppercase tracking-widest text-center transition-colors">
+          <span className="text-[9px] font-bold text-neutral-600 group-hover/item:text-accent uppercase tracking-widest text-center transition-colors">
             {item.name}
           </span>
         </div>
@@ -102,13 +102,15 @@ const BentoBox = ({
   </motion.div>
 );
 
-export default function TechStack() {
+export default function TechStack({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <div className="space-y-12">
-      <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">Tech & Tools</h2>
-          <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
-      </div>
+      {showHeading && (
+        <div className="flex items-center gap-4 mb-8">
+            <h2 className="text-3xl font-bold text-primary flex-shrink-0">Tech & Tools</h2>
+            <div className="h-[1px] w-full bg-neutral-200" />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Scientific Computing */}

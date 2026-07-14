@@ -53,54 +53,79 @@ export default function TextPage({ config, content, embedded = false }: TextPage
     };
 
     const headingId = (children: ReactNode): string => renderSlugger.slug(extractText(children));
+    const showToc = !embedded && tocTree.length > 0 && !config.hideToc;
 
     return (
         <div className={embedded ? '' : 'max-w-6xl mx-auto'}>
             <div className="flex gap-6">
-                {!embedded && tocTree.length > 0 && !config.hideToc && (
-                    <aside className="hidden lg:block w-56 sticky top-28 h-fit self-start" aria-label="On this page">
+                {showToc && (
+                    <aside className="hidden lg:block w-56 sticky top-28 h-fit max-h-[calc(100vh-8rem)] self-start overflow-y-auto pr-3" aria-label="On this page">
                         <div className="text-sm font-semibold text-primary mb-3">On this page</div>
-                        <nav className="space-y-3 text-sm text-neutral-600 dark:text-neutral-600">
+                        <nav className="space-y-2 text-sm text-neutral-600">
                             {tocTree.map(item => (
-                                <div key={item.id} className="space-y-1">
-                                    <a href={`#${item.id}`} className="block hover:text-accent transition-colors">
-                                        {item.text}
-                                    </a>
-                                    {item.children.length > 0 && (
-                                        <div className="ml-3 space-y-1">
-                                            {item.children.map(child => (
-                                                <a
-                                                    key={child.id}
-                                                    href={`#${child.id}`}
-                                                    className="block hover:text-accent transition-colors"
-                                                >
-                                                    {child.text}
-                                                </a>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
+                                <a key={item.id} href={`#${item.id}`} className="block hover:text-accent transition-colors">
+                                    {item.text}
+                                </a>
                             ))}
+                            {tocTree.some(item => item.children.length > 0) && (
+                                <details className="pt-2">
+                                    <summary className="cursor-pointer font-medium text-primary hover:text-accent transition-colors">
+                                        Show subsections
+                                    </summary>
+                                    <div className="mt-3 space-y-3 border-l border-neutral-200 pl-3">
+                                        {tocTree.filter(item => item.children.length > 0).map(item => (
+                                            <div key={item.id}>
+                                                <div className="mb-1 text-xs font-semibold text-primary">{item.text}</div>
+                                                <div className="space-y-1">
+                                                    {item.children.map(child => (
+                                                        <a
+                                                            key={child.id}
+                                                            href={`#${child.id}`}
+                                                            className="block hover:text-accent transition-colors"
+                                                        >
+                                                            {child.text}
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </details>
+                            )}
                         </nav>
                     </aside>
                 )}
 
                 <div className="flex-1 min-w-0">
+                    {showToc && (
+                        <details className="lg:hidden mb-8 rounded-md border border-neutral-200 bg-card px-4 py-3">
+                            <summary className="cursor-pointer text-sm font-semibold text-primary">
+                                On this page
+                            </summary>
+                            <nav className="mt-3 space-y-2 border-t border-neutral-200 pt-3 text-sm text-neutral-600" aria-label="On this page">
+                                {tocTree.map(item => (
+                                    <a key={item.id} href={`#${item.id}`} className="block hover:text-accent transition-colors">
+                                        {item.text}
+                                    </a>
+                                ))}
+                            </nav>
+                        </details>
+                    )}
                     <header className={embedded ? 'mb-6 space-y-2' : 'mb-12 space-y-3'}>
                         <h1 className={`${embedded ? 'text-2xl' : 'text-4xl'} font-bold text-primary`}>{config.title}</h1>
                         {config.description && (
-                            <p className="text-base text-neutral-600 dark:text-neutral-600 max-w-2xl leading-relaxed">
+                            <p className="text-base text-neutral-600 max-w-2xl leading-relaxed">
                                 {config.description}
                             </p>
                         )}
                     </header>
-                    <div className="markdown-body text-neutral-700 dark:text-neutral-700 leading-relaxed">
+                    <div className="markdown-body text-neutral-700 leading-relaxed">
                         <ReactMarkdown
                             remarkPlugins={[remarkMath]}
                             rehypePlugins={rehypePlugins}
                             components={{
                                 h1: ({ children }) => <h1 className="text-3xl font-bold text-primary mt-8 mb-4">{children}</h1>,
-                                h2: ({ children }) => <h2 id={headingId(children)} className="scroll-mt-28 text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-200 dark:border-neutral-200 pb-2">{children}</h2>,
+                                h2: ({ children }) => <h2 id={headingId(children)} className="scroll-mt-28 text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-200 pb-2">{children}</h2>,
                                 h3: ({ children }) => <h3 id={headingId(children)} className="scroll-mt-28 text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>,
                                 p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
                                 ul: ({ children }) => <ul className="list-disc list-outside mb-4 space-y-2 ml-6 [&_ul]:mt-4 [&_ul]:mb-0">{children}</ul>,
@@ -117,12 +142,12 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                                     </a>
                                 ),
                                 blockquote: ({ children }) => (
-                                    <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-600">
+                                    <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600">
                                         {children}
                                     </blockquote>
                                 ),
                                 strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
-                                em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-600">{children}</em>,
+                                em: ({ children }) => <em className="italic text-neutral-600">{children}</em>,
                             }}
                         >
                             {content}

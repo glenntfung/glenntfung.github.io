@@ -89,20 +89,20 @@ export default function Profile({ author, social }: ProfileProps) {
         },
     ];
 
-    const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-600 hover:text-accent transition-all duration-200 group";
+    const boxClass = "flex items-center space-x-2 text-neutral-600 dark:text-neutral-600 hover:text-accent transition-colors duration-200 group";
 
     return (
         <div className="w-full">
             {/* Header Content: Avatar + Info */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-24 mb-10">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-16 mb-8">
                 {/* Profile Image */}
-                <div className="w-48 h-60 rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.01] shrink-0 ring-1 ring-neutral-100 dark:ring-neutral-800">
+                <div className="w-40 h-[200px] rounded-md overflow-hidden shrink-0">
                     <Image
                         src={author.avatar}
                         alt={author.name}
-                        width={192}
-                        height={240}
-                        className="w-full h-full object-cover object-[center_15%]"
+                        width={160}
+                        height={200}
+                        className="w-full h-full object-cover"
                         priority
                     />
                 </div>
@@ -129,7 +129,7 @@ export default function Profile({ author, social }: ProfileProps) {
                                     href={link.href}
                                     className={boxClass}
                                 >
-                                    <IconComponent className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                                    <IconComponent className="h-4 w-4" />
                                     <span className="text-sm font-medium underline underline-offset-4 decoration-transparent group-hover:decoration-accent">
                                         {link.displayText}
                                     </span>
@@ -141,7 +141,7 @@ export default function Profile({ author, social }: ProfileProps) {
             </div>
 
             {/* Contact Links (Centered Icons + Text) */}
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 relative items-center border-b border-neutral-200 pb-8">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 relative items-center pb-4">
                 {socialLinks.filter(link => !link.isEmail).map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {
@@ -221,7 +221,7 @@ export default function Profile({ author, social }: ProfileProps) {
                                 className={boxClass}
                                 aria-label={link.name}
                             >
-                                <IconComponent className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                                <IconComponent className="h-4 w-4" />
                                 <span className="text-sm font-medium underline underline-offset-4 decoration-transparent group-hover:decoration-accent">{link.name}</span>
                             </a>
                         </div>

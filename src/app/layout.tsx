@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
-import { Crimson_Text, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github.css';
@@ -11,15 +10,12 @@ import { getConfig } from "@/lib/config";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const crimsonText = Crimson_Text({
-  subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: "variable",
   style: ["normal", "italic"],
-  display: "swap",
+  display: "block",
+  fallback: [],
+  adjustFontFallback: false,
+  variable: "--font-inter",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -82,12 +78,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scroll-smooth"
+      className={`${inter.variable} scroll-smooth`}
       suppressHydrationWarning
-      style={{
-        "--font-sans": inter.style.fontFamily,
-        "--font-serif": crimsonText.style.fontFamily,
-      } as CSSProperties}
     >
       <head>
         <link rel="icon" href={config.site.favicon} type="image/svg+xml" />

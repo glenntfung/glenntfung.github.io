@@ -11,7 +11,7 @@ export default function SelectedPublications({ publications, title = 'Selected P
     return (
         <section>
             <div className="flex items-center gap-4 mb-8">
-                <h2 className="text-3xl font-bold text-primary flex-shrink-0 font-serif">{title}</h2>
+                <h2 className="text-3xl font-bold text-primary flex-shrink-0">{title}</h2>
                 <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}

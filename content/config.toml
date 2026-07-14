@@ -1,14 +1,14 @@
 [site]
-title = "Glenn Fung"
+title = "Glenn Feng"
 description = "Empirical Research Fellow in Quantitative Marketing at Northwestern University Kellogg School of Management."
 favicon = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
 url = "https://glenntfung.github.io"
 
 [author]
-name = "Glenn Fung"
+name = "Glenn Feng"
 title = "Empirical Research Fellow"
 institution = "Northwestern University Kellogg School of Management"
-avatar = "/me.png"
+avatar = "/me.webp"
 
 [social]
 email = "glenntfung@gmail.com"
@@ -93,9 +93,3 @@ type = "page"
 target = "blog-tex"
 href = "/blog-tex"
 hidden = true
-
-[[navigation]]
-title = "CV"
-type = "link"
-target = "cv"
-href = "/CV.pdf"
