@@ -53,6 +53,13 @@ target = "misc"
 href = "/misc"
 
 [[navigation]]
+title = "Blog - Bayesian Nonparametric Clustering"
+type = "page"
+target = "blog-bayesian-nonparametric-clustering"
+href = "/blog-bayesian-nonparametric-clustering"
+hidden = true
+
+[[navigation]]
 title = "Blog - Comparative Judgment"
 type = "page"
 target = "blog-cj"
@@ -92,4 +99,11 @@ title = "Blog - TeX"
 type = "page"
 target = "blog-tex"
 href = "/blog-tex"
+hidden = true
+
+[[navigation]]
+title = "Blog - von Mises–Fisher Distribution"
+type = "page"
+target = "blog-vmf"
+href = "/blog-vmf"
 hidden = true

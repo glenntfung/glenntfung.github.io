@@ -1,0 +1,4 @@
+type = "text"
+title = "The von Mises–Fisher Distribution"
+description = "A mathematical introduction to directional data, Bessel-function asymptotics, and stable normalization on the hypersphere."
+source = "blog/vmf.md"

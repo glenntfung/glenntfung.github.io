@@ -8,6 +8,20 @@ export interface BlogPostMeta {
 
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "vmf",
+    title: "The von Mises–Fisher Distribution",
+    summary: "A mathematical introduction to directional data, Bessel-function asymptotics, and stable normalization on the hypersphere.",
+    date: "2026-07-14",
+    tags: ["Statistics", "ML"],
+  },
+  {
+    slug: "bayesian-nonparametric-clustering",
+    title: "Introduction to Bayesian Nonparametric Clustering",
+    summary: "How Dirichlet processes become clustering models through the CRP, stick-breaking, and mixture likelihoods.",
+    date: "2026-07-14",
+    tags: ["Statistics", "ML"],
+  },
+  {
     slug: "linear",
     title: "When Linear Models Outshine the Fancy Stuff",
     summary: "A reminder that simple ≠ weak.",
