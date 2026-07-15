@@ -1,14 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import PageMotion from "@/components/ui/PageMotion";
 
+const POSTS_PER_PAGE = 10;
+
 export default function BlogPage() {
+  const pathname = usePathname();
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [tagMenuOpen, setTagMenuOpen] = useState(false);
+  const [requestedPage, setRequestedPage] = useState(1);
+
+  useEffect(() => {
+    const syncPageFromUrl = () => {
+      const page = Number(new URLSearchParams(window.location.search).get("page"));
+      setRequestedPage(Number.isInteger(page) && page > 0 ? page : 1);
+    };
+
+    syncPageFromUrl();
+    window.addEventListener("popstate", syncPageFromUrl);
+    return () => window.removeEventListener("popstate", syncPageFromUrl);
+  }, []);
 
   const tags = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -31,6 +47,19 @@ export default function BlogPage() {
     }).sort((a, b) => b.date.localeCompare(a.date));
   }, [activeTag, query]);
 
+  const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+  const currentPage = Number.isInteger(requestedPage) && requestedPage > 0
+    ? Math.min(requestedPage, Math.max(totalPages, 1))
+    : 1;
+  const paginated = filtered.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
+  const goToPage = (page: number) => {
+    setRequestedPage(page);
+    window.history.pushState(null, "", page === 1 ? pathname : `${pathname}?page=${page}`);
+  };
+
   return (
     <PageMotion 
       className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8"
@@ -48,7 +77,10 @@ export default function BlogPage() {
           id="blog-search"
           type="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            if (currentPage !== 1) goToPage(1);
+          }}
           placeholder="Search posts"
           className="w-full sm:w-2/3 rounded-lg border border-neutral-200 dark:border-neutral-200 px-3 py-2 text-sm bg-background"
         />
@@ -70,6 +102,7 @@ export default function BlogPage() {
                 onClick={() => {
                   setActiveTag(null);
                   setTagMenuOpen(false);
+                  if (currentPage !== 1) goToPage(1);
                 }}
                 className={`w-full text-left px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 ${activeTag === null ? "font-semibold" : ""}`}
               >
@@ -83,6 +116,7 @@ export default function BlogPage() {
                   onClick={() => {
                     setActiveTag(tag.name);
                     setTagMenuOpen(false);
+                    if (currentPage !== 1) goToPage(1);
                   }}
                   className={`w-full text-left px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 ${activeTag === tag.name ? "font-semibold" : ""}`}
                 >
@@ -95,7 +129,7 @@ export default function BlogPage() {
       </div>
 
       <div className="grid gap-12">
-        {filtered.map((post) => (
+        {paginated.map((post) => (
           <article key={post.slug} className="group signature-hover">
             <div className="flex items-center justify-between gap-3 mb-2">
               <Link href={`/blog-${post.slug}`} className="text-xl font-semibold text-primary group-hover:text-accent transition-colors">
@@ -120,6 +154,38 @@ export default function BlogPage() {
           <div role="status" className="text-sm text-neutral-500">No posts match your filters.</div>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <nav aria-label="Blog pagination" className="flex items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-200 text-sm transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+            <button
+              type="button"
+              key={page}
+              onClick={() => goToPage(page)}
+              aria-current={currentPage === page ? "page" : undefined}
+              className={`h-10 w-10 rounded-lg border text-sm transition-colors ${currentPage === page ? "border-accent text-accent" : "border-neutral-200 dark:border-neutral-200 hover:border-accent hover:text-accent"}`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-200 text-sm transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Next
+          </button>
+        </nav>
+      )}
     </PageMotion>
   );
 }
