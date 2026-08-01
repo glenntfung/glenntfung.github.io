@@ -38,7 +38,7 @@
     "@types/react-dom": "^19",
     "@types/react-simple-maps": "^3.0.6",
     "eslint": "^9",
-    "eslint-config-next": "15.5.20",
+    "eslint-config-next": "16.2.12",
     "svg2ico": "^1.0.35",
     "tailwindcss": "^4",
     "typescript": "^5"
