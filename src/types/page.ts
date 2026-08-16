@@ -12,7 +12,7 @@ export interface PublicationPageConfig extends BasePageConfig {
 export interface TextPageConfig extends BasePageConfig {
     type: 'text';
     source: string;
-    hideToc?: boolean;
+    toc: 'none' | 'sections' | 'nested';
 }
 
 export interface CardItem {

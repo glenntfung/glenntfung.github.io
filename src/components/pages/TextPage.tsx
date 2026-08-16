@@ -15,6 +15,37 @@ interface TextPageProps {
     embedded?: boolean;
 }
 
+interface TocItem {
+    id: string;
+    text: string;
+    children: { id: string; text: string }[];
+}
+
+function TocLinks({ items, nested }: { items: TocItem[]; nested: boolean }) {
+    return (
+        <ul className="space-y-2">
+            {items.map(item => (
+                <li key={item.id}>
+                    <a href={`#${item.id}`} className="block hover:text-accent transition-colors">
+                        {item.text}
+                    </a>
+                    {nested && item.children.length > 0 && (
+                        <ul className="mt-2 ml-2 space-y-1.5 border-l border-neutral-200 pl-3 text-xs">
+                            {item.children.map(child => (
+                                <li key={child.id}>
+                                    <a href={`#${child.id}`} className="block hover:text-accent transition-colors">
+                                        {child.text}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </li>
+            ))}
+        </ul>
+    );
+}
+
 export default function TextPage({ config, content, embedded = false }: TextPageProps) {
     const rehypePlugins: PluggableList = [
         rehypeRaw as unknown as Pluggable,
@@ -33,7 +64,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
             return { depth, text, id: tocSlugger.slug(text) };
         })
         .filter((item): item is { depth: number; text: string; id: string } => item !== null);
-    const tocTree: { id: string; text: string; children: { id: string; text: string }[] }[] = [];
+    const tocTree: TocItem[] = [];
 
     toc.forEach(item => {
         if (item.depth === 2) {
@@ -53,7 +84,8 @@ export default function TextPage({ config, content, embedded = false }: TextPage
     };
 
     const headingId = (children: ReactNode): string => renderSlugger.slug(extractText(children));
-    const showToc = !embedded && tocTree.length > 0 && !config.hideToc;
+    const showToc = !embedded && tocTree.length > 0 && config.toc !== 'none';
+    const showNestedToc = config.toc === 'nested';
 
     return (
         <div className={embedded ? '' : 'max-w-6xl mx-auto'}>
@@ -62,36 +94,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                     <aside className="hidden lg:block w-56 sticky top-28 h-fit max-h-[calc(100vh-8rem)] self-start overflow-y-auto pr-3" aria-label="On this page">
                         <div className="text-sm font-semibold text-primary mb-3">On this page</div>
                         <nav className="space-y-2 text-sm text-neutral-600">
-                            {tocTree.map(item => (
-                                <a key={item.id} href={`#${item.id}`} className="block hover:text-accent transition-colors">
-                                    {item.text}
-                                </a>
-                            ))}
-                            {tocTree.some(item => item.children.length > 0) && (
-                                <details className="pt-2">
-                                    <summary className="cursor-pointer font-medium text-primary hover:text-accent transition-colors">
-                                        Show subsections
-                                    </summary>
-                                    <div className="mt-3 space-y-3 border-l border-neutral-200 pl-3">
-                                        {tocTree.filter(item => item.children.length > 0).map(item => (
-                                            <div key={item.id}>
-                                                <div className="mb-1 text-xs font-semibold text-primary">{item.text}</div>
-                                                <div className="space-y-1">
-                                                    {item.children.map(child => (
-                                                        <a
-                                                            key={child.id}
-                                                            href={`#${child.id}`}
-                                                            className="block hover:text-accent transition-colors"
-                                                        >
-                                                            {child.text}
-                                                        </a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </details>
-                            )}
+                            <TocLinks items={tocTree} nested={showNestedToc} />
                         </nav>
                     </aside>
                 )}
@@ -103,11 +106,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                                 On this page
                             </summary>
                             <nav className="mt-3 space-y-2 border-t border-neutral-200 pt-3 text-sm text-neutral-600" aria-label="On this page">
-                                {tocTree.map(item => (
-                                    <a key={item.id} href={`#${item.id}`} className="block hover:text-accent transition-colors">
-                                        {item.text}
-                                    </a>
-                                ))}
+                                <TocLinks items={tocTree} nested={showNestedToc} />
                             </nav>
                         </details>
                     )}

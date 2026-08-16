@@ -2,19 +2,6 @@
   <a href="/assets/pdf/tex/tex.pdf">PDF Version Available Here</a> (It might be more useful!)
 </div>
 
-
-Below is the outline of this blog:
-
-- [Figures](#figures)
-- [Tables](#tables)
-- [Equations](#equations)
-- [Theorems and Definitions](#theorems-and-definitions)
-- [Code](#code)
-- [Algorithms](#algorithms)
-- [Layout](#layout)
-- [TikZ](#tikz)
-
-
 ## Figures
 
 Images in LaTeX documents should be placed in floating environments such as `figure`. Below are examples of one- through four-image figures in the same `figure` environment. Note that packages `graphicx`, `caption`, and `subcaption` should be loaded. 

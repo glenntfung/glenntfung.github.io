@@ -1,4 +1,4 @@
 type = "text"
 title = "CV"
 source = "cv.md"
-hideToc = true
+toc = "none"
