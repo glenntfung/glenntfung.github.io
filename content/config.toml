@@ -1,6 +1,6 @@
 [site]
 title = "Glenn Feng"
-description = "Empirical Research Fellow in Quantitative Marketing at Northwestern University Kellogg School of Management."
+description = "Empirical Research Fellow @ Northwestern University Kellogg School of Management"
 favicon = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
 url = "https://glenntfung.github.io"
 
@@ -9,7 +9,7 @@ name = "Glenn Feng"
 title = "Empirical Research Fellow"
 institution = "Northwestern University Kellogg School of Management"
 avatar = "/me.webp"
-intro = "Empirical Research Fellow in Quantitative Marketing at Northwestern Kellogg."
+intro = "Empirical Research Fellow @ Northwestern Kellogg"
 
 [social]
 email = "glenntfung@gmail.com"
