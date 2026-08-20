@@ -5,7 +5,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
     return (
         <div>
             <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
+                <h1 className={`${embedded ? "text-3xl" : "text-5xl"} font-display font-semibold tracking-tight text-primary`}>{config.title}</h1>
                 {config.description && (
                     <p className="text-base text-neutral-600 dark:text-neutral-700 max-w-2xl leading-relaxed">
                         {config.description}
@@ -13,11 +13,11 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                 )}
             </header>
 
-            <div className="grid gap-12">
+            <div className="grid gap-5">
                 {config.items.map((item, index) => (
                     <div
                         key={index}
-                        className="group signature-hover"
+                        className="group rounded-3xl border border-transparent px-5 py-6 transition duration-200 hover:-translate-y-0.5 hover:border-neutral-200 hover:bg-surface sm:px-7"
                     >
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary group-hover:text-accent transition-colors`}>

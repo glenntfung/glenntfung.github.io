@@ -9,6 +9,7 @@ name = "Glenn Feng"
 title = "Empirical Research Fellow"
 institution = "Northwestern University Kellogg School of Management"
 avatar = "/me.webp"
+intro = "Empirical Research Fellow in Quantitative Marketing at Northwestern Kellogg."
 
 [social]
 email = "glenntfung@gmail.com"
@@ -35,7 +36,7 @@ href = "/news"
 hidden = true
 
 [[navigation]]
-title = "Blog"
+title = "Writing"
 type = "page"
 target = "blog"
 href = "/blog"
@@ -47,7 +48,7 @@ target = "teaching"
 href = "/teaching"
 
 [[navigation]]
-title = "Misc"
+title = "Elsewhere"
 type = "page"
 target = "misc"
 href = "/misc"

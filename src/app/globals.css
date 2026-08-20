@@ -6,30 +6,33 @@
 /* Default to light theme colors - no system preference detection */
 :root,
 .light {
-  /* Light theme colors - Refined Professional (Off-white for less eye strain) */
-  --background: #fdfdfd;
+  /* Calm, natural light theme */
+  --background: #f6f8f5;
   --surface: #ffffff;
-  --foreground: #1a1a1a;
+  --foreground: #26312d;
   
-  /* Brand colors - Sophisticated Indigo/Blue */
-  --primary: #1a1a1a;
-  --primary-light: #262626;
-  --primary-dark: #000000;
-  --accent: #2563eb;
-  --accent-light: #60a5fa;
-  --accent-dark: #1d4ed8;
+  /* Brand colors */
+  --primary: #1f2b27;
+  --primary-light: #33443e;
+  --primary-dark: #141d1a;
+  --accent: #4f7064;
+  --accent-light: #7f9e93;
+  --accent-dark: #355349;
+  --accent-soft: #e4ece8;
+  --playful: #5f7f91;
+  --playful-soft: #e3edf2;
   
-  /* Neutral colors - Softened for better hierarchy */
-  --neutral-50: #f8fafc;
-  --neutral-100: #f1f5f9;
-  --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
-  --neutral-400: #94a3b8;
-  --neutral-500: #64748b;
-  --neutral-600: #475569;
-  --neutral-700: #334155;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
+  /* Natural gray-green neutrals */
+  --neutral-50: #f2f5f3;
+  --neutral-100: #e8eeeb;
+  --neutral-200: #d8e0dc;
+  --neutral-300: #becbc5;
+  --neutral-400: #8fa098;
+  --neutral-500: #6f7f78;
+  --neutral-600: #56645e;
+  --neutral-700: #3f4b46;
+  --neutral-800: #2b3531;
+  --neutral-900: #1d2522;
   
   /* Semantic colors */
   --success: #10b981;
@@ -61,6 +64,9 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-accent-soft: var(--accent-soft);
+  --color-playful: var(--playful);
+  --color-playful-soft: var(--playful-soft);
   
   /* Neutral palette */
   --color-neutral-50: var(--neutral-50);
@@ -139,18 +145,20 @@
 
 /* Dark mode styles */
 .dark {
-  /* Midnight Dark Theme - Deep and Rich, not just Black */
-  --background: #09090b;
-  --surface: #111111;
-  --foreground: #f8fafc;
+  /* Deep navy theme with warm highlights */
+  --background: #111722;
+  --surface: #182131;
+  --foreground: #f6efe5;
   
-  /* Adjust colors for dark mode */
-  --primary: #ffffff;
-  --primary-light: #f1f5f9;
-  --primary-dark: #cbd5e1;
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-dark: #2563eb;
+  --primary: #fff8ee;
+  --primary-light: #f6efe5;
+  --primary-dark: #ddd5c8;
+  --accent: #87a7f5;
+  --accent-light: #afc4fb;
+  --accent-dark: #668ce8;
+  --accent-soft: #263657;
+  --playful: #f0a36d;
+  --playful-soft: #4a3027;
   
   /* Dark mode glass effect */
   --glass-bg: rgba(9, 9, 11, 0.85);
@@ -158,16 +166,16 @@
   --glass-shadow: rgba(0, 0, 0, 0.4);
   
   /* Neutral colors for dark mode - Refined Slate/Zinc */
-  --neutral-50: #09090b;
-  --neutral-100: #18181b;
-  --neutral-200: #27272a;
-  --neutral-300: #3f3f46;
-  --neutral-400: #52525b;
-  --neutral-500: #71717a;
-  --neutral-600: #a1a1aa;
-  --neutral-700: #d4d4d4;
-  --neutral-800: #e5e5e5;
-  --neutral-900: #ffffff;
+  --neutral-50: #151d2a;
+  --neutral-100: #202b3b;
+  --neutral-200: #344155;
+  --neutral-300: #4b5a70;
+  --neutral-400: #6f7c90;
+  --neutral-500: #929caf;
+  --neutral-600: #b6bdc8;
+  --neutral-700: #d5d8de;
+  --neutral-800: #ece9e3;
+  --neutral-900: #fff8ee;
 
   /* Contribution Graph Colors - Dark Mode */
   --contrib-level-0: #18181b; /* zinc-900 */
@@ -180,6 +188,10 @@
 
 body {
   background: var(--background);
+  background-image:
+    radial-gradient(circle at 88% 4%, color-mix(in srgb, var(--playful-soft) 55%, transparent) 0, transparent 22rem),
+    radial-gradient(circle at 8% 42%, color-mix(in srgb, var(--accent-soft) 45%, transparent) 0, transparent 26rem);
+  background-attachment: fixed;
   color: var(--neutral-700);
   font-family: var(--font-sans);
   line-height: var(--line-height-normal);
@@ -195,6 +207,33 @@ button, input, select, textarea, pre, code, kbd, samp {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   color: var(--primary);
+}
+
+.font-display {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--neutral-600);
+  font-weight: 600;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3rem;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.profile-link:hover {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.profile-link:focus-visible {
+  border-radius: 0.35rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 0.25rem;
 }
 
 /* Typography utilities */

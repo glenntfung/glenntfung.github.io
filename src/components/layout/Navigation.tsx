@@ -71,14 +71,14 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
-          <div className="bg-background border-b border-neutral-200/50">
+          <div className="border-b border-neutral-200/70 bg-background/95 backdrop-blur-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 lg:h-20">
                 {/* Logo/Name */}
                 <div className="flex-shrink-0">
                   <Link
                     href="/"
-                    className="text-xl lg:text-2xl font-semibold text-primary hover:text-accent transition-colors duration-200"
+                    className="font-display text-2xl font-semibold tracking-tight text-primary transition-colors duration-200 hover:text-playful lg:text-3xl"
                   >
                     {siteTitle}
                   </Link>
@@ -106,16 +106,13 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             prefetch={true}
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             className={cn(
-                              'relative px-1 py-2 text-sm font-medium transition-all duration-200',
+                              'relative rounded-full px-3 py-2 text-sm font-semibold transition-all duration-200',
                               isActive
-                                ? 'text-accent'
-                                : 'text-neutral-600 hover:text-accent'
+                                ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
+                                : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
                             )}
                           >
                             <span className="relative z-10">{item.title}</span>
-                            {isActive && (
-                              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent" />
-                            )}
                           </Link>
                         );
                       })}
@@ -126,7 +123,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
 
                 {/* Mobile menu button */}
                 <div className="lg:hidden flex items-center">
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-full p-2 text-neutral-600 transition-colors duration-200 hover:bg-neutral-100 hover:text-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent">
                     <span className="sr-only">{open ? 'Close main menu' : 'Open main menu'}</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -141,7 +138,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
 
           {/* Mobile Navigation Menu */}
           {open && (
-            <Disclosure.Panel static className="lg:hidden bg-background border-b border-neutral-200/50">
+            <Disclosure.Panel static className="border-b border-neutral-200/70 bg-background lg:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {visibleItems.map((item) => {
                   const isActive = enableOnePageMode
@@ -162,10 +159,10 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                       prefetch={true}
                       onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
                       className={cn(
-                        'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+                        'block rounded-2xl px-4 py-3 text-base font-semibold transition-colors duration-200',
                         isActive
-                          ? 'text-accent bg-neutral-50'
-                          : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
+                          ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
+                          : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
                       )}
                     >
                       {item.title}

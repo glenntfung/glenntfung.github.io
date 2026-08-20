@@ -1,5 +1,6 @@
 type = "card"
-title = "Blog"
+title = "Writing"
+description = "Notes on research, methods, and things I wanted to understand better."
 
 [[items]]
 title = "When Linear Models Outshine the Fancy Stuff"

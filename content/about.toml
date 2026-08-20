@@ -13,11 +13,11 @@ research_interests = [
 id = "about"
 type = "markdown"
 source = "bio.md"
-title = "About"
+title = "A bit about me"
 
 [[sections]]
 id = "news"
 type = "list"
-title = "News"
+title = "Lately"
 source = "news.toml"
 limit = 3

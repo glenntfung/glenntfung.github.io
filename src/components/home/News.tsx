@@ -26,22 +26,22 @@ interface NewsProps {
 export default function News({ items, title = 'News', viewAllHref }: NewsProps) {
     return (
         <section>
-            <div className="flex items-center gap-4 mb-8">
-                <h2 className="text-3xl font-bold text-primary flex-shrink-0">{title}</h2>
-                <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
+            <div className="mb-8 flex items-center gap-5">
+                <h2 className="font-display flex-shrink-0 text-4xl font-semibold tracking-tight text-primary">{title}</h2>
+                <div className="h-px w-full bg-gradient-to-r from-accent/70 to-transparent" />
                 {viewAllHref && (
-                    <Link href={viewAllHref} className="text-sm text-accent hover:underline whitespace-nowrap">
-                        View all
+                    <Link href={viewAllHref} className="whitespace-nowrap text-sm font-semibold text-accent hover:underline">
+                        The archive →
                     </Link>
                 )}
             </div>
-            <div className="space-y-4">
+            <div className="divide-y divide-neutral-200/80 rounded-3xl border border-neutral-200/80 bg-surface px-5 sm:px-7">
                 {items.map((item) => (
-                    <div key={`${item.date}-${item.content}`} className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-4 group item-hover py-1">
-                        <time dateTime={item.date} className="text-right text-xs tabular-nums text-neutral-500 dark:text-neutral-500 whitespace-nowrap">
+                    <div key={`${item.date}-${item.content}`} className="group grid gap-2 py-5 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-baseline sm:gap-5">
+                        <time dateTime={item.date} className="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-playful sm:text-right">
                             {formatNewsDate(item.date)}
                         </time>
-                        <p className="text-base text-neutral-700 dark:text-neutral-700 leading-relaxed transition-colors">
+                        <p className="text-base leading-relaxed text-neutral-700 transition-colors group-hover:text-primary">
                             {item.content}
                         </p>
                     </div>

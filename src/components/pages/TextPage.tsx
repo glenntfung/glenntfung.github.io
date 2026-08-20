@@ -111,7 +111,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                         </details>
                     )}
                     <header className={embedded ? 'mb-6 space-y-2' : 'mb-12 space-y-3'}>
-                        <h1 className={`${embedded ? 'text-2xl' : 'text-4xl'} font-bold text-primary`}>{config.title}</h1>
+                        <h1 className={`${embedded ? 'text-3xl' : 'text-5xl'} font-display font-semibold tracking-tight text-primary`}>{config.title}</h1>
                         {config.description && (
                             <p className="text-base text-neutral-600 max-w-2xl leading-relaxed">
                                 {config.description}
@@ -123,8 +123,8 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                             remarkPlugins={[remarkMath]}
                             rehypePlugins={rehypePlugins}
                             components={{
-                                h1: ({ children }) => <h1 className="text-3xl font-bold text-primary mt-8 mb-4">{children}</h1>,
-                                h2: ({ children }) => <h2 id={headingId(children)} className="scroll-mt-28 text-2xl font-bold text-primary mt-8 mb-4 border-b border-neutral-200 pb-2">{children}</h2>,
+                                h1: ({ children }) => <h1 className="font-display text-4xl font-semibold text-primary mt-8 mb-4">{children}</h1>,
+                                h2: ({ children }) => <h2 id={headingId(children)} className="scroll-mt-28 font-display text-3xl font-semibold text-primary mt-10 mb-4 border-b border-neutral-200 pb-2">{children}</h2>,
                                 h3: ({ children }) => <h3 id={headingId(children)} className="scroll-mt-28 text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>,
                                 p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
                                 ul: ({ children }) => <ul className="list-disc list-outside mb-4 space-y-2 ml-6 [&_ul]:mt-4 [&_ul]:mb-0">{children}</ul>,

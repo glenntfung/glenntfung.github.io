@@ -19,13 +19,13 @@ function MiscSection({
   children: ReactNode;
 }) {
   return (
-    <details open={open} className="group border-b border-neutral-200">
+    <details open={open} className="group border-b border-neutral-200/80">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden">
         <span className="min-w-0">
           <span
             role="heading"
             aria-level={2}
-            className="block text-2xl font-bold text-primary"
+            className="font-display block text-3xl font-semibold text-primary"
           >
             {title}
           </span>
@@ -46,17 +46,18 @@ function MiscSection({
 export default function MiscPage() {
   return (
     <PageMotion 
-      className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+      className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
     >
       {/* Page Header */}
-      <header className="mb-12 space-y-3">
-        <h1 className="text-4xl font-bold text-primary">Miscellaneous</h1>
-        <p className="text-neutral-600 dark:text-neutral-700 max-w-2xl leading-relaxed">
-          A collection of miscellaneous projects, visualizations, and galleries.
+      <header className="mb-12 space-y-4">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-playful">Off the clock</p>
+        <h1 className="font-display text-5xl font-semibold tracking-tight text-primary sm:text-6xl">Elsewhere</h1>
+        <p className="max-w-2xl text-lg leading-relaxed text-neutral-600">
+          Places I have been, things I enjoy, and a few parts of life that do not fit on a CV.
         </p>
       </header>
 
-      <div className="mt-12 border-t border-neutral-200">
+      <div className="mt-12 rounded-[2rem] border border-neutral-200/80 bg-surface px-6 sm:px-8">
         <MiscSection
           title="About Me"
           description="Background, languages, and interests."
