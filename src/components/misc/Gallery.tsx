@@ -26,7 +26,7 @@ export default function Gallery({ showHeading = true }: { showHeading?: boolean 
     <div className="space-y-12">
       {showHeading && (
         <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-3xl font-bold text-primary flex-shrink-0">Gallery</h2>
+            <h2 className="font-display text-3xl font-semibold text-primary flex-shrink-0">Gallery</h2>
             <div className="h-[1px] w-full bg-neutral-200" />
         </div>
       )}
@@ -56,7 +56,7 @@ export default function Gallery({ showHeading = true }: { showHeading?: boolean 
                <div className="absolute inset-0 bg-white/5 dark:bg-black/5 backdrop-blur-[4px]" />
                
                {/* Film Grain Effect (Subtle Noise) */}
-               <div className="absolute inset-0 mix-blend-overlay opacity-[0.15] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+               <div className="absolute inset-0 mix-blend-overlay opacity-[0.15] pointer-events-none bg-[url('/assets/img/noise.svg')] bg-repeat" />
                
                <motion.span 
                   className="relative z-10 text-white italic text-xl tracking-tight drop-shadow-lg"

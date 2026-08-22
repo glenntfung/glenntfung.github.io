@@ -96,7 +96,7 @@ export default async function GitHubContributions({
       <div className="flex flex-col gap-4">
         {showHeading && (
           <div className="flex items-center gap-4">
-            <h2 className="text-3xl font-bold text-primary flex-shrink-0">GitHub Activity</h2>
+            <h2 className="font-display text-3xl font-semibold text-primary flex-shrink-0">GitHub Activity</h2>
             <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
           </div>
         )}

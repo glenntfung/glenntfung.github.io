@@ -1,6 +1,20 @@
 import { CardPageConfig } from '@/types/page';
 import Link from 'next/link';
 
+/**
+ * True for hrefs the App Router can actually route to.
+ *
+ * next/link intercepts the click and attempts an RSC navigation, so pointing it
+ * at a static file (or another origin) swallowed the click entirely: the
+ * Teaching page's course-materials PDF fetched `<href>.txt?_rsc=...`, 404'd,
+ * and never opened. Those need a plain anchor.
+ */
+function isInternalRoute(href: string): boolean {
+    if (!href.startsWith('/')) return false;   // external URL, mailto:, tel:, #anchor
+    const path = href.split(/[?#]/)[0];
+    return !/\.[a-z0-9]+$/i.test(path);        // no file extension => a real route
+}
+
 export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
     return (
         <div>
@@ -20,9 +34,9 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         className="group rounded-3xl border border-transparent px-5 py-6 transition duration-200 hover:-translate-y-0.5 hover:border-neutral-200 hover:bg-surface sm:px-7"
                     >
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                            <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary group-hover:text-accent transition-colors`}>
+                            <h2 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary group-hover:text-accent transition-colors`}>
                                 {item.title}
-                            </h3>
+                            </h2>
                             {item.date && (
                                 <span className="text-xs text-neutral-500 dark:text-neutral-600 shrink-0">
                                     {item.date}
@@ -54,10 +68,22 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         
                         {item.link && (
                             <div className="mt-4">
-                                <Link href={item.link} className="inline-flex items-center text-sm font-medium text-accent hover:text-primary transition-colors">
-                                    {item.link_text ?? 'Read more'} 
-                                    <span className="ml-1">→</span>
-                                </Link>
+                                {isInternalRoute(item.link) ? (
+                                    <Link href={item.link} className="inline-flex items-center text-sm font-medium text-accent hover:text-primary transition-colors">
+                                        {item.link_text ?? 'Read more'}
+                                        <span className="ml-1" aria-hidden="true">→</span>
+                                    </Link>
+                                ) : (
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center text-sm font-medium text-accent hover:text-primary transition-colors"
+                                    >
+                                        {item.link_text ?? 'Read more'}
+                                        <span className="ml-1" aria-hidden="true">→</span>
+                                    </a>
+                                )}
                             </div>
                         )}
                     </div>

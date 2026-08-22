@@ -35,6 +35,10 @@ async function EmbeddedPublicationPage({ page }: { page: Extract<PageData, { typ
   return <PublicationsList config={page.config} publications={page.publications} embedded={true} />;
 }
 
+// NOTE: if you ever set features.enable_one_page_mode = true in config.toml,
+// add `import '@/components/pages/prose.css'` at the top of this file. It is
+// imported by src/app/[slug]/page.tsx instead so the homepage does not pay for
+// math and code styling it never uses while one-page mode is off.
 async function EmbeddedTextPage({ page }: { page: Extract<PageData, { type: 'text' }> }) {
   const { default: TextPage } = await import('@/components/pages/TextPage');
   return <TextPage config={page.config} content={page.content} embedded={true} />;

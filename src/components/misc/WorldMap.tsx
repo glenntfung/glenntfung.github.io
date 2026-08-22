@@ -90,7 +90,7 @@ export default function WorldMap({ showHeading = true }: { showHeading?: boolean
     <div className="space-y-6 relative" ref={containerRef}>
       {showHeading && (
         <div className="flex items-center gap-4 mb-2 px-4 sm:px-0">
-            <h2 className="text-3xl font-bold text-primary flex-shrink-0">Life Journey</h2>
+            <h2 className="font-display text-3xl font-semibold text-primary flex-shrink-0">Life Journey</h2>
             <div className="h-[1px] w-full bg-neutral-200" />
         </div>
       )}

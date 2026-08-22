@@ -1,5 +1,7 @@
 type = "text"
 title = "When Linear Models Outshine the Fancy Stuff"
 description = "A reminder that simple ≠ weak."
+date = "2025-08-07"
+tags = ["ML", "Statistics"]
 source = "blog/linear.md"
 toc = "none"

@@ -35,10 +35,19 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Typecheck
+        run: npm run typecheck
+
       - name: Build
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Catches dead internal links and missing static assets before they ship.
+      # A next/link pointing at a PDF and a verification file left outside
+      # public/ both reached production unnoticed without this.
+      - name: Check internal links
+        run: npm run links
 
       - name: Setup Pages
         if: github.event_name == 'push'

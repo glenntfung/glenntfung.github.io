@@ -8,6 +8,8 @@ export interface SiteConfig {
         description: string;
         favicon: string;
         url: string;
+        /** Landscape 1200x630 link-preview card. */
+        og_image: string;
     };
     author: {
         name: string;

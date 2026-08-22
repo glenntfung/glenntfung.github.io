@@ -1,11 +1,9 @@
-"use client";
-
 export default function Random({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <div className="space-y-6">
       {showHeading && (
         <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-3xl font-bold text-primary flex-shrink-0">Random</h2>
+          <h2 className="font-display text-3xl font-semibold text-primary flex-shrink-0">Random</h2>
           <div className="h-[1px] w-full bg-neutral-200 dark:bg-neutral-200" />
         </div>
       )}

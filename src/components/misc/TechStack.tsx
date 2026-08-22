@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { 
   Beaker, 
@@ -52,24 +49,21 @@ const environments: TechItem[] = [
   { name: "LaTeX", logo: "https://upload.wikimedia.org/wikipedia/commons/9/92/LaTeX_logo.svg" },
 ];
 
-const BentoBox = ({ 
-  title, 
-  icon: Icon, 
-  items, 
-  className = "", 
-  delay = 0 
-}: { 
-  title: string; 
-  icon: LucideIcon; 
-  items: TechItem[]; 
+// Rendered plainly rather than with a framer-motion reveal: the reveal put
+// `opacity:0` into the prerendered HTML, so the whole section was invisible
+// until hydration (and permanently, with JS disabled).
+const BentoBox = ({
+  title,
+  icon: Icon,
+  items,
+  className = "",
+}: {
+  title: string;
+  icon: LucideIcon;
+  items: TechItem[];
   className?: string;
-  delay?: number;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay, ease: [0.21, 0.45, 0.32, 0.9] }}
+  <div
     className={`relative overflow-hidden rounded-3xl border border-neutral-200 dark:border-accent/20 bg-card backdrop-blur-md p-6 group transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 ${className}`}
   >
     <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
@@ -78,7 +72,7 @@ const BentoBox = ({
       <div className="p-2 rounded-xl bg-accent/10 text-accent">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-xl font-bold text-primary">{title}</h3>
+      <h3 className="text-xl font-semibold text-primary">{title}</h3>
     </div>
 
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-4">
@@ -99,7 +93,7 @@ const BentoBox = ({
         </div>
       ))}
     </div>
-  </motion.div>
+  </div>
 );
 
 export default function TechStack({ showHeading = true }: { showHeading?: boolean }) {
@@ -107,7 +101,7 @@ export default function TechStack({ showHeading = true }: { showHeading?: boolea
     <div className="space-y-12">
       {showHeading && (
         <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-3xl font-bold text-primary flex-shrink-0">Tech & Tools</h2>
+            <h2 className="font-display text-3xl font-semibold text-primary flex-shrink-0">Tech &amp; Tools</h2>
             <div className="h-[1px] w-full bg-neutral-200" />
         </div>
       )}
@@ -118,7 +112,6 @@ export default function TechStack({ showHeading = true }: { showHeading?: boolea
           title="Computation" 
           icon={Beaker} 
           items={researchTools} 
-          delay={0.1}
         />
 
         {/* AI & Data */}
@@ -126,7 +119,6 @@ export default function TechStack({ showHeading = true }: { showHeading?: boolea
           title="AI & Data" 
           icon={BrainCircuit} 
           items={aiDataTools} 
-          delay={0.2}
         />
 
         {/* Web & App */}
@@ -134,7 +126,6 @@ export default function TechStack({ showHeading = true }: { showHeading?: boolea
           title="Engineering" 
           icon={Code2} 
           items={devTools} 
-          delay={0.3}
         />
 
         {/* Environments */}
@@ -142,7 +133,6 @@ export default function TechStack({ showHeading = true }: { showHeading?: boolea
           title="Environments" 
           icon={Terminal} 
           items={environments} 
-          delay={0.4}
         />
       </div>
     </div>

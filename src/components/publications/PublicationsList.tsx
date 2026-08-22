@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import {
@@ -8,7 +8,9 @@ import {
     FunnelIcon,
     CalendarIcon,
     BookOpenIcon,
-    ClipboardDocumentIcon
+    ClipboardDocumentIcon,
+    CheckIcon,
+    ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import { Publication } from '@/types/publication';
 import { PublicationPageConfig } from '@/types/page';
@@ -27,6 +29,25 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [showFilters, setShowFilters] = useState(false);
     const [expandedBibtexId, setExpandedBibtexId] = useState<string | null>(null);
     const [expandedAbstractId, setExpandedAbstractId] = useState<string | null>(null);
+    // null = idle. The button previously gave no signal at all, and a rejected
+    // clipboard write (permissions, insecure context) failed silently.
+    const [copyState, setCopyState] = useState<{ id: string; status: 'copied' | 'error' } | null>(null);
+    const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => () => {
+        if (copyTimer.current) clearTimeout(copyTimer.current);
+    }, []);
+
+    const copyBibtex = async (id: string, bibtex: string) => {
+        if (copyTimer.current) clearTimeout(copyTimer.current);
+        try {
+            await navigator.clipboard.writeText(bibtex);
+            setCopyState({ id, status: 'copied' });
+        } catch {
+            setCopyState({ id, status: 'error' });
+        }
+        copyTimer.current = setTimeout(() => setCopyState(null), 2000);
+    };
 
     // Extract unique years and types for filters
     const years = useMemo(() => {
@@ -56,13 +77,9 @@ export default function PublicationsList({ config, publications, embedded = fals
     }, [publications, searchQuery, selectedYear, selectedType]);
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-        >
+        <div>
             <header className={embedded ? "mb-6 space-y-2" : "mb-12 space-y-3"}>
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-bold text-primary`}>{config.title}</h1>
+                <h1 className={`${embedded ? "text-2xl" : "text-5xl"} font-display font-semibold tracking-tight text-primary`}>{config.title}</h1>
                 {config.description && (
                     <p className="text-base text-neutral-600 max-w-2xl leading-relaxed">
                         {config.description}
@@ -186,12 +203,9 @@ export default function PublicationsList({ config, publications, embedded = fals
                         No publications found matching your criteria.
                     </div>
                 ) : (
-                    filteredPublications.map((pub, index) => (
-                        <motion.div
+                    filteredPublications.map((pub) => (
+                        <div
                             key={pub.id}
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 * index }}
                             className="group signature-hover border-b border-neutral-100 dark:border-neutral-200 pb-12 last:border-0 last:pb-0"
                         >
                             <div className="flex flex-col md:flex-row gap-8">
@@ -209,9 +223,9 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </div>
                                 )}
                                 <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight group-hover:text-accent transition-colors`}>
+                                    <h2 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight group-hover:text-accent transition-colors`}>
                                         {pub.title}
-                                    </h3>
+                                    </h2>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-700 dark:text-neutral-700 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
@@ -309,25 +323,44 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                         {pub.bibtex}
                                                     </pre>
                                                     <button
-                                                        onClick={() => {
-                                                            navigator.clipboard.writeText(pub.bibtex || '');
-                                                            // Optional: Show copied feedback
-                                                        }}
-                                                        className="absolute top-2 right-2 p-1.5 rounded-md bg-card text-neutral-500 hover:text-accent shadow-sm border border-neutral-200 transition-colors"
-                                                        title="Copy to clipboard"
+                                                        type="button"
+                                                        onClick={() => copyBibtex(pub.id, pub.bibtex || '')}
+                                                        className={cn(
+                                                            "absolute top-2 right-2 inline-flex items-center gap-1.5 rounded-md border border-neutral-200 bg-card px-2 py-1.5 text-xs shadow-sm transition-colors",
+                                                            copyState?.id === pub.id && copyState.status === 'copied'
+                                                                ? "text-accent"
+                                                                : copyState?.id === pub.id
+                                                                    ? "text-error"
+                                                                    : "text-neutral-500 hover:text-accent"
+                                                        )}
+                                                        title={copyState?.id === pub.id && copyState.status === 'error'
+                                                            ? 'Copy failed — select the text and copy manually'
+                                                            : 'Copy BibTeX to clipboard'}
                                                     >
-                                                        <ClipboardDocumentIcon className="h-4 w-4" />
+                                                        {copyState?.id === pub.id && copyState.status === 'copied' ? (
+                                                            <><CheckIcon className="h-4 w-4" aria-hidden="true" />Copied</>
+                                                        ) : copyState?.id === pub.id ? (
+                                                            <><ExclamationTriangleIcon className="h-4 w-4" aria-hidden="true" />Copy failed</>
+                                                        ) : (
+                                                            <><ClipboardDocumentIcon className="h-4 w-4" aria-hidden="true" />Copy</>
+                                                        )}
                                                     </button>
+                                                    {/* Announce the outcome to screen readers, which get no visual cue. */}
+                                                    <span role="status" aria-live="polite" className="sr-only">
+                                                        {copyState?.id === pub.id
+                                                            ? copyState.status === 'copied' ? 'BibTeX copied to clipboard' : 'Copying failed'
+                                                            : ''}
+                                                    </span>
                                                 </div>
                                             </motion.div>
                                         ) : null}
                                     </AnimatePresence>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 }

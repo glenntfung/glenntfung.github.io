@@ -22,13 +22,11 @@ function MiscSection({
     <details open={open} className="group border-b border-neutral-200/80">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden">
         <span className="min-w-0">
-          <span
-            role="heading"
-            aria-level={2}
-            className="font-display block text-3xl font-semibold text-primary"
-          >
+          {/* A real heading rather than role="heading": it keeps the document
+              outline correct for crawlers and for AT that ignores ARIA. */}
+          <h2 className="font-display text-3xl font-semibold text-primary">
             {title}
-          </span>
+          </h2>
           <span className="mt-1 block text-sm text-neutral-600">
             {description}
           </span>

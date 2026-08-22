@@ -8,47 +8,28 @@ import type { ReactNode } from 'react';
 import type { Pluggable, PluggableList } from 'unified';
 import GithubSlugger from 'github-slugger';
 import { TextPageConfig } from '@/types/page';
+import Toc, { type TocItem } from '@/components/pages/Toc';
+import { getConfig } from '@/lib/config';
+import { blogPostingSchema } from '@/lib/schema';
+import { formatDisplayDate } from '@/lib/utils';
 
 interface TextPageProps {
     config: TextPageConfig;
     content: string;
     embedded?: boolean;
+    /** Route slug, e.g. "blog-vmf". Enables per-post structured data. */
+    slug?: string;
 }
 
-interface TocItem {
-    id: string;
-    text: string;
-    children: { id: string; text: string }[];
-}
-
-function TocLinks({ items, nested }: { items: TocItem[]; nested: boolean }) {
-    return (
-        <ul className="space-y-2">
-            {items.map(item => (
-                <li key={item.id}>
-                    <a href={`#${item.id}`} className="block hover:text-accent transition-colors">
-                        {item.text}
-                    </a>
-                    {nested && item.children.length > 0 && (
-                        <ul className="mt-2 ml-2 space-y-1.5 border-l border-neutral-200 pl-3 text-xs">
-                            {item.children.map(child => (
-                                <li key={child.id}>
-                                    <a href={`#${child.id}`} className="block hover:text-accent transition-colors">
-                                        {child.text}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </li>
-            ))}
-        </ul>
-    );
-}
-
-export default function TextPage({ config, content, embedded = false }: TextPageProps) {
+export default function TextPage({ config, content, embedded = false, slug }: TextPageProps) {
     const rehypePlugins: PluggableList = [
         rehypeRaw as unknown as Pluggable,
+        // Keep KaTeX's default htmlAndMathml output. MathML-only is far smaller,
+        // but Chrome's MathML Core implements only mathvariant="normal", so
+        // \mathbb, \mathbf and \boldsymbol silently render as plain letters --
+        // measured 33 dropped variants in the vMF post alone. The MathML half of
+        // the default output is also what screen readers read; output:'html'
+        // would shrink the markup but make every equation inaccessible.
         rehypeKatex as unknown as Pluggable,
         rehypeHighlight as unknown as Pluggable
     ];
@@ -86,15 +67,32 @@ export default function TextPage({ config, content, embedded = false }: TextPage
     const headingId = (children: ReactNode): string => renderSlugger.slug(extractText(children));
     const showToc = !embedded && tocTree.length > 0 && config.toc !== 'none';
     const showNestedToc = config.toc === 'nested';
+    const isPost = Boolean(slug?.startsWith('blog-'));
+    const siteConfig = getConfig();
 
     return (
         <div className={embedded ? '' : 'max-w-6xl mx-auto'}>
+            {isPost && !embedded && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(
+                            blogPostingSchema(siteConfig, {
+                                title: config.title,
+                                description: config.description,
+                                datePublished: config.date,
+                                path: `/${slug}/`,
+                            })
+                        ),
+                    }}
+                />
+            )}
             <div className="flex gap-6">
                 {showToc && (
                     <aside className="hidden lg:block w-56 sticky top-28 h-fit max-h-[calc(100vh-8rem)] self-start overflow-y-auto pr-3" aria-label="On this page">
                         <div className="text-sm font-semibold text-primary mb-3">On this page</div>
                         <nav className="space-y-2 text-sm text-neutral-600">
-                            <TocLinks items={tocTree} nested={showNestedToc} />
+                            <Toc items={tocTree} nested={showNestedToc} />
                         </nav>
                     </aside>
                 )}
@@ -106,7 +104,7 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                                 On this page
                             </summary>
                             <nav className="mt-3 space-y-2 border-t border-neutral-200 pt-3 text-sm text-neutral-600" aria-label="On this page">
-                                <TocLinks items={tocTree} nested={showNestedToc} />
+                                <Toc items={tocTree} nested={showNestedToc} />
                             </nav>
                         </details>
                     )}
@@ -116,6 +114,24 @@ export default function TextPage({ config, content, embedded = false }: TextPage
                             <p className="text-base text-neutral-600 max-w-2xl leading-relaxed">
                                 {config.description}
                             </p>
+                        )}
+                        {(config.date || config.tags?.length) && (
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-1 text-sm text-neutral-600">
+                                {config.date && (
+                                    <time dateTime={config.date}>{formatDisplayDate(config.date)}</time>
+                                )}
+                                {config.date && config.tags?.length ? (
+                                    <span aria-hidden="true" className="text-neutral-500">·</span>
+                                ) : null}
+                                {config.tags?.map(tag => (
+                                    <span
+                                        key={tag}
+                                        className="rounded-md border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-xs text-neutral-800"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
                         )}
                     </header>
                     <div className="markdown-body text-neutral-700 leading-relaxed">

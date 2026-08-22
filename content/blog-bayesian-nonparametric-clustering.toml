@@ -1,5 +1,7 @@
 type = "text"
 title = "Introduction to Bayesian Nonparametric Clustering"
 description = "How Dirichlet processes become clustering models through the CRP, stick-breaking, and mixture likelihoods."
+date = "2026-07-14"
+tags = ["Statistics", "ML"]
 source = "blog/bayesian-nonparametric-clustering.md"
 toc = "sections"

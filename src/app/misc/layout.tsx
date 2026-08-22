@@ -3,8 +3,8 @@ import { getConfig } from '@/lib/config';
 
 export function generateMetadata(): Metadata {
   const config = getConfig();
-  const title = 'Misc';
-  const description = 'Experiments and more about me';
+  const title = 'Elsewhere';
+  const description = 'Places I have been, things I enjoy, and a few parts of life that do not fit on a CV.';
 
   return {
     title,
@@ -18,13 +18,13 @@ export function generateMetadata(): Metadata {
       siteName: `${config.author.name}'s Academic Website`,
       url: '/misc/',
       type: 'website',
-      images: [config.author.avatar],
+      images: [config.site.og_image],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description,
-      images: [config.author.avatar],
+      images: [config.site.og_image],
     },
   };
 }

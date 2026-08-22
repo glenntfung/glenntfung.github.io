@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
@@ -18,7 +18,9 @@ interface NavigationProps {
 export default function Navigation({ items, siteTitle, enableOnePageMode }: NavigationProps) {
   const pathname = usePathname();
   const [activeHash, setActiveHash] = useState('');
-  const visibleItems = items.filter(item => !item.hidden);
+  // Memoised because it is an effect dependency: a fresh array every render
+  // tore down and rebuilt the IntersectionObserver on each state update.
+  const visibleItems = useMemo(() => items.filter(item => !item.hidden), [items]);
 
   useEffect(() => {
     if (enableOnePageMode) {

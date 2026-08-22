@@ -12,6 +12,11 @@ import {
 } from '@/types/page';
 
 import { Metadata } from 'next';
+// Math (KaTeX) and code (highlight.js) styling, imported at the route level.
+// Next derives a route's CSS from its module graph, so importing this inside
+// TextPage also pushed ~4.8 kB gzipped onto "/", which merely references
+// TextPage for one-page mode and never renders it. See src/app/page.tsx.
+import '@/components/pages/prose.css';
 
 export const dynamicParams = false;
 
@@ -41,7 +46,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     const canonicalPath = `/${slug}/`;
-    const openGraphType = slug.startsWith('blog-') ? 'article' : 'website';
+    const isPost = slug.startsWith('blog-');
+    const publishedTime = (pageConfig as TextPageConfig).date;
 
     return {
         title: pageConfig.title,
@@ -54,14 +60,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             description: pageConfig.description,
             siteName: `${config.author.name}'s Academic Website`,
             url: canonicalPath,
-            type: openGraphType,
-            images: [config.author.avatar],
+            ...(isPost
+                ? { type: 'article' as const, publishedTime, authors: [config.author.name] }
+                : { type: 'website' as const }),
+            images: [config.site.og_image],
         },
         twitter: {
-            card: 'summary',
+            card: 'summary_large_image',
             title: pageConfig.title,
             description: pageConfig.description,
-            images: [config.author.avatar],
+            images: [config.site.og_image],
         },
     };
 }
@@ -84,7 +92,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
                     <PublicationPage config={pageConfig as PublicationPageConfig} />
                 )}
                 {pageConfig.type === 'text' && slug !== 'news' && (
-                    <TextPageWrapper config={pageConfig as TextPageConfig} />
+                    <TextPageWrapper config={pageConfig as TextPageConfig} slug={slug} />
                 )}
                 {pageConfig.type === 'card' && (
                     <CardPageWrapper config={pageConfig as CardPageConfig} />
@@ -104,10 +112,10 @@ async function PublicationPage({ config }: { config: PublicationPageConfig }) {
     return <PublicationsList config={config} publications={publications} />;
 }
 
-async function TextPageWrapper({ config }: { config: TextPageConfig }) {
+async function TextPageWrapper({ config, slug }: { config: TextPageConfig; slug: string }) {
     const { default: TextPage } = await import('@/components/pages/TextPage');
     const content = getMarkdownContent(config.source);
-    return <TextPage config={config} content={content} />;
+    return <TextPage config={config} content={content} slug={slug} />;
 }
 
 async function CardPageWrapper({ config }: { config: CardPageConfig }) {
@@ -118,5 +126,5 @@ async function CardPageWrapper({ config }: { config: CardPageConfig }) {
 function NewsPage({ config }: { config: BasePageConfig }) {
     const newsData = getTomlContent<{ news: NewsItem[] }>('news.toml');
     const items = newsData?.news || [];
-    return <News items={items} title={config.title} />;
+    return <News items={items} title={config.title} headingLevel={1} />;
 }
