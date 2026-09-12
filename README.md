@@ -41,15 +41,25 @@ All copy lives in `content/`, so editing the site does not mean editing React.
 | `bio.md` | Homepage "A bit about me" |
 | `news.toml` | Homepage "Lately" and `/news` |
 | `teaching.toml` | `/teaching` |
-| `blog-<slug>.toml` | One blog post: title, description, date, tags, TOC depth |
-| `blog/<slug>.md` | That post's body (Markdown, LaTeX via `$...$`, fenced code) |
-| `publications.bib` | `/publications` (not linked from nav — see the file header) |
+| `blog/<slug>.md` | One blog post: `+++` TOML frontmatter, then the body (Markdown, LaTeX via `$...$`, fenced code) |
 
-**Adding a post.** Write `content/blog/<slug>.md`, add
-`content/blog-<slug>.toml` beside it, then add a `[[navigation]]` entry with
-`hidden = true` in `config.toml` so the route gets generated. The `/blog` index,
-`sitemap.xml` and `feed.xml` all read the TOML files, so nothing else needs
-updating.
+**Adding a post.** Write `content/blog/<slug>.md` — that is the whole step. The
+filename is the slug (`/blog-<slug>`), and the frontmatter carries the rest:
+
+```markdown
++++
+title = "Post title"
+description = "One-line summary"
+date = "2026-01-31"
+tags = ["Tag"]
+toc = "nested"   # "none" | "sections" | "nested"
++++
+
+Body starts here.
+```
+
+The route, the `/blog` index, `sitemap.xml` and `feed.xml` are all derived from
+`content/blog/*.md`, so nothing else needs updating.
 
 ### Deploy
 

@@ -1,7 +1,0 @@
-type = "text"
-title = "Neural Networks, CNNs, RNNs, Transformers, and Beyond"
-description = "A (long) introduction to neural nets, and popular options of CNNs, RNNs, Transformers, and other modern machine learning models"
-date = "2025-05-21"
-tags = ["ML", "DL"]
-source = "blog/nn.md"
-toc = "nested"

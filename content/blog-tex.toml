@@ -1,7 +1,0 @@
-type = "text"
-title = "Learn LaTeX Quickly"
-description = "A quick guide to LaTeX"
-date = "2023-01-15"
-tags = ["LaTeX", "Typesetting"]
-source = "blog/tex.md"
-toc = "nested"

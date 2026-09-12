@@ -1,3 +1,11 @@
++++
+title = "When Linear Models Outshine the Fancy Stuff"
+description = "A reminder that simple ≠ weak."
+date = "2025-08-07"
+tags = ["ML", "Statistics"]
+toc = "none"
++++
+
 In the age of transformers and billion-parameter LLMs, it’s easy to forget that linear models often deliver competitive accuracy, transparent coefficients, and lightning-fast training—especially on high-dimensional sparse data or low-signal tabular problems. Two short experiments below back up that claim. The code and output are also available [in this repo](https://github.com/glenntfung/linear-vs-complex). 
 
 ## Experiment A: Movie-Review Sentiment

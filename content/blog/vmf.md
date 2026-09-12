@@ -1,3 +1,11 @@
++++
+title = "The von Mises–Fisher Distribution"
+description = "A mathematical introduction to directional data, Bessel-function asymptotics, and stable normalization on the hypersphere."
+date = "2026-07-14"
+tags = ["Statistics", "ML"]
+toc = "sections"
++++
+
 Directional data arise whenever orientation matters more than magnitude. A wind direction, a point on the globe, and a normalized embedding are all unit vectors: their lengths have been fixed, so the information lies in where they point. This is especially useful in high dimensions—for example, with normalized LLM embeddings—where magnitude may be sensitive to scale or preprocessing, while direction can capture semantic similarity.
 
 The von Mises–Fisher distribution, usually abbreviated vMF, is a natural model for such data. It plays a role on the sphere similar to that of an isotropic Gaussian in Euclidean space: one parameter specifies the preferred direction, and another controls how tightly observations gather around it.

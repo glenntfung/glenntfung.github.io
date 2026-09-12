@@ -132,7 +132,6 @@ export default function RootLayout({
           <Navigation
             items={config.navigation}
             siteTitle={config.site.title}
-            enableOnePageMode={config.features.enable_one_page_mode}
           />
           <main id="main-content" className="flex-1 pt-16 lg:pt-20">
             {children}

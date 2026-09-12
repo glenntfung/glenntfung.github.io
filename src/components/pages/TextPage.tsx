@@ -16,12 +16,11 @@ import { formatDisplayDate } from '@/lib/utils';
 interface TextPageProps {
     config: TextPageConfig;
     content: string;
-    embedded?: boolean;
     /** Route slug, e.g. "blog-vmf". Enables per-post structured data. */
     slug?: string;
 }
 
-export default function TextPage({ config, content, embedded = false, slug }: TextPageProps) {
+export default function TextPage({ config, content, slug }: TextPageProps) {
     const rehypePlugins: PluggableList = [
         rehypeRaw as unknown as Pluggable,
         // Keep KaTeX's default htmlAndMathml output. MathML-only is far smaller,
@@ -65,14 +64,14 @@ export default function TextPage({ config, content, embedded = false, slug }: Te
     };
 
     const headingId = (children: ReactNode): string => renderSlugger.slug(extractText(children));
-    const showToc = !embedded && tocTree.length > 0 && config.toc !== 'none';
+    const showToc = tocTree.length > 0 && config.toc !== 'none';
     const showNestedToc = config.toc === 'nested';
     const isPost = Boolean(slug?.startsWith('blog-'));
     const siteConfig = getConfig();
 
     return (
-        <div className={embedded ? '' : 'max-w-6xl mx-auto'}>
-            {isPost && !embedded && (
+        <div className="max-w-6xl mx-auto">
+            {isPost && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -108,8 +107,8 @@ export default function TextPage({ config, content, embedded = false, slug }: Te
                             </nav>
                         </details>
                     )}
-                    <header className={embedded ? 'mb-6 space-y-2' : 'mb-12 space-y-3'}>
-                        <h1 className={`${embedded ? 'text-3xl' : 'text-5xl'} font-display font-semibold tracking-tight text-primary`}>{config.title}</h1>
+                    <header className="mb-12 space-y-3">
+                        <h1 className="text-5xl font-display font-semibold tracking-tight text-primary">{config.title}</h1>
                         {config.description && (
                             <p className="text-base text-neutral-600 max-w-2xl leading-relaxed">
                                 {config.description}

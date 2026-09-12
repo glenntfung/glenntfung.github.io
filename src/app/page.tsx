@@ -1,154 +1,26 @@
 import { getConfig } from '@/lib/config';
-import { getMarkdownContent, getBibtexContent, getTomlContent, getPageConfig } from '@/lib/content';
-import { parseBibTeX } from '@/lib/bibtexParser';
+import { getMarkdownContent, getTomlContent, getPageConfig } from '@/lib/content';
 import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
-import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
-
-import { Publication } from '@/types/publication';
-import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
 import PageMotion from '@/components/ui/PageMotion';
 
-// Define types for section config
-interface SectionConfig {
+/** A section of content/about.toml, rendered in order under the profile header. */
+interface AboutSection {
   id: string;
-  type: 'markdown' | 'publications' | 'list';
+  type: 'markdown' | 'list';
   title?: string;
   source?: string;
-  filter?: string;
   limit?: number;
-  content?: string;
-  publications?: Publication[];
-  items?: NewsItem[];
-  viewAllHref?: string;
-}
-
-type PageData =
-  | { type: 'about', id: string, sections: SectionConfig[] }
-  | { type: 'publication', id: string, config: PublicationPageConfig, publications: Publication[] }
-  | { type: 'text', id: string, config: TextPageConfig, content: string }
-  | { type: 'card', id: string, config: CardPageConfig };
-
-async function EmbeddedPublicationPage({ page }: { page: Extract<PageData, { type: 'publication' }> }) {
-  const { default: PublicationsList } = await import('@/components/publications/PublicationsList');
-  return <PublicationsList config={page.config} publications={page.publications} embedded={true} />;
-}
-
-// NOTE: if you ever set features.enable_one_page_mode = true in config.toml,
-// add `import '@/components/pages/prose.css'` at the top of this file. It is
-// imported by src/app/[slug]/page.tsx instead so the homepage does not pay for
-// math and code styling it never uses while one-page mode is off.
-async function EmbeddedTextPage({ page }: { page: Extract<PageData, { type: 'text' }> }) {
-  const { default: TextPage } = await import('@/components/pages/TextPage');
-  return <TextPage config={page.config} content={page.content} embedded={true} />;
-}
-
-async function EmbeddedCardPage({ page }: { page: Extract<PageData, { type: 'card' }> }) {
-  const { default: CardPage } = await import('@/components/pages/CardPage');
-  return <CardPage config={page.config} embedded={true} />;
 }
 
 export default function Home() {
   const config = getConfig();
-  const enableOnePageMode = config.features.enable_one_page_mode;
-
-  // Always load about page config for profile info
-  const aboutConfig = getPageConfig('about');
-
-  // Helper function to process sections (for about page)
-  const processSections = (sections: SectionConfig[]) => {
-    return sections.map((section: SectionConfig) => {
-      switch (section.type) {
-        case 'markdown':
-          return {
-            ...section,
-            content: section.source ? getMarkdownContent(section.source) : ''
-          };
-        case 'publications': {
-          const bibtex = getBibtexContent('publications.bib');
-          const allPubs = parseBibTeX(bibtex);
-          const filteredPubs = section.filter === 'selected'
-            ? allPubs.filter(p => p.selected)
-            : allPubs;
-          return {
-            ...section,
-            publications: filteredPubs.slice(0, section.limit || 5)
-          };
-        }
-        case 'list': {
-          const newsData = section.source ? getTomlContent<{ news: NewsItem[] }>(section.source) : null;
-          const items = newsData?.news || [];
-          const limitedItems = section.limit ? items.slice(0, section.limit) : items;
-          return {
-            ...section,
-            items: limitedItems,
-            viewAllHref: section.id === 'news' ? '/news' : undefined
-          };
-        }
-        default:
-          return section;
-      }
-    });
-  };
-
-  // Determine which pages to show
-  let pagesToShow: PageData[] = [];
-
-  if (enableOnePageMode) {
-    pagesToShow = config.navigation
-      .filter(item => item.type === 'page' && !item.hidden)
-      .map(item => {
-        const rawConfig = getPageConfig(item.target);
-        if (!rawConfig) return null;
-
-        const pageConfig = rawConfig as BasePageConfig;
-
-        if (pageConfig.type === 'about' || 'sections' in (rawConfig as object)) {
-          return {
-            type: 'about',
-            id: item.target,
-            sections: processSections((rawConfig as { sections: SectionConfig[] }).sections || [])
-          } as PageData;
-        } else if (pageConfig.type === 'publication') {
-          const pubConfig = pageConfig as PublicationPageConfig;
-          const bibtex = getBibtexContent(pubConfig.source);
-          return {
-            type: 'publication',
-            id: item.target,
-            config: pubConfig,
-            publications: parseBibTeX(bibtex)
-          } as PageData;
-        } else if (pageConfig.type === 'text') {
-          const textConfig = pageConfig as TextPageConfig;
-          return {
-            type: 'text',
-            id: item.target,
-            config: textConfig,
-            content: getMarkdownContent(textConfig.source)
-          } as PageData;
-        } else if (pageConfig.type === 'card') {
-          return {
-            type: 'card',
-            id: item.target,
-            config: pageConfig as CardPageConfig
-          } as PageData;
-        }
-        return null;
-      })
-      .filter((item): item is PageData => item !== null);
-  } else {
-    if (aboutConfig) {
-      pagesToShow = [{
-        type: 'about',
-        id: 'about',
-        sections: processSections((aboutConfig as { sections: SectionConfig[] }).sections || [])
-      }];
-    }
-  }
+  const about = getPageConfig<{ sections?: AboutSection[] }>('about');
+  const sections = about?.sections ?? [];
 
   return (
-    <PageMotion 
+    <PageMotion
       className="mx-auto min-h-screen max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8"
     >
       <div className="flex flex-col space-y-20 sm:space-y-24">
@@ -162,51 +34,35 @@ export default function Home() {
 
         {/* Content Sections */}
         <div className="mx-auto w-full max-w-4xl space-y-20 sm:space-y-24">
-          {pagesToShow.map((page) => (
-            <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
-              {page.type === 'about' && page.sections.map((section: SectionConfig) => {
-                switch (section.type) {
-                  case 'markdown':
-                    return (
-                      <About
-                        key={section.id}
-                        content={section.content || ''}
-                        title={section.title}
-                      />
-                    );
-                  case 'publications':
-                    return (
-                      <SelectedPublications
-                        key={section.id}
-                        publications={section.publications || []}
-                        title={section.title}
-                        enableOnePageMode={enableOnePageMode}
-                      />
-                    );
-                  case 'list':
-                    return (
-                      <News
-                        key={section.id}
-                        items={section.items || []}
-                        title={section.title}
-                        viewAllHref={section.viewAllHref}
-                      />
-                    );
-                  default:
-                    return null;
+          <section id="about" className="scroll-mt-24 space-y-8">
+            {sections.map((section) => {
+              switch (section.type) {
+                case 'markdown':
+                  return (
+                    <About
+                      key={section.id}
+                      content={section.source ? getMarkdownContent(section.source) : ''}
+                      title={section.title}
+                    />
+                  );
+                case 'list': {
+                  const all = section.source
+                    ? getTomlContent<{ news: NewsItem[] }>(section.source)?.news ?? []
+                    : [];
+                  return (
+                    <News
+                      key={section.id}
+                      items={section.limit ? all.slice(0, section.limit) : all}
+                      title={section.title}
+                      viewAllHref={section.id === 'news' ? '/news' : undefined}
+                    />
+                  );
                 }
-              })}
-              {page.type === 'publication' && (
-                <EmbeddedPublicationPage page={page} />
-              )}
-              {page.type === 'text' && (
-                <EmbeddedTextPage page={page} />
-              )}
-              {page.type === 'card' && (
-                <EmbeddedCardPage page={page} />
-              )}
-            </section>
-          ))}
+                default:
+                  return null;
+              }
+            })}
+          </section>
         </div>
       </div>
     </PageMotion>

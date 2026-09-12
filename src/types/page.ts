@@ -1,17 +1,11 @@
 export interface BasePageConfig {
-    type: 'about' | 'publication' | 'card' | 'text' | 'news';
+    type: 'about' | 'card' | 'text' | 'news';
     title: string;
     description?: string;
 }
 
-export interface PublicationPageConfig extends BasePageConfig {
-    type: 'publication';
-    source: string;
-}
-
 export interface TextPageConfig extends BasePageConfig {
     type: 'text';
-    source: string;
     toc: 'none' | 'sections' | 'nested';
     /** ISO publication date (YYYY-MM-DD). Present on blog posts. */
     date?: string;

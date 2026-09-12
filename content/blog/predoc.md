@@ -1,3 +1,11 @@
++++
+title = "Applying for Predoctoral Positions in Social Sciences and Business"
+description = "A brief review of my predoc applications during AY 2024–2025"
+date = "2025-03-01"
+tags = ["Applications"]
+toc = "nested"
++++
+
 > **⚠️ Heads up:** Examples below (in parentheses) might be outdated since positions and applications change all the time!
 
 

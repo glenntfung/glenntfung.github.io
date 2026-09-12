@@ -30,24 +30,12 @@ export interface SiteConfig {
         linkedin?: string;
         [key: string]: string | string[] | undefined;
     };
-    features: {
-        enable_likes: boolean;
-        enable_one_page_mode?: boolean;
-    };
     navigation: Array<{
         title: string;
         type: 'section' | 'page' | 'link';
         target: string;
         href: string;
         hidden?: boolean;
-    }>;
-    sections: Array<{
-        id: string;
-        type: 'markdown' | 'publications' | 'list' | 'cards';
-        source?: string;
-        title?: string;
-        filter?: string;
-        limit?: number;
     }>;
 }
 

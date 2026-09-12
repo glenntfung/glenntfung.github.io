@@ -1,36 +1,54 @@
 import { notFound } from 'next/navigation';
-import { getPageConfig, getMarkdownContent, getBibtexContent, getTomlContent } from '@/lib/content';
+import { getPageConfig, getTomlContent, getBlogPost, getBlogPosts } from '@/lib/content';
 import { getConfig } from '@/lib/config';
-import { parseBibTeX } from '@/lib/bibtexParser';
 import News, { NewsItem } from '@/components/home/News';
 import PageMotion from '@/components/ui/PageMotion';
-import {
-    BasePageConfig,
-    PublicationPageConfig,
-    TextPageConfig,
-    CardPageConfig
-} from '@/types/page';
+import { BasePageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
 
 import { Metadata } from 'next';
-// Math (KaTeX) and code (highlight.js) styling, imported at the route level.
-// Next derives a route's CSS from its module graph, so importing this inside
-// TextPage also pushed ~4.8 kB gzipped onto "/", which merely references
-// TextPage for one-page mode and never renders it. See src/app/page.tsx.
+// Math (KaTeX) and code (highlight.js) styling, imported at the route level so
+// only the routes that render prose pay for it.
 import '@/components/pages/prose.css';
 
 export const dynamicParams = false;
+
+const BLOG_PREFIX = 'blog-';
+
+/** Page config for a route slug, plus the markdown body when it is a post. */
+function resolvePage(slug: string): { config: BasePageConfig; body?: string } | null {
+    if (slug.startsWith(BLOG_PREFIX)) {
+        const post = getBlogPost(slug.slice(BLOG_PREFIX.length));
+        if (!post) return null;
+
+        const config: TextPageConfig = {
+            type: 'text',
+            title: post.title,
+            description: post.summary,
+            toc: post.toc,
+            date: post.date,
+            tags: post.tags,
+        };
+        return { config, body: post.body };
+    }
+
+    const config = getPageConfig<BasePageConfig>(slug);
+    return config ? { config } : null;
+}
 
 export function generateStaticParams() {
     const config = getConfig();
     const dedicatedRoutes = new Set(['about', 'blog', 'misc']);
     const navSlugs = config.navigation
         .filter(nav => nav.type === 'page' && !dedicatedRoutes.has(nav.target)) // handled by dedicated routes
-        .map(nav => ({
-            slug: nav.target,
-        }));
+        .map(nav => ({ slug: nav.target }));
+
+    // Posts are discovered from content/blog/*.md rather than listed a second
+    // time in config.toml, which used to carry eight hidden nav entries whose
+    // only job was to make these routes exist.
+    const postSlugs = getBlogPosts().map(post => ({ slug: `${BLOG_PREFIX}${post.slug}` }));
 
     // Ensure /404 route resolves to the global not-found page during export/dev
-    return [...navSlugs, { slug: '404' }];
+    return [...navSlugs, ...postSlugs, { slug: '404' }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -38,15 +56,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (slug === '404') {
         return {};
     }
-    const pageConfig = getPageConfig(slug) as BasePageConfig | null;
+    const page = resolvePage(slug);
     const config = getConfig();
 
-    if (!pageConfig) {
+    if (!page) {
         return {};
     }
 
+    const { config: pageConfig } = page;
     const canonicalPath = `/${slug}/`;
-    const isPost = slug.startsWith('blog-');
+    const isPost = slug.startsWith(BLOG_PREFIX);
     const publishedTime = (pageConfig as TextPageConfig).date;
 
     return {
@@ -79,20 +98,19 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     if (slug === '404') {
         notFound();
     }
-    const pageConfig = getPageConfig(slug) as BasePageConfig | null;
+    const page = resolvePage(slug);
 
-    if (!pageConfig) {
+    if (!page) {
         notFound();
     }
+
+    const { config: pageConfig, body } = page;
 
     return (
         <PageMotion className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="space-y-16">
-                {pageConfig.type === 'publication' && (
-                    <PublicationPage config={pageConfig as PublicationPageConfig} />
-                )}
                 {pageConfig.type === 'text' && slug !== 'news' && (
-                    <TextPageWrapper config={pageConfig as TextPageConfig} slug={slug} />
+                    <TextPageWrapper config={pageConfig as TextPageConfig} content={body ?? ''} slug={slug} />
                 )}
                 {pageConfig.type === 'card' && (
                     <CardPageWrapper config={pageConfig as CardPageConfig} />
@@ -105,16 +123,8 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     );
 }
 
-async function PublicationPage({ config }: { config: PublicationPageConfig }) {
-    const { default: PublicationsList } = await import('@/components/publications/PublicationsList');
-    const bibtex = getBibtexContent(config.source);
-    const publications = parseBibTeX(bibtex);
-    return <PublicationsList config={config} publications={publications} />;
-}
-
-async function TextPageWrapper({ config, slug }: { config: TextPageConfig; slug: string }) {
+async function TextPageWrapper({ config, content, slug }: { config: TextPageConfig; content: string; slug: string }) {
     const { default: TextPage } = await import('@/components/pages/TextPage');
-    const content = getMarkdownContent(config.source);
     return <TextPage config={config} content={content} slug={slug} />;
 }
 

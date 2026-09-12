@@ -1,3 +1,11 @@
++++
+title = "Comparative Judgment, Pairwise Comparison, and Bradley–Terry Model"
+description = "Using pairwise comparison data to assess abilities"
+date = "2023-12-12"
+tags = ["Statistics", "ML"]
+toc = "none"
++++
+
 ## Introduction
 
 Comparative judgment involves using pairwise comparisons to access the abilities of the compared objects. This is widely applied in the real world, e.g., sports science, psychology, and education. For example, many sport games (e.g., basketball, football, chess) involve two players/teams competing against each other each time. The resulting data can be used in comparative judgment.

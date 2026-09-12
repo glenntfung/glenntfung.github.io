@@ -1,7 +1,0 @@
-type = "text"
-title = "Some fonts in LaTeX"
-description = "Times New Roman, Palatino, Garamond, Erewhon, Georgia"
-date = "2024-05-16"
-tags = ["Typesetting", "LaTeX"]
-source = "blog/fonts.md"
-toc = "sections"

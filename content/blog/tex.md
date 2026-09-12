@@ -1,3 +1,11 @@
++++
+title = "Learn LaTeX Quickly"
+description = "A quick guide to LaTeX"
+date = "2023-01-15"
+tags = ["LaTeX", "Typesetting"]
+toc = "nested"
++++
+
 <div style="text-align: center; font-weight: bold; font-size: 13pt;">
   <a href="/assets/pdf/tex/tex.pdf">PDF Version Available Here</a> (It might be more useful!)
 </div>

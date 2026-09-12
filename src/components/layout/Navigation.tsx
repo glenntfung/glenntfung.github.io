@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
@@ -12,62 +12,13 @@ import { SiteConfig } from '@/lib/config';
 interface NavigationProps {
   items: SiteConfig['navigation'];
   siteTitle: string;
-  enableOnePageMode?: boolean;
 }
 
-export default function Navigation({ items, siteTitle, enableOnePageMode }: NavigationProps) {
+export default function Navigation({ items, siteTitle }: NavigationProps) {
   const pathname = usePathname();
-  const [activeHash, setActiveHash] = useState('');
-  // Memoised because it is an effect dependency: a fresh array every render
-  // tore down and rebuilt the IntersectionObserver on each state update.
   const visibleItems = useMemo(() => items.filter(item => !item.hidden), [items]);
 
-  useEffect(() => {
-    if (enableOnePageMode) {
-      // Set initial hash on client-side to avoid hydration mismatch
-      setActiveHash(window.location.hash);
-      const handleHashChange = () => setActiveHash(window.location.hash);
-      window.addEventListener('hashchange', handleHashChange);
-
-      // Scroll Spy Logic
-      const observerCallback = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Update active hash based on intersecting section
-            const id = entry.target.id;
-            // Only update if we are not currently scrolling to a target (optional refinement, 
-            // but for now simple intersection is enough, we might want to debounce or check intersection ratio)
-            // We use history.replaceState to update URL without jumping or window.location.hash which might jump
-            // But for the nav highlighting, we just need to update local state if we want it to be responsive
-            // However, the requirement says "nav bar did not change". 
-            // Let's update the activeHash state.
-            setActiveHash(id === 'about' ? '' : `#${id}`);
-          }
-        });
-      };
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -60% 0px', // Adjust these margins to trigger when section is roughly in view
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-      // Observe all sections
-      visibleItems.forEach(item => {
-        if (item.type === 'page') {
-          const element = document.getElementById(item.target);
-          if (element) observer.observe(element);
-        }
-      });
-
-      return () => {
-        window.removeEventListener('hashchange', handleHashChange);
-        observer.disconnect();
-      };
-    }
-  }, [enableOnePageMode, visibleItems]);
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
   return (
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
@@ -90,34 +41,21 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-6">
                     <div className="flex items-baseline space-x-6">
-                      {visibleItems.map((item) => {
-                        const isActive = enableOnePageMode
-                          ? activeHash === `#${item.target}` || (!activeHash && item.target === 'about')
-                          : (item.href === '/'
-                            ? pathname === '/'
-                            : pathname.startsWith(item.href));
-
-                        const href = enableOnePageMode
-                          ? `/#${item.target}`
-                          : item.href;
-
-                        return (
-                          <Link
-                            key={item.title}
-                            href={href}
-                            prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
-                            className={cn(
-                              'relative rounded-full px-3 py-2 text-sm font-semibold transition-all duration-200',
-                              isActive
-                                ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
-                                : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
-                            )}
-                          >
-                            <span className="relative z-10">{item.title}</span>
-                          </Link>
-                        );
-                      })}
+                      {visibleItems.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          prefetch={true}
+                          className={cn(
+                            'relative rounded-full px-3 py-2 text-sm font-semibold transition-all duration-200',
+                            isActive(item.href)
+                              ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
+                              : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
+                          )}
+                        >
+                          <span className="relative z-10">{item.title}</span>
+                        </Link>
+                      ))}
                     </div>
                     <ThemeToggle />
                   </div>
@@ -142,35 +80,22 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
           {open && (
             <Disclosure.Panel static className="border-b border-neutral-200/70 bg-background lg:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {visibleItems.map((item) => {
-                  const isActive = enableOnePageMode
-                    ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
-                    : (item.href === '/'
-                      ? pathname === '/'
-                      : pathname.startsWith(item.href));
-
-                  const href = enableOnePageMode
-                    ? (item.href === '/' ? '/' : `/#${item.target}`)
-                    : item.href;
-
-                  return (
-                    <Disclosure.Button
-                      key={item.title}
-                      as={Link}
-                      href={href}
-                      prefetch={true}
-                      onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
-                      className={cn(
-                        'block rounded-2xl px-4 py-3 text-base font-semibold transition-colors duration-200',
-                        isActive
-                          ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
-                          : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
-                      )}
-                    >
-                      {item.title}
-                    </Disclosure.Button>
-                  );
-                })}
+                {visibleItems.map((item) => (
+                  <Disclosure.Button
+                    key={item.title}
+                    as={Link}
+                    href={item.href}
+                    prefetch={true}
+                    className={cn(
+                      'block rounded-2xl px-4 py-3 text-base font-semibold transition-colors duration-200',
+                      isActive(item.href)
+                        ? 'bg-accent-soft text-accent-dark dark:text-accent-light'
+                        : 'text-neutral-600 hover:bg-neutral-100 hover:text-primary'
+                    )}
+                  >
+                    {item.title}
+                  </Disclosure.Button>
+                ))}
                 <div className="mt-2 flex items-center justify-between border-t border-neutral-200 px-3 pt-3">
                   <span className="text-sm font-medium text-neutral-600">Theme</span>
                   <ThemeToggle />

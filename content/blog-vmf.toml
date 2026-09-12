@@ -1,7 +1,0 @@
-type = "text"
-title = "The von Mises–Fisher Distribution"
-description = "A mathematical introduction to directional data, Bessel-function asymptotics, and stable normalization on the hypersphere."
-date = "2026-07-14"
-tags = ["Statistics", "ML"]
-source = "blog/vmf.md"
-toc = "sections"

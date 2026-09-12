@@ -1,3 +1,11 @@
++++
+title = "Neural Networks, CNNs, RNNs, Transformers, and Beyond"
+description = "A (long) introduction to neural nets, and popular options of CNNs, RNNs, Transformers, and other modern machine learning models"
+date = "2025-05-21"
+tags = ["ML", "DL"]
+toc = "nested"
++++
+
 ## Neural Networks: The Foundation
 
 A neural network is a computational model inspired by the human brain. It consists of layers of interconnected neurons (or nodes), each performing a weighted summation followed by a non-linear activation function.

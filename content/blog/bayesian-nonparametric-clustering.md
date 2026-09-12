@@ -1,3 +1,11 @@
++++
+title = "Introduction to Bayesian Nonparametric Clustering"
+description = "How Dirichlet processes become clustering models through the CRP, stick-breaking, and mixture likelihoods."
+date = "2026-07-14"
+tags = ["Statistics", "ML"]
+toc = "sections"
++++
+
 Many clustering methods ask us to choose the number of clusters before seeing the final result. That can feel artificial: why insist on five groups if the data seem to contain three—or eight? Bayesian nonparametric clustering keeps the door open. The model can use more clusters when they help and leave them unused when they do not.
 
 Here, *nonparametric* does not mean “parameter-free.” It means that the model's capacity is not capped in advance. A finite data set still produces a finite number of occupied clusters.
