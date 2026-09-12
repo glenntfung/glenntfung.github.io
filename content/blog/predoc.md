@@ -39,7 +39,7 @@ During the main application season (<mark>July to the following August</mark>), 
 
 Most positions are based in the U.S., but opportunities exist worldwide. Generally, **economics-focused positions** are posted earlier (July to December), while **business school positions** are posted later, beginning in January. However, some business schools—such as Stanford GSB, Northwestern Kellogg, and Columbia Business School—may post openings earlier. <mark>If you don't get an offer (or even see an interesting position) before February, don't panic—more are to come.</mark>
 
-#### Considerations for International Candidates
+### Considerations for International Candidates
 
 If you’re applying from outside the employer’s country, it’s crucial to check visa sponsorship requirements and citizenship/residency conditions or so. For example, some U.S.–based positions may require candidates to have lived in the U.S. for at least three of the past five years (generally due to involvment of sensitive data).
 

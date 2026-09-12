@@ -1,7 +1,4 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import Section from '@/components/ui/Section';
 
 export interface TocItem {
     id: string;
@@ -10,77 +7,45 @@ export interface TocItem {
 }
 
 /**
- * Table of contents with a scroll spy, so the reader can see where they are in
- * a long post instead of staring at an undifferentiated list of links.
+ * Contents, at the top of the post rather than in a sticky left rail.
+ *
+ * Headings carry their own numbering where the author used it, so the rows
+ * deliberately have no right-hand column -- a second set of numbers beside
+ * "1. Geometry and Density" counted the same thing twice.
+ *
+ * The rail version carried a scroll spy so the reader could see where they
+ * were; with the list at the top there is nothing to keep in sync, which makes
+ * this a plain server component and removes an IntersectionObserver plus a
+ * scroll listener from every post.
  */
 export default function Toc({ items, nested }: { items: TocItem[]; nested: boolean }) {
-    const [activeId, setActiveId] = useState<string | null>(null);
-
-    useEffect(() => {
-        const ids = items.flatMap(item => [item.id, ...(nested ? item.children.map(c => c.id) : [])]);
-        const headings = ids
-            .map(id => document.getElementById(id))
-            .filter((el): el is HTMLElement => el !== null);
-
-        if (headings.length === 0) return;
-
-        // Track every heading's viewport position and pick the last one that has
-        // scrolled past the top band. Using the entries alone is unreliable:
-        // fast scrolling can fire several at once, and headings that leave the
-        // viewport upward stop intersecting entirely.
-        const pickActive = () => {
-            const offset = 120;
-            let current: string = headings[0].id;
-            for (const heading of headings) {
-                if (heading.getBoundingClientRect().top - offset <= 0) current = heading.id;
-                else break;
-            }
-            setActiveId(current);
-        };
-
-        pickActive();
-
-        const observer = new IntersectionObserver(pickActive, {
-            rootMargin: '-120px 0px -70% 0px',
-            threshold: [0, 1],
-        });
-        headings.forEach(heading => observer.observe(heading));
-        window.addEventListener('scroll', pickActive, { passive: true });
-
-        return () => {
-            observer.disconnect();
-            window.removeEventListener('scroll', pickActive);
-        };
-    }, [items, nested]);
-
-    const linkClass = (id: string) =>
-        cn(
-            'block border-l-2 py-0.5 pl-3 -ml-px transition-colors',
-            activeId === id
-                ? 'border-accent font-semibold text-accent'
-                : 'border-transparent hover:text-accent'
-        );
-
     return (
-        <ul className="space-y-2">
+        <Section title="Contents">
             {items.map(item => (
-                <li key={item.id}>
-                    <a href={`#${item.id}`} className={linkClass(item.id)}>
-                        {item.text}
-                    </a>
-                    {nested && item.children.length > 0 && (
-                        <ul className="mt-2 ml-2 space-y-1.5 border-l border-neutral-200 pl-1 text-xs">
-                            {item.children.map(child => (
-                                <li key={child.id}>
-                                    <a href={`#${child.id}`} className={linkClass(child.id)}>
+                <div key={item.id} className="row">
+                    <span className="flex flex-col gap-1">
+                        <a
+                            href={`#${item.id}`}
+                            className="text-[0.9375rem] text-body transition-colors hover:text-link"
+                        >
+                            {item.text}
+                        </a>
+                        {nested && item.children.length > 0 && (
+                            <span className="flex flex-col gap-1 pl-4">
+                                {item.children.map(child => (
+                                    <a
+                                        key={child.id}
+                                        href={`#${child.id}`}
+                                        className="text-[0.8125rem] text-muted transition-colors hover:text-link"
+                                    >
                                         {child.text}
                                     </a>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </li>
+                                ))}
+                            </span>
+                        )}
+                    </span>
+                </div>
             ))}
-        </ul>
+        </Section>
     );
 }

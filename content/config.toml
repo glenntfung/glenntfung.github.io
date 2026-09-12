@@ -1,7 +1,6 @@
 [site]
 title = "Glenn Feng"
 description = "Empirical Research Fellow @ Northwestern University Kellogg School of Management"
-favicon = "/favicon.svg"
 url = "https://glenntfung.github.io"
 # Landscape 1200x630 card used for link previews (Twitter/X, LinkedIn, Slack).
 og_image = "/og.jpg"
@@ -11,11 +10,9 @@ name = "Glenn Feng"
 title = "Empirical Research Fellow"
 institution = "Northwestern University Kellogg School of Management"
 avatar = "/me.webp"
-intro = "Empirical Research Fellow @ Northwestern Kellogg"
 
 [social]
 email = "glenntfung@gmail.com"
-email_work = "zirui.feng@kellogg.northwestern.edu"
 calendar = "https://cal.com/glenn-fung-mqul3k/default"
 github = "https://github.com/glenntfung"
 linkedin = "https://www.linkedin.com/in/glennfung/"
@@ -42,15 +39,3 @@ title = "Writing"
 type = "page"
 target = "blog"
 href = "/blog"
-
-[[navigation]]
-title = "Teaching"
-type = "page"
-target = "teaching"
-href = "/teaching"
-
-[[navigation]]
-title = "Elsewhere"
-type = "page"
-target = "misc"
-href = "/misc"

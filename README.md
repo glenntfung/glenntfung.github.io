@@ -38,7 +38,7 @@ All copy lives in `content/`, so editing the site does not mean editing React.
 | File | Drives |
 | --- | --- |
 | `config.toml` | Site metadata, social links, navigation |
-| `bio.md` | Homepage "A bit about me" |
+| `bio.md` | The homepage bio |
 | `news.toml` | Homepage "Lately" and `/news` |
 | `teaching.toml` | `/teaching` |
 | `blog/<slug>.md` | One blog post: `+++` TOML frontmatter, then the body (Markdown, LaTeX via `$...$`, fenced code) |
@@ -60,6 +60,16 @@ Body starts here.
 
 The route, the `/blog` index, `sitemap.xml` and `feed.xml` are all derived from
 `content/blog/*.md`, so nothing else needs updating.
+
+**Emphasis inside a post.** Use these rather than inline styles — anything with
+a hard-coded colour stops working in one of the two themes.
+
+| Want | Write |
+| --- | --- |
+| Highlight a phrase | `<mark>…</mark>` |
+| An aside or callout | `> **Heads up:** …` (blockquote) |
+| A caption or source line under an image | `<div class="caption">…</div>` |
+| Emphasis inside math | `\boldsymbol{…}` — not `\color{…}` |
 
 ### Deploy
 

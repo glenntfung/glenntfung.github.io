@@ -1,9 +1,3 @@
-import { type ClassValue, clsx } from "clsx";
-
-export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
-}
-
 /**
  * One date format for the whole site: "Jun 7, 2025".
  *
@@ -12,36 +6,30 @@ export function cn(...inputs: ClassValue[]) {
  * why the build machine and a US reader could disagree about a post's date.
  */
 const displayDateFormatter = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
 });
 
 export function formatDisplayDate(date: string): string {
-  const [year, month, day] = date.split('-').map(Number);
-  if (!year || !month || !day) return date;
-  return displayDateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
+    const [year, month, day] = date.split('-').map(Number);
+    if (!year || !month || !day) return date;
+    return displayDateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
 }
 
-export function formatDate(date: string | Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
-}
+/**
+ * "Jul 14" — the same format as above with the year dropped, for lists that
+ * are already grouped under a year heading.
+ */
+const monthDayFormatter = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+});
 
-export function formatYear(date: string | Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric'
-  }).format(new Date(date));
-}
-
-export function generateSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+export function formatMonthDay(date: string): string {
+    const [year, month, day] = date.split('-').map(Number);
+    if (!year || !month || !day) return date;
+    return monthDayFormatter.format(new Date(Date.UTC(year, month - 1, day)));
 }

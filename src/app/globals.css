@@ -1,300 +1,213 @@
 @import "tailwindcss";
 
-/* Explicitly set dark mode to use class strategy */
-@variant dark (&:where(.dark, .dark *));
+/* ============================================================================
+   Tokens
 
-/* Default to light theme colors - no system preference detection */
-:root,
-.light {
-  /* Tell the UA to render native controls, scrollbars and form widgets light */
+   Grey furniture, coloured data — the logic of a well-made figure. The
+   neutrals are cool graphite, biased slightly toward the link colour so they
+   read as chosen rather than inherited. The two accents come from Okabe–Ito,
+   the colourblind-safe palette that is standard in scientific graphics:
+   --link carries every link, and --signal appears at most once per page.
+
+   Light is the complete set; the dark block redefines the same names, so the
+   two themes are one identity at two lightnesses rather than two brands.
+
+   Three states, not two. No class on <html> means "follow the operating
+   system", which is the default every reader gets; .light and .dark are the
+   explicit overrides the toggle writes. Styling never keys off those classes
+   directly -- it only ever reads these tokens, so a rule cannot end up
+   applying in one state and not another.
+
+   --sun / --moon drive the toggle's two glyphs from CSS rather than from
+   React state, so the right one is painted on the very first frame and there
+   is nothing for hydration to mismatch.
+   ============================================================================ */
+:root {
   color-scheme: light;
 
-  /* Calm, natural light theme */
-  --background: #f6f8f5;
-  --surface: #ffffff;
-  --foreground: #26312d;
-  
-  /* Brand colors */
-  --primary: #1f2b27;
-  --primary-light: #33443e;
-  --primary-dark: #141d1a;
-  --accent: #4f7064;
-  --accent-light: #7f9e93;
-  --accent-dark: #355349;
-  --accent-soft: #e4ece8;
-  --playful: #517685;
-  --playful-soft: #e3edf2;
-  
-  /* Natural gray-green neutrals */
-  --neutral-50: #f2f5f3;
-  --neutral-100: #e8eeeb;
-  --neutral-200: #d8e0dc;
-  --neutral-300: #becbc5;
-  --neutral-400: #8fa098;
-  --neutral-500: #63736b;
-  --neutral-600: #56645e;
-  --neutral-700: #3f4b46;
-  --neutral-800: #2b3531;
-  --neutral-900: #1d2522;
-  
-  /* Semantic colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
-  
-  /* Glass effect */
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(226, 232, 240, 0.5);
-  --glass-shadow: rgba(0, 0, 0, 0.03);
+  --sun: block;
+  --moon: none;
 
-  /* Contribution Graph Colors */
-  --contrib-level-0: var(--neutral-100);
-  --contrib-level-1: #dbeafe; /* blue-100 */
-  --contrib-level-2: #93c5fd; /* blue-300 */
-  --contrib-level-3: #3b82f6; /* blue-500 */
-  --contrib-level-4: #1d4ed8; /* blue-700 */
+  --paper: #f7f8f9;
+  --ink: #16191c;
+  --body: #333a40;
+  --muted: #5c656d;
+  --rule: #d7dbdf;
+  --rule-strong: #a9b1b8;
+  --link: #0b6fa4;
+  --link-soft: #e2edf3;
+  --signal: #b4530b;
+  /* Code. Notion's text palette rather than a syntax theme's saturated
+     defaults, darkened just enough to clear 4.5:1 on the code ground -- at
+     14px these are normal-size text, not large. */
+  --code-bg: #f4f3f0;
+  --syn-comment: #706f6c;
+  --syn-keyword: #895bab;
+  --syn-string: #407b5b;
+  --syn-number: #a9590a;
+  --syn-builtin: #2f759d;
+  --syn-inline: #be473f;
+
+  /* <mark> in the posts. The signal amber at 18% over the page, so the one
+     highlight colour belongs to the palette rather than to the browser --
+     unstyled, marks render in the UA's pure yellow, which is unreadable
+     against the dark theme. */
+  --mark-bg: #ebdace;
 }
 
-@theme inline {
-  /* Colors */
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-light: var(--primary-light);
-  --color-primary-dark: var(--primary-dark);
-  --color-accent: var(--accent);
-  --color-accent-light: var(--accent-light);
-  --color-accent-dark: var(--accent-dark);
-  --color-accent-soft: var(--accent-soft);
-  --color-playful: var(--playful);
-  --color-playful-soft: var(--playful-soft);
-  
-  /* Neutral palette */
-  --color-neutral-50: var(--neutral-50);
-  --color-neutral-100: var(--neutral-100);
-  --color-neutral-200: var(--neutral-200);
-  --color-neutral-300: var(--neutral-300);
-  --color-neutral-400: var(--neutral-400);
-  --color-neutral-500: var(--neutral-500);
-  --color-neutral-600: var(--neutral-600);
-  --color-neutral-700: var(--neutral-700);
-  --color-neutral-800: var(--neutral-800);
-  --color-neutral-900: var(--neutral-900);
-  
-  /* Semantic colors */
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
-  --color-info: var(--info);
-  
-  /* Glass effect */
-  --color-glass-bg: var(--glass-bg);
-  --color-glass-border: var(--glass-border);
-  --color-glass-shadow: var(--glass-shadow);
-  
-  /* Typography */
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-inter);
-  --default-font-family: var(--font-inter);
-  --default-mono-font-family: var(--font-inter);
-  
-  /* Font sizes */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --font-size-4xl: 2.25rem;
-  --font-size-5xl: 3rem;
-  --font-size-6xl: 3.75rem;
-  --font-size-7xl: 4.5rem;
-  --font-size-8xl: 6rem;
-  --font-size-9xl: 8rem;
-  
-  /* Letter spacing */
-  --letter-spacing-tighter: -0.05em;
-  --letter-spacing-tight: -0.025em;
-  --letter-spacing-normal: 0em;
-  --letter-spacing-wide: 0.025em;
-  --letter-spacing-wider: 0.05em;
-  --letter-spacing-widest: 0.1em;
-  
-  /* Line heights */
-  --line-height-none: 1;
-  --line-height-tight: 1.25;
-  --line-height-snug: 1.375;
-  --line-height-normal: 1.6;
-  --line-height-relaxed: 1.75;
-  --line-height-loose: 2;
-  
-  /* Shadows - Softer and deeper */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
-  --shadow-glass: 0 8px 32px 0 rgba(37, 99, 235, 0.05);
-  
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+
+    --sun: none;
+    --moon: block;
+
+    --paper: #14171a;
+    --ink: #e7eaec;
+    --body: #c3cacf;
+    --muted: #98a1a9;
+    --rule: #293036;
+    --rule-strong: #464f57;
+    --link: #56b4e9;
+    --link-soft: #1b2a33;
+    --signal: #e69f00;
+    --code-bg: #1b1f24;
+    --syn-comment: #9b9a97;
+    --syn-keyword: #9d68d3;
+    --syn-string: #529e72;
+    --syn-number: #c77d48;
+    --syn-builtin: #5e87c9;
+    --syn-inline: #df5452;
+
+    --mark-bg: #4f3d13;
+  }
 }
 
-/* Dark mode styles */
 .dark {
   color-scheme: dark;
 
-  /* Deep navy theme with warm highlights */
-  --background: #111722;
-  --surface: #182131;
-  --foreground: #f6efe5;
-  
-  --primary: #fff8ee;
-  --primary-light: #f6efe5;
-  --primary-dark: #ddd5c8;
-  --accent: #87a7f5;
-  --accent-light: #afc4fb;
-  --accent-dark: #668ce8;
-  --accent-soft: #263657;
-  --playful: #f0a36d;
-  --playful-soft: #4a3027;
-  
-  /* Dark mode glass effect */
-  --glass-bg: rgba(9, 9, 11, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
-  
-  /* Neutral colors for dark mode - Refined Slate/Zinc */
-  --neutral-50: #151d2a;
-  --neutral-100: #202b3b;
-  --neutral-200: #344155;
-  --neutral-300: #4b5a70;
-  --neutral-400: #6f7c90;
-  --neutral-500: #929caf;
-  --neutral-600: #b6bdc8;
-  --neutral-700: #d5d8de;
-  --neutral-800: #ece9e3;
-  --neutral-900: #fff8ee;
+  --sun: none;
+  --moon: block;
 
-  /* Contribution Graph Colors - Dark Mode */
-  --contrib-level-0: #18181b; /* zinc-900 */
-  --contrib-level-1: #1e3a8a; /* blue-900 */
-  --contrib-level-2: #1d4ed8; /* blue-700 */
-  --contrib-level-3: #3b82f6; /* blue-500 */
-  --contrib-level-4: #60a5fa; /* blue-400 */
+  --paper: #14171a;
+  --ink: #e7eaec;
+  --body: #c3cacf;
+  --muted: #98a1a9;
+  --rule: #293036;
+  --rule-strong: #464f57;
+  --link: #56b4e9;
+  --link-soft: #1b2a33;
+  --signal: #e69f00;
+  --code-bg: #1b1f24;
+  --syn-comment: #9b9a97;
+  --syn-keyword: #9d68d3;
+  --syn-string: #529e72;
+  --syn-number: #c77d48;
+  --syn-builtin: #5e87c9;
+  --syn-inline: #df5452;
+
+  --mark-bg: #4f3d13;
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-link: var(--link);
+  --color-link-soft: var(--link-soft);
+  --color-signal: var(--signal);
+  --color-code-bg: var(--code-bg);
 
-body {
-  background: var(--background);
-  background-image:
-    radial-gradient(circle at 88% 4%, color-mix(in srgb, var(--playful-soft) 55%, transparent) 0, transparent 22rem),
-    radial-gradient(circle at 8% 42%, color-mix(in srgb, var(--accent-soft) 45%, transparent) 0, transparent 26rem);
-  background-attachment: fixed;
-  color: var(--neutral-700);
+  --font-sans: var(--font-plex-sans);
+  --font-serif: var(--font-plex-serif);
+  /* No mono webfont is loaded. Code falls back to whatever the reader's
+     system uses, which is the one place a proportional face would break
+     the content rather than merely restyle it. */
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* Base element styles.
+
+   Everything here is UNLAYERED, and unlayered CSS outranks every rule in a
+   cascade layer no matter its specificity -- Tailwind's utilities all live in
+   @layer utilities. So this block must not set any property a utility class
+   might also set. It previously declared `color` on `a` and on h1-h4, which
+   silently beat text-muted on every link and turned the muted section labels
+   ink. Tailwind's own preflight already sets `a { color: inherit }` in the
+   base layer, where a utility can override it, so that rule is not repeated.
+   (:where() does not rescue this -- specificity only ranks rules inside the
+   same layer.) */
+:where(html) {
+  /* Digits line up in every date column on the site. */
+  font-variant-numeric: tabular-nums;
+}
+
+:where(body) {
+  background: var(--paper);
+  color: var(--body);
   font-family: var(--font-sans);
-  line-height: var(--line-height-normal);
-  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-button, input, select, textarea, pre, code, kbd, samp {
-  font-family: inherit;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  color: var(--primary);
-}
-
-.font-display {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-}
-
-.profile-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: var(--neutral-600);
-  font-weight: 600;
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 0.3rem;
-  transition: color 180ms ease, text-decoration-color 180ms ease;
-}
-
-.profile-link:hover {
-  color: var(--accent);
-  text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
-}
-
-.profile-link:focus-visible {
-  border-radius: 0.35rem;
-  outline: 2px solid var(--accent);
-  outline-offset: 0.25rem;
-}
-
-/* Typography utilities */
-.text-balance {
+/* Colour and weight are deliberately absent: every heading sets its own, so
+   that a label or a year marker can be muted without fighting this rule. */
+:where(h1, h2, h3, h4) {
+  line-height: 1.2;
   text-wrap: balance;
 }
 
-.text-pretty {
-  text-wrap: pretty;
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
 }
 
-/* Shared hover treatment for linked list entries (blog rows, publications).
-   Matches the lift used by the card grids so the two read as one system. */
-.signature-hover {
-  transition: transform 200ms ease, color 200ms ease;
+::selection {
+  background: var(--link-soft);
+  color: var(--ink);
 }
 
-.signature-hover:hover {
-  transform: translateY(-2px);
+/* The heading at the top of /blog, /news, a post and the 404 page. Four
+   components were repeating the same four declarations. */
+@utility page-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  color: var(--ink);
 }
 
-/* Portrait frame: the accent mat behind the hero photo scales on hover.
-   Declared here so the effect has one home instead of living only in markup. */
-.portrait-frame {
-  transition: transform 500ms ease;
+/* The section label: the only uppercase type on the site. */
+@utility label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* ----------------------------------------------------------------------------
+   The row — the site's one structural device.
+
+   Rule discipline borrowed from booktabs: a heavier rule opens a run of rows,
+   hairlines separate them, nothing closes it. Content left, date right, in
+   tabular figures so the right column actually aligns.
+   ---------------------------------------------------------------------------- */
+@utility rows {
+  border-top: 1.5px solid var(--rule-strong);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--neutral-100);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--neutral-300);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--neutral-400);
-}
-
-/* Dark mode scrollbar */
-.dark ::-webkit-scrollbar-track {
-  background: var(--neutral-800);
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: var(--neutral-600);
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: var(--neutral-500);
+@utility row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.25rem 1.5rem;
+  align-items: baseline;
+  padding: 0.9375rem 0;
+  border-bottom: 1px solid var(--rule);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -309,24 +222,5 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* Card background utility */
-.card-bg, .bg-card {
-  background-color: var(--surface);
-}
-
-.dark .card-bg, .dark .bg-card {
-  /* Soften card borders in dark mode only */
-  border-color: #262626;
-}
-
-/* Utility to hide scrollbar but allow scrolling */
-@utility scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
   }
 }

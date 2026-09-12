@@ -2,8 +2,7 @@ import { notFound } from 'next/navigation';
 import { getPageConfig, getTomlContent, getBlogPost, getBlogPosts } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import News, { NewsItem } from '@/components/home/News';
-import PageMotion from '@/components/ui/PageMotion';
-import { BasePageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
+import { BasePageConfig, TextPageConfig } from '@/types/page';
 
 import { Metadata } from 'next';
 // Math (KaTeX) and code (highlight.js) styling, imported at the route level so
@@ -37,9 +36,11 @@ function resolvePage(slug: string): { config: BasePageConfig; body?: string } | 
 
 export function generateStaticParams() {
     const config = getConfig();
-    const dedicatedRoutes = new Set(['about', 'blog', 'misc']);
+    // "about" is the nav entry for "/", and "blog" has its own route file;
+    // neither should be emitted here as well.
+    const dedicatedRoutes = new Set(['about', 'blog']);
     const navSlugs = config.navigation
-        .filter(nav => nav.type === 'page' && !dedicatedRoutes.has(nav.target)) // handled by dedicated routes
+        .filter(nav => nav.type === 'page' && !dedicatedRoutes.has(nav.target))
         .map(nav => ({ slug: nav.target }));
 
     // Posts are discovered from content/blog/*.md rather than listed a second
@@ -107,19 +108,14 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     const { config: pageConfig, body } = page;
 
     return (
-        <PageMotion className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div className="space-y-16">
-                {pageConfig.type === 'text' && slug !== 'news' && (
-                    <TextPageWrapper config={pageConfig as TextPageConfig} content={body ?? ''} slug={slug} />
-                )}
-                {pageConfig.type === 'card' && (
-                    <CardPageWrapper config={pageConfig as CardPageConfig} />
-                )}
-                {(pageConfig.type === 'news' || slug === 'news') && (
-                    <NewsPage config={pageConfig} />
-                )}
-            </div>
-        </PageMotion>
+        <div className="mx-auto flex max-w-[44rem] flex-col px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+            {pageConfig.type === 'text' && slug !== 'news' && (
+                <TextPageWrapper config={pageConfig as TextPageConfig} content={body ?? ''} slug={slug} />
+            )}
+            {(pageConfig.type === 'news' || slug === 'news') && (
+                <NewsPage config={pageConfig} />
+            )}
+        </div>
     );
 }
 
@@ -128,13 +124,24 @@ async function TextPageWrapper({ config, content, slug }: { config: TextPageConf
     return <TextPage config={config} content={content} slug={slug} />;
 }
 
-async function CardPageWrapper({ config }: { config: CardPageConfig }) {
-    const { default: CardPage } = await import('@/components/pages/CardPage');
-    return <CardPage config={config} />;
-}
 
+/** /news: a page title and a description, laid out like /blog. */
 function NewsPage({ config }: { config: BasePageConfig }) {
-    const newsData = getTomlContent<{ news: NewsItem[] }>('news.toml');
-    const items = newsData?.news || [];
-    return <News items={items} title={config.title} headingLevel={1} />;
+    const items = getTomlContent<{ news: NewsItem[] }>('news.toml')?.news ?? [];
+
+    return (
+        <div className="flex flex-col gap-8">
+            <header className="flex flex-col gap-3">
+                <h1 className="page-title">{config.title}</h1>
+                {config.description && (
+                    <p className="max-w-[60ch] text-[0.9375rem] text-muted">
+                        {config.description}
+                    </p>
+                )}
+            </header>
+            <div className="rows">
+                <News items={items} />
+            </div>
+        </div>
+    );
 }

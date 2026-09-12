@@ -6,9 +6,7 @@ tags = ["LaTeX", "Typesetting"]
 toc = "nested"
 +++
 
-<div style="text-align: center; font-weight: bold; font-size: 13pt;">
-  <a href="/assets/pdf/tex/tex.pdf">PDF Version Available Here</a> (It might be more useful!)
-</div>
+> A [PDF version](/assets/pdf/tex/tex.pdf) of this guide is also available — it might be more useful!
 
 ## Figures
 

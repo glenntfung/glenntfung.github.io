@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'about' | 'card' | 'text' | 'news';
+    type: 'text' | 'news';
     title: string;
     description?: string;
 }
@@ -13,18 +13,3 @@ export interface TextPageConfig extends BasePageConfig {
     tags?: string[];
 }
 
-export interface CardItem {
-    title: string;
-    subtitle?: string;
-    date?: string;
-    content?: string;
-    tags?: string[];
-    link?: string;
-    link_text?: string;
-    image?: string;
-}
-
-export interface CardPageConfig extends BasePageConfig {
-    type: 'card';
-    items: CardItem[];
-}

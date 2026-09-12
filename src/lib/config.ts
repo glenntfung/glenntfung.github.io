@@ -6,7 +6,6 @@ export interface SiteConfig {
     site: {
         title: string;
         description: string;
-        favicon: string;
         url: string;
         /** Landscape 1200x630 link-preview card. */
         og_image: string;
@@ -16,14 +15,10 @@ export interface SiteConfig {
         title: string;
         institution: string;
         avatar: string;
-        intro?: string;
     };
     social: {
         email?: string;
         calendar?: string;
-        location?: string;
-        location_url?: string;
-        location_details?: string[];
         google_scholar?: string;
         orcid?: string;
         github?: string;

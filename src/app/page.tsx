@@ -1,70 +1,38 @@
 import { getConfig } from '@/lib/config';
-import { getMarkdownContent, getTomlContent, getPageConfig } from '@/lib/content';
+import { getMarkdownContent, getTomlContent, getBlogPosts } from '@/lib/content';
 import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
 import News, { NewsItem } from '@/components/home/News';
-import PageMotion from '@/components/ui/PageMotion';
+import WritingList from '@/components/home/WritingList';
+import Section from '@/components/ui/Section';
 
-/** A section of content/about.toml, rendered in order under the profile header. */
-interface AboutSection {
-  id: string;
-  type: 'markdown' | 'list';
-  title?: string;
-  source?: string;
-  limit?: number;
-}
+const RECENT_POSTS = 3;
+const RECENT_NEWS = 3;
 
+/**
+ * content/about.toml used to sit between this page and its two content files,
+ * declaring a list of typed sections. Of the eight keys it carried, six were
+ * never read, and the two that were just named bio.md and news.toml — which
+ * this page can name itself.
+ */
 export default function Home() {
   const config = getConfig();
-  const about = getPageConfig<{ sections?: AboutSection[] }>('about');
-  const sections = about?.sections ?? [];
+  const posts = getBlogPosts();
+  const news = getTomlContent<{ news: NewsItem[] }>('news.toml')?.news ?? [];
 
   return (
-    <PageMotion
-      className="mx-auto min-h-screen max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8"
-    >
-      <div className="flex flex-col space-y-20 sm:space-y-24">
-        {/* Top Profile Section */}
-        <section>
-          <Profile
-            author={config.author}
-            social={config.social}
-          />
-        </section>
+    <div className="mx-auto flex max-w-[44rem] flex-col gap-12 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+      <Profile author={config.author} social={config.social} />
 
-        {/* Content Sections */}
-        <div className="mx-auto w-full max-w-4xl space-y-20 sm:space-y-24">
-          <section id="about" className="scroll-mt-24 space-y-8">
-            {sections.map((section) => {
-              switch (section.type) {
-                case 'markdown':
-                  return (
-                    <About
-                      key={section.id}
-                      content={section.source ? getMarkdownContent(section.source) : ''}
-                      title={section.title}
-                    />
-                  );
-                case 'list': {
-                  const all = section.source
-                    ? getTomlContent<{ news: NewsItem[] }>(section.source)?.news ?? []
-                    : [];
-                  return (
-                    <News
-                      key={section.id}
-                      items={section.limit ? all.slice(0, section.limit) : all}
-                      title={section.title}
-                      viewAllHref={section.id === 'news' ? '/news' : undefined}
-                    />
-                  );
-                }
-                default:
-                  return null;
-              }
-            })}
-          </section>
-        </div>
-      </div>
-    </PageMotion>
+      <About content={getMarkdownContent('bio.md')} />
+
+      <WritingList posts={posts.slice(0, RECENT_POSTS)} total={posts.length} />
+
+      {news.length > 0 && (
+        <Section title="Lately" more={{ href: '/news', label: 'Everything' }}>
+          <News items={news.slice(0, RECENT_NEWS)} />
+        </Section>
+      )}
+    </div>
   );
 }

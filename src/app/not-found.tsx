@@ -1,35 +1,24 @@
 import Link from "next/link";
-import { Compass, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-6 py-16 bg-background">
-      <div className="relative max-w-2xl w-full">
-        <div className="relative bg-card shadow-xl border border-neutral-200 rounded-lg p-8">
-          <div className="flex items-center gap-3 text-accent mb-6">
-            <Compass className="h-10 w-10" strokeWidth={1.5} />
-            <div className="text-sm uppercase tracking-[0.3em] text-neutral-500">
-              404
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <h1 className="font-display text-4xl font-semibold tracking-tight text-primary">Page not found</h1>
-            <p className="text-neutral-600 leading-relaxed">
-              The page you are looking for doesn&rsquo;t exist. Let&rsquo;s get you back to familiar territory.
-            </p>
-            <div className="pt-4">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
-                Go home
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="mx-auto flex max-w-[44rem] flex-col gap-4 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+      <p className="label">404</p>
+      <h1 className="page-title">
+        Page not found
+      </h1>
+      <p className="max-w-[60ch] text-muted">
+        That address does not match anything on this site. The{" "}
+        <Link href="/blog" className="text-link underline underline-offset-4">
+          writing index
+        </Link>{" "}
+        lists every post.
+      </p>
+      <p className="text-[0.8125rem]">
+        <Link href="/" className="text-link underline-offset-4 hover:underline">
+          Go home →
+        </Link>
+      </p>
     </div>
   );
 }

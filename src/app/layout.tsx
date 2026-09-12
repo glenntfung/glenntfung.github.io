@@ -1,24 +1,29 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/layout/Navigation";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { getConfig } from "@/lib/config";
 import { personSchema } from "@/lib/schema";
+import { formatDisplayDate } from "@/lib/utils";
 
-const inter = Inter({
+// Two roles, one superfamily. Sans carries headings, navigation and every
+// label; serif is the reading surface inside posts. Weights are limited to the
+// ones actually used -- Plex is not a variable font on Google Fonts, so each
+// extra weight is another file on the critical path.
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: "variable",
-  // Only the roman face is preloaded; italic is synthesized by the browser.
-  // Shipping the italic variable face too cost ~47 kB on the critical path of
-  // every page for the handful of <em> runs that actually use it.
-  style: ["normal"],
-  // "swap" renders text immediately in the fallback and swaps when Inter
-  // arrives. "block" hid all copy for up to 3s. adjustFontFallback (Next's
-  // default) size-matches the fallback so the swap barely shifts layout.
+  weight: ["400", "600"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-plex-sans",
+});
+
+const plexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-plex-serif",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -40,16 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
         "application/rss+xml": [{ url: "/feed.xml", title: `${config.author.name} — Writing` }],
       },
     },
-    icons: {
-      icon: [
-        { url: config.site.favicon, type: "image/svg+xml" },
-        { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
-      ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-      shortcut: ["/favicon.ico"],
-    },
-    manifest: "/site.webmanifest",
     openGraph: {
       type: "website",
       locale: "en_US",
@@ -85,30 +80,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} scroll-smooth`}
-      data-scroll-behavior="smooth"
+      className={`${plexSans.variable} ${plexSerif.variable} scroll-smooth`}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <head>
-        {/* Icons, manifest and canonical links come from generateMetadata above;
-            duplicating them here emitted every <link> twice. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('theme-storage');
-                const parsed = theme ? JSON.parse(theme) : null;
-                const setting = parsed?.state?.theme || 'system';
-                const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));
-                var root = document.documentElement;
-                root.classList.add(effective);
-                root.setAttribute('data-theme', effective);
-              } catch (e) {
-                var root = document.documentElement;
-                root.classList.add('light');
-                root.setAttribute('data-theme', 'light');
-              }
+                var t = localStorage.getItem('theme');
+                if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
+              } catch (e) {}
             `,
           }}
         />
@@ -121,23 +104,16 @@ export default function RootLayout({
       </head>
       {/* Column layout so the footer sits at the bottom of short pages instead
           of being pushed past the fold by a min-h-screen <main>. */}
-      <body className="antialiased flex min-h-screen flex-col">
-        <ThemeProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only fixed top-3 left-3 z-[100] rounded-md bg-background px-4 py-2 text-sm font-semibold text-primary shadow-lg ring-2 ring-accent"
-          >
-            Skip to main content
-          </a>
-          <Navigation
-            items={config.navigation}
-            siteTitle={config.site.title}
-          />
-          <main id="main-content" className="flex-1 pt-16 lg:pt-20">
-            {children}
-          </main>
-          <Footer lastUpdated={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />
-        </ThemeProvider>
+      <body className="flex min-h-screen flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only fixed top-3 left-3 z-50 bg-paper px-4 py-2 text-sm font-semibold text-ink outline outline-2 outline-link"
+        >
+          Skip to main content
+        </a>
+        <Header items={config.navigation} />
+        <main id="main-content" className="flex-1">{children}</main>
+        <Footer lastUpdated={formatDisplayDate(new Date().toISOString().slice(0, 10))} />
       </body>
     </html>
   );

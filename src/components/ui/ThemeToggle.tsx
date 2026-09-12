@@ -1,84 +1,67 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
-import { useThemeStore, type Theme } from '@/lib/stores/themeStore';
-import { cn } from '@/lib/utils';
-
-const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
-  {
-    value: 'system',
-    label: 'System',
-    icon: <ComputerDesktopIcon className="h-4 w-4" />,
-  },
-  {
-    value: 'light',
-    label: 'Light',
-    icon: <SunIcon className="h-4 w-4" />,
-  },
-  {
-    value: 'dark',
-    label: 'Dark',
-    icon: <MoonIcon className="h-4 w-4" />,
-  },
-];
-
+/**
+ * Light/dark toggle. No label, no third "system" position in the UI.
+ *
+ * With nothing stored, the page follows the operating system -- that is the
+ * default, and it needs no class on <html> at all. The first click writes an
+ * explicit choice; after that the site honours it.
+ *
+ * Which glyph shows is decided in CSS by the --sun/--moon tokens, not by React
+ * state, so the correct one is painted on the first frame and there is nothing
+ * to reconcile at hydration.
+ */
 export function ThemeToggle() {
-  const { theme, setTheme } = useThemeStore();
-  const [mounted, setMounted] = useState(false);
+    const toggle = () => {
+        const root = document.documentElement;
+        const isDark =
+            root.classList.contains('dark') ||
+            (!root.classList.contains('light') &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+        const next = isDark ? 'light' : 'dark';
+        root.classList.remove('light', 'dark');
+        root.classList.add(next);
+        try {
+            localStorage.setItem('theme', next);
+        } catch {
+            // Private browsing or blocked storage: the choice simply does not persist.
+        }
+    };
 
-  if (!mounted) {
     return (
-      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-background dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-100">
-        <div className="w-4 h-4 rounded-full bg-neutral-300 animate-pulse" />
-      </div>
-    );
-  }
-
-  const currentTheme = themes.find(t => t.value === theme) || themes[0];
-
-  return (
-    <div className="relative">
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        type="button"
-        onMouseDown={(e) => e.preventDefault()}
-        onClick={() => {
-          const order: Theme[] = ['system', 'light', 'dark'];
-          const index = order.indexOf(theme);
-          const next = order[(index + 1) % order.length];
-          setTheme(next);
-        }}
-        className={cn(
-          'flex h-10 w-10 items-center justify-center rounded-full',
-          'border border-neutral-200 bg-background hover:bg-neutral-50',
-          'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-100 dark:hover:bg-neutral-200',
-          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
-          'text-neutral-600 hover:text-primary dark:text-neutral-600 dark:hover:text-primary'
-        )}
-        title={`Current theme: ${currentTheme.label}. Click to cycle theme.`}
-      >
-        <motion.div
-          key={theme}
-          initial={{ rotate: -180, opacity: 0 }}
-          animate={{ rotate: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+        <button
+            type="button"
+            onClick={toggle}
+            aria-label="Switch between light and dark theme"
+            className="-m-2 p-2 text-muted transition-colors hover:text-ink"
         >
-          {theme === 'system' ? (
-            <ComputerDesktopIcon className="h-4 w-4" />
-          ) : theme === 'dark' ? (
-            <MoonIcon className="h-4 w-4" />
-          ) : (
-            <SunIcon className="h-4 w-4" />
-          )}
-        </motion.div>
-      </motion.button>
-    </div>
-  );
+            <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                className="h-[1.0625rem] w-[1.0625rem]"
+                style={{ display: 'var(--sun)' }}
+            >
+                <circle cx="10" cy="10" r="3.6" />
+                <path d="M10 1.6v2.1M10 16.3v2.1M18.4 10h-2.1M3.7 10H1.6M15.94 4.06l-1.48 1.48M5.54 14.46l-1.48 1.48M15.94 15.94l-1.48-1.48M5.54 5.54L4.06 4.06" />
+            </svg>
+            <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-[1.0625rem] w-[1.0625rem]"
+                style={{ display: 'var(--moon)' }}
+            >
+                <path d="M17 12.2A7.6 7.6 0 0 1 7.8 3a7.6 7.6 0 1 0 9.2 9.2z" />
+            </svg>
+        </button>
+    );
 }

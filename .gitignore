@@ -46,3 +46,6 @@ next-env.d.ts
 
 # doc
 *.docx
+
+# fonts fetched for scripts/og-card.py
+.og-fonts/

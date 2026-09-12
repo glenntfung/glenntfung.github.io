@@ -131,19 +131,19 @@ The ordinary CRP often creates a few popular tables alongside smaller ones, but 
 The Pitman–Yor process adds a discount parameter $d$ that slightly weakens the pull of every occupied table and redirects some probability toward creating new ones. Using the same notation as in the CRP section, and letting $K$ be the current number of clusters, its probabilities are
 
 $$
-P(z_i=k)=\frac{n_k-\color{#dc2626}{\boldsymbol{d}}}{\alpha+i-1},
+P(z_i=k)=\frac{n_k-\boldsymbol{d}}{\alpha+i-1},
 $$
 
 for an existing cluster, and
 
 $$
 P(z_i=\text{new})=
-\frac{\alpha+\color{#dc2626}{\boldsymbol{d}}K}{\alpha+i-1}.
+\frac{\alpha+\boldsymbol{d}K}{\alpha+i-1}.
 $$
 
-The highlighted terms are the only changes from the CRP probabilities above. The discount subtracts a little weight from each occupied table, while the $dK$ term makes a new table increasingly attractive as more tables appear.
+The terms in bold are the only changes from the CRP probabilities above. The discount subtracts a little weight from each occupied table, while the $dK$ term makes a new table increasingly attractive as more tables appear.
 
-When $d=0$, both highlighted terms disappear and the process reduces to the usual Dirichlet process. For $d>0$, it tends to produce:
+When $d=0$, both bold terms disappear and the process reduces to the usual Dirichlet process. For $d>0$, it tends to produce:
 
 - more small clusters,
 - a heavier-tailed cluster-size distribution,
