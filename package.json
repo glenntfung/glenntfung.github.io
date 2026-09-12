@@ -42,7 +42,7 @@
     "eslint-config-next": "15.5.20",
     "svg2ico": "^1.0.35",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^7"
   },
   "optionalDependencies": {
     "@tailwindcss/oxide-linux-x64-gnu": "4.1.10"
