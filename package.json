@@ -36,9 +36,6 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "optionalDependencies": {
-    "@tailwindcss/oxide-linux-x64-gnu": "4.1.10"
-  },
   "overrides": {
     "postcss": "8.5.10"
   },
