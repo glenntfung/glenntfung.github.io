@@ -4,6 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    ignore:
+      # typescript-eslint does not support TypeScript 7 yet (its peer range
+      # stays below 6.1). Keep 5.x and 6.x updates.
+      - dependency-name: "typescript"
+        versions:
+          - ">=7.0.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
