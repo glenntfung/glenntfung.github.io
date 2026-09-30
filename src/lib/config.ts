@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { parse } from 'smol-toml';
+import { parseToml } from '@/lib/toml';
 
 export interface SiteConfig {
     site: {
@@ -39,8 +39,7 @@ const CONFIG_PATH = path.join(process.cwd(), 'content', 'config.toml');
 export function getConfig(): SiteConfig {
     try {
         const fileContent = fs.readFileSync(CONFIG_PATH, 'utf-8');
-        const config = parse(fileContent) as unknown as SiteConfig;
-        return config;
+        return parseToml<SiteConfig>(fileContent);
     } catch (error) {
         console.error('Error loading config:', error);
         // Return a default config or throw
