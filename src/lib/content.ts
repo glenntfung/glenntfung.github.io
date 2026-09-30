@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { parse } from 'smol-toml';
+import { parseToml } from '@/lib/toml';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 const BLOG_DIR = path.join(CONTENT_DIR, 'blog');
@@ -19,7 +19,7 @@ export function getTomlContent<T>(filename: string): T | null {
     try {
         const filePath = path.join(CONTENT_DIR, filename);
         const fileContent = fs.readFileSync(filePath, 'utf-8');
-        return parse(fileContent) as unknown as T;
+        return parseToml<T>(fileContent);
     } catch (error) {
         console.error(`Error loading TOML file ${filename}:`, error);
         return null;
@@ -42,7 +42,7 @@ function splitFrontmatter(raw: string): { data: Record<string, unknown>; body: s
     if (!match) return { data: {}, body: raw };
 
     try {
-        return { data: parse(match[1]) as Record<string, unknown>, body: raw.slice(match[0].length) };
+        return { data: parseToml<Record<string, unknown>>(match[1]), body: raw.slice(match[0].length) };
     } catch (error) {
         console.error('Error parsing frontmatter:', error);
         return { data: {}, body: raw.slice(match[0].length) };
