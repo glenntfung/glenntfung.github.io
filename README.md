@@ -6,7 +6,7 @@ Next.js (App Router) and exported as a static site. It started from the
 
 ### Local development
 ```bash
-npm install --legacy-peer-deps
+npm install
 npm run dev
 # visit http://localhost:3000
 ```
