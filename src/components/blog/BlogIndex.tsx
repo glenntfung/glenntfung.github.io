@@ -69,17 +69,17 @@ export default function BlogIndex({ posts }: { posts: BlogPostMeta[] }) {
         ))}
       </div>
 
-      <div className="rows">
+      <div>
         {byYear.map((group, index) => (
           <div key={group.year}>
             <h2
-              className={`${index === 0 ? 'pt-3' : 'pt-6'} pb-2 text-[0.75rem] font-semibold tracking-[0.1em] text-muted`}
+              className={`${index === 0 ? 'pt-2' : 'pt-8'} pb-1 text-[0.75rem] font-semibold tracking-[0.1em] text-muted`}
             >
               {group.year}
             </h2>
             {group.posts.map(post => (
-              <Link key={post.slug} href={`${post.href}/`} className="row group">
-                <span className="font-medium text-ink transition-colors group-hover:text-link">
+              <Link key={post.slug} href={`${post.href}/`} className="row transition-colors hover:bg-hover">
+                <span className="font-medium text-ink">
                   {post.title}
                 </span>
                 <time

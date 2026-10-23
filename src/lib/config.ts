@@ -15,8 +15,11 @@ export interface SiteConfig {
         title: string;
         institution: string;
         avatar: string;
+        /** The line under the name on the homepage. */
+        headline?: string;
     };
     social: {
+        work_email?: string;
         email?: string;
         calendar?: string;
         google_scholar?: string;

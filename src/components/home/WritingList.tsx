@@ -19,8 +19,8 @@ export default function WritingList({ posts, total }: WritingListProps) {
             more={{ href: '/blog', label: `All ${total} posts` }}
         >
             {posts.map(post => (
-                <Link key={post.slug} href={`${post.href}/`} className="row group">
-                    <span className="font-medium text-ink transition-colors group-hover:text-link">
+                <Link key={post.slug} href={`${post.href}/`} className="row transition-colors hover:bg-hover">
+                    <span className="font-medium text-ink">
                         {post.title}
                     </span>
                     <time

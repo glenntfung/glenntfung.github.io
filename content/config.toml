@@ -10,8 +10,13 @@ name = "Glenn Feng"
 title = "Empirical Research Fellow"
 institution = "Northwestern University Kellogg School of Management"
 avatar = "/me.webp"
+# The line under your name on the homepage.
+headline = "Empirical Research Fellow in Quantitative Marketing at Northwestern Kellogg"
 
 [social]
+# Both are shown on the homepage, work first, spelled out as "name [at] host [dot] com".
+# Only `email` goes into the JSON-LD.
+work_email = "zirui.feng@kellogg.northwestern.edu"
 email = "glenntfung@gmail.com"
 calendar = "https://cal.com/glenn-fung-mqul3k/default"
 github = "https://github.com/glenntfung"

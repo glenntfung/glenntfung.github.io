@@ -5,7 +5,7 @@ export default function BlogPage() {
   const posts = getBlogPosts();
 
   return (
-    <div className="mx-auto flex max-w-[44rem] flex-col gap-8 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+    <div className="mx-auto flex max-w-column flex-col gap-8 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
       <header className="flex flex-col gap-3">
         <h1 className="page-title">
           Writing
