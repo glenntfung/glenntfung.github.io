@@ -12,11 +12,9 @@ interface HeaderProps {
 /**
  * Destinations on the left, theme toggle on the right.
  *
- * The rule is inset to the content column rather than bled to the viewport
- * edge, so it is the same object as every other rule on the site -- the
- * section rules, the row hairlines and the footer all stop at the same two
- * margins. A full-bleed line would draw the eye to the window edges instead
- * of the column the page is actually set in.
+ * No rule under it: the header sits on the page column, so the first item
+ * starts on the same edge as everything below, and that alignment is enough
+ * to hold the top of the page together.
  */
 export default function Header({ items }: HeaderProps) {
     const pathname = usePathname();
@@ -27,11 +25,9 @@ export default function Header({ items }: HeaderProps) {
 
     return (
         <header>
-            {/* Padding on the outer element, rule on the inner one, so the
-                rule starts and ends exactly where the content rules do. */}
-            <div className="mx-auto max-w-[44rem] px-5 sm:px-8">
-                <div className="flex h-[3.75rem] items-center justify-between gap-6 border-b border-rule text-[0.8125rem]">
-                    <nav className="flex items-center gap-5">
+            <div className="mx-auto max-w-column px-5 sm:px-8">
+                <div className="flex h-16 items-center justify-between gap-6 text-[0.9375rem]">
+                    <nav className="flex items-center gap-6">
                         {visible.map(item => {
                             const current = isCurrent(item.href);
                             return (

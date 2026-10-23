@@ -21,7 +21,7 @@ export default function Home() {
   const news = getTomlContent<{ news: NewsItem[] }>('news.toml')?.news ?? [];
 
   return (
-    <div className="mx-auto flex max-w-[44rem] flex-col gap-12 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+    <div className="mx-auto flex max-w-column flex-col gap-12 px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
       <Profile author={config.author} social={config.social} />
 
       <About content={getMarkdownContent('bio.md')} />

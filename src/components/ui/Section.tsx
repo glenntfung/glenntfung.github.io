@@ -10,29 +10,32 @@ interface SectionProps {
 }
 
 /**
- * A labelled run of rows — the site's only structural device.
+ * A headed run of rows — the site's only structural device.
  *
- * The rule weights come from booktabs: a heavier rule opens the run, hairlines
- * separate the rows, and nothing closes it. Everything that is a list on this
- * site (posts, news, contents) is one of these, so they read as one system.
+ * A sentence-case heading, with the "see all" link on the same line so it
+ * reads as part of the heading instead of trailing after the list. Everything
+ * that is a list on this site (posts, news, contents) is one of these, so they
+ * read as one system.
  */
 export default function Section({ title, headingLevel = 2, more, children }: SectionProps) {
     const Heading = headingLevel === 1 ? 'h1' : 'h2';
 
     return (
         <section>
-            <Heading className="label block pb-2.5">{title}</Heading>
-            <div className="rows">{children}</div>
-            {more && (
-                <p className="pt-3.5 text-[0.8125rem]">
+            <div className="flex items-baseline justify-between gap-4 pb-1.5">
+                <Heading className="text-[1.125rem] font-semibold tracking-[-0.01em] text-ink">
+                    {title}
+                </Heading>
+                {more && (
                     <Link
                         href={more.href}
-                        className="text-link underline-offset-4 hover:underline"
+                        className="whitespace-nowrap text-[0.875rem] text-link underline-offset-4 hover:underline"
                     >
                         {more.label} →
                     </Link>
-                </p>
-            )}
+                )}
+            </div>
+            {children}
         </section>
     );
 }

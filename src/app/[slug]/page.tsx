@@ -108,7 +108,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     const { config: pageConfig, body } = page;
 
     return (
-        <div className="mx-auto flex max-w-[44rem] flex-col px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
+        <div className="mx-auto flex max-w-column flex-col px-5 pt-12 pb-4 sm:px-8 sm:pt-16">
             {pageConfig.type === 'text' && slug !== 'news' && (
                 <TextPageWrapper config={pageConfig as TextPageConfig} content={body ?? ''} slug={slug} />
             )}
@@ -139,7 +139,7 @@ function NewsPage({ config }: { config: BasePageConfig }) {
                     </p>
                 )}
             </header>
-            <div className="rows">
+            <div>
                 <News items={items} />
             </div>
         </div>

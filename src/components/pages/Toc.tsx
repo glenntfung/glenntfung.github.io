@@ -22,7 +22,7 @@ export default function Toc({ items, nested }: { items: TocItem[]; nested: boole
     return (
         <Section title="Contents">
             {items.map(item => (
-                <div key={item.id} className="row">
+                <div key={item.id} className="py-[0.3125rem]">
                     <span className="flex flex-col gap-1">
                         <a
                             href={`#${item.id}`}

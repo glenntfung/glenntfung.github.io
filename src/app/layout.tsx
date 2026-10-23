@@ -9,11 +9,12 @@ import { formatDisplayDate } from "@/lib/utils";
 
 // Two roles, one superfamily. Sans carries headings, navigation and every
 // label; serif is the reading surface inside posts. Weights are limited to the
-// ones actually used -- Plex is not a variable font on Google Fonts, so each
-// extra weight is another file on the critical path.
+// ones actually used -- 500 is the post titles in lists, 600 the headings.
+// Plex is not a variable font on Google Fonts, so each extra weight is another
+// file on the critical path.
 const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600"],
   display: "swap",
   variable: "--font-plex-sans",
 });

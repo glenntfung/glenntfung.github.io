@@ -7,7 +7,7 @@ interface AboutProps {
 /** The bio. Plain prose under the hero — it needs no heading of its own. */
 export default function About({ content }: AboutProps) {
     return (
-        <div className="max-w-[60ch] text-body">
+        <div className="max-w-[64ch] text-body">
             <ReactMarkdown
                 components={{
                     p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
